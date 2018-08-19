@@ -26,7 +26,7 @@ void BoostServer::run(void) {
 void BoostServer::accept_handler(session_ptr _chatSession, const boost::system::error_code& _error) {
 	if (!_error && _chatSession) {
 		try {
-			cout << "accept connection from "<< _chatSession->socket().remote_endpoint().address().to_string();
+			cout << "accept connection from "<< _chatSession->socket().remote_endpoint().address().to_string()<<endl;
 			_chatSession->start();
 			start();
 		}

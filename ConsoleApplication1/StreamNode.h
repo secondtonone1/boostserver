@@ -11,6 +11,10 @@ class StreamNode:public boost::enable_shared_from_this<StreamNode>
 public:
 	StreamNode(char * msg);
 	~StreamNode();
+	char * getMsgData(void);
+	int getRemain();
+	int getOffSet();
+	void resetOffset(int offsetAdd);
 private:
 
 	char* m_pData;

@@ -22,21 +22,14 @@ public:
 	boost::asio::ip::tcp::socket& socket(void);
 
 private:
-
-	// 第一个协议包
-	void init_handler(const boost::system::error_code& _error);
-
-	// 解析协议包
-	void analyse_handler(const boost::system::error_code& _error);
-
 	// 完成数据传输后触发的收尾工作
 	void done_handler(const boost::system::error_code& _error);
-
 	// 读取成功后触发的函数
 	void read_handler(const boost::system::error_code& _error, size_t _readSize);
-
 	// 写入完成后触发的函数
-	void write_handler(const boost::system::error_code& _error);
+	void write_handler(const boost::system::error_code& _error, size_t _writeSize);
+	void write_msg(char * msg);
+	void async_send();
 
 private:
 	// 临时信息缓冲区
@@ -52,6 +45,7 @@ private:
 	std::deque<streamnode_ptr> m_pInPutQue;
 	// 发送数据缓冲队列
 	std::deque<streamnode_ptr> m_pOutPutQue;
+	bool m_bPendingSend;
 };
 
 #endif //__BOOST_SESSION_H__
