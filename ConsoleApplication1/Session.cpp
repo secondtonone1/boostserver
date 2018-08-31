@@ -1,10 +1,13 @@
 #include "Session.h"
 #include <boost/bind.hpp>
 #include <string.h>
+#include <assert.h>
 BoostSession::BoostSession(boost::asio::io_service& _ioService)
 	:m_socket(_ioService) {
 		memset(m_cData, 0, BUFFERSIZE);
 		m_bPendingSend = false;
+		m_bPendingRecv = false;
+		m_nPendingLen = 0;
 }
 
 BoostSession::~BoostSession(void)
@@ -27,7 +30,7 @@ void BoostSession::done_handler(const boost::system::error_code& _error) {
 	if (_error) {
 		return;
 	}
-
+	/*
 	//配合序列化协议，解析取出节点数据，封装回包
 	//这里先不做解析处理，先把收到的数据回包给客户端
 	if(m_pInPutQue.empty())
@@ -40,6 +43,84 @@ void BoostSession::done_handler(const boost::system::error_code& _error) {
 		m_pInPutQue.pop_front();
 	}
 	write_msg("HelloWorld!!!");
+	*/
+	while(!m_pInPutQue.empty())
+	{
+		int nRemain = m_pInPutQue.front()->getRemain();
+		//判断是否读全，如果读全则pop头结点，继续读下一个节点
+		if(nRemain == 0)
+		{
+			m_pInPutQue.pop_front();
+			continue;
+		}
+		char * msgRead = m_pInPutQue.front()->getMsgData();
+		//新的包
+		if(m_bPendingRecv == false)
+		{
+			//该节点接收数据小于规定包头大小
+			if(getReadLen() < HEADSIZE)
+			{
+				return;
+			}
+
+			std::string strTotalLen = getReadData(HEADSIZE);
+			std::stringstream streamtest;
+			streamtest << strTotalLen;
+			streamtest >> m_nPendingLen;
+			if(getReadLen() < m_nPendingLen)
+			{
+				m_bPendingRecv = true;
+				return;
+			}
+			//接收完全
+		}
+		else  //继续上次未收全的接收
+		{
+
+		}
+	}
+}
+
+int  BoostSession::getReadLen()
+{
+	int nTotal = 0;
+	for( auto i = m_pInPutQue.begin(); i != m_pInPutQue.end(); i++)
+	{
+		nTotal += i->get()->getRemain();
+	}
+	return nTotal;
+}
+
+std::string  BoostSession::getReadData(int nDataLen )
+{
+	std::string rtStr;
+	if(nDataLen == 0)
+		return rtStr;
+	while(m_pInPutQue.empty() == false)
+	{
+		//节点可读数据大于请求数据
+		if(m_pInPutQue.front()->getRemain() >= nDataLen)
+		{
+			char * msgData =m_pInPutQue.front()->getMsgData();
+			std::string msgDataStr(msgData+m_pInPutQue.front()->getOffSet(),nDataLen);
+			rtStr+=msgDataStr;
+			m_pInPutQue.front()->resetOffset(nDataLen);
+			return rtStr;
+		}
+		//节点可读数据为空
+		if(m_pInPutQue.front()->getRemain() == 0)
+		{
+			m_pInPutQue.pop_front();
+			continue;
+		}
+		//节点有可读数据，且小于请求数据
+		char * msgData = m_pInPutQue.front()->getMsgData();
+		std::string msgDataStr(msgData + m_pInPutQue.front()->getOffSet(), m_pInPutQue.front()->getRemain());
+		nDataLen-=m_pInPutQue.front()->getRemain();
+		rtStr += msgDataStr;
+		m_pInPutQue.pop_front();
+	}
+	return rtStr;
 }
 
 void BoostSession::read_handler(const boost::system::error_code& _error, size_t _readSize) {

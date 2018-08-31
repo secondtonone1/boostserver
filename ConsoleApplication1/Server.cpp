@@ -8,7 +8,6 @@ BoostServer::BoostServer(boost::asio::io_service &_ioService, boost::asio::ip::t
 		start();
 }
 
-
 BoostServer::~BoostServer(void) {
 }
 

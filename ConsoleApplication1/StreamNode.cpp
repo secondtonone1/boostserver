@@ -2,11 +2,10 @@
 
 StreamNode::StreamNode(char * msg)
 {
-	m_nLen = strlen(msg)+1;
+	m_nLen = strlen(msg);
 	m_nOffSet = 0;
 	m_pData = new char[m_nLen];
-	memcpy(m_pData,msg,m_nLen-1);
-	m_pData[m_nLen-1]='\0';
+	memcpy(m_pData,msg,m_nLen);
 }
 
 StreamNode::~StreamNode()

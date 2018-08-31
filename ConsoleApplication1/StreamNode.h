@@ -6,6 +6,7 @@
 #include <boost/enable_shared_from_this.hpp>
 #include <boost/make_shared.hpp>
 #define BUFFERSIZE 1024
+#define HEADSIZE 4
 class StreamNode:public boost::enable_shared_from_this<StreamNode>
 {
 public:

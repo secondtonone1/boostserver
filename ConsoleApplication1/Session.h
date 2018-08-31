@@ -30,7 +30,8 @@ private:
 	void write_handler(const boost::system::error_code& _error, size_t _writeSize);
 	void write_msg(char * msg);
 	void async_send();
-
+	int  getReadLen();
+	std::string  getReadData(int nDataLen = 0);
 private:
 	// 临时信息缓冲区
 	char m_cData[BUFFERSIZE];
@@ -45,7 +46,12 @@ private:
 	std::deque<streamnode_ptr> m_pInPutQue;
 	// 发送数据缓冲队列
 	std::deque<streamnode_ptr> m_pOutPutQue;
+	//是否发送完
 	bool m_bPendingSend;
+	//是否接受完
+	bool m_bPendingRecv;
+	//需要取出的数据长度
+	int m_nPendingLen;
 };
 
 #endif //__BOOST_SESSION_H__
