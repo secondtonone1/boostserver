@@ -10,7 +10,7 @@
 class StreamNode:public boost::enable_shared_from_this<StreamNode>
 {
 public:
-	StreamNode(char * msg);
+	StreamNode(char * msg, int nLen);
 	~StreamNode();
 	char * getMsgData(void);
 	int getRemain();

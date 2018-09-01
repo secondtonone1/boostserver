@@ -30,20 +30,8 @@ void BoostSession::done_handler(const boost::system::error_code& _error) {
 	if (_error) {
 		return;
 	}
-	/*
 	//配合序列化协议，解析取出节点数据，封装回包
 	//这里先不做解析处理，先把收到的数据回包给客户端
-	if(m_pInPutQue.empty())
-		return;
-	
-	while(!m_pInPutQue.empty())
-	{
-		char* msgtosend = m_pInPutQue.front()->getMsgData();
-		write_msg(msgtosend);
-		m_pInPutQue.pop_front();
-	}
-	write_msg("HelloWorld!!!");
-	*/
 	while(!m_pInPutQue.empty())
 	{
 		int nRemain = m_pInPutQue.front()->getRemain();
@@ -64,20 +52,26 @@ void BoostSession::done_handler(const boost::system::error_code& _error) {
 			}
 
 			std::string strTotalLen = getReadData(HEADSIZE);
-			std::stringstream streamtest;
-			streamtest << strTotalLen;
-			streamtest >> m_nPendingLen;
+			memcpy(&m_nPendingLen, strTotalLen.c_str(),HEADSIZE);
 			if(getReadLen() < m_nPendingLen)
 			{
 				m_bPendingRecv = true;
 				return;
 			}
 			//接收完全
+			std::string strMsgData = getReadData(m_nPendingLen);
+			std::cout <<"Receive Data : " <<strMsgData <<std::endl;
+			write_msg(strMsgData.c_str(),m_nPendingLen);
+			continue;
 		}
-		else  //继续上次未收全的接收
-		{
+		 //继续上次未收全的接收
+		if(getReadLen() <m_nPendingLen)
+			return;
+		//接收完全
+		std::string strMsgData = getReadData(m_nPendingLen);
+		std::cout <<"Receive Data : " <<strMsgData <<std::endl;
+		m_bPendingRecv = false;
 
-		}
 	}
 }
 
@@ -127,7 +121,7 @@ void BoostSession::read_handler(const boost::system::error_code& _error, size_t 
 	if (_error) {
 		return;
 	}
-	streamnode_ptr nodePtr = boost::make_shared<StreamNode>(m_cData);
+	streamnode_ptr nodePtr = boost::make_shared<StreamNode>(m_cData,_readSize);
 	m_pInPutQue.push_back(nodePtr);
 	done_handler(_error);
 	start();
@@ -147,9 +141,17 @@ void BoostSession::write_handler(const boost::system::error_code& _error, size_t
 	async_send();
 }
 
-void BoostSession::write_msg(char * msg)
+void BoostSession::write_msg(const char * msg, int nLen)
 {
-	streamnode_ptr nodePtr = boost::make_shared<StreamNode>(msg);
+	if(nLen + HEADSIZE > BUFFERSIZE)
+	{
+		std::cout <<"msglenth too long , now allow size is : " <<BUFFERSIZE<<std::endl;
+		return;
+	}
+	char sendBuff[BUFFERSIZE] = {0};
+	memcpy(sendBuff,&nLen,HEADSIZE);
+	memcpy(sendBuff+HEADSIZE,msg,nLen);
+	streamnode_ptr nodePtr = boost::make_shared<StreamNode>(sendBuff,nLen+HEADSIZE);
 	m_pOutPutQue.push_back(nodePtr);
 	if(!m_bPendingSend)
 	{

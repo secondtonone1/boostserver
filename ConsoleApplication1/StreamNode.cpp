@@ -1,8 +1,8 @@
 #include "StreamNode.h"
 
-StreamNode::StreamNode(char * msg)
+StreamNode::StreamNode(char * msg, int nLen)
 {
-	m_nLen = strlen(msg);
+	m_nLen = nLen;
 	m_nOffSet = 0;
 	m_pData = new char[m_nLen];
 	memcpy(m_pData,msg,m_nLen);

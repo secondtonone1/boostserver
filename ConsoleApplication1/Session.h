@@ -28,7 +28,7 @@ private:
 	void read_handler(const boost::system::error_code& _error, size_t _readSize);
 	// 写入完成后触发的函数
 	void write_handler(const boost::system::error_code& _error, size_t _writeSize);
-	void write_msg(char * msg);
+	void write_msg(const char * msg, int nLen);
 	void async_send();
 	int  getReadLen();
 	std::string  getReadData(int nDataLen = 0);
