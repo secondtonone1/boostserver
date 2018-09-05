@@ -1,0 +1,3 @@
+/home/secondtonone1/workspace/boostserver/ConsoleApplication1/CMakeFiles/rebuild_cache.dir
+/home/secondtonone1/workspace/boostserver/ConsoleApplication1/CMakeFiles/server.dir
+/home/secondtonone1/workspace/boostserver/ConsoleApplication1/CMakeFiles/edit_cache.dir

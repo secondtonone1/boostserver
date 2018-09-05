@@ -41,7 +41,6 @@ void BoostSession::done_handler(const boost::system::error_code& _error) {
 			m_pInPutQue.pop_front();
 			continue;
 		}
-		char * msgRead = m_pInPutQue.front()->getMsgData();
 		//ÐÂµÄ°ü
 		if(m_bPendingRecv == false)
 		{

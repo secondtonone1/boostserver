@@ -23,7 +23,7 @@ int main(void) {
 		sa.sa_handler = SIG_IGN;
 		if (sigaction(SIGPIPE, &sa, NULL) < 0)
 		{
-			LOG4CXX_WARN(logger_, "Error ignoring SIGPIPE!");
+			std::cout << "Error ignoring SIGPIPE!"<<std::endl;
 		}
 #endif //__linux__
 
