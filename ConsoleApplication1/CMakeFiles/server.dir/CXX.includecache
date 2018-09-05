@@ -6,24 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/home/secondtonone1/workspace/boostserver/ConsoleApplication1/ConsoleApplication1.cpp
-iostream
--
-boost/asio.hpp
--
-boost/bind.hpp
--
-stdio.h
--
-unistd.h
--
-signal.h
--
-errno.h
--
-Server.h
-/home/secondtonone1/workspace/boostserver/ConsoleApplication1/Server.h
-
 /home/secondtonone1/workspace/boostserver/ConsoleApplication1/Server.cpp
 Server.h
 /home/secondtonone1/workspace/boostserver/ConsoleApplication1/Server.h
@@ -81,6 +63,24 @@ boost/enable_shared_from_this.hpp
 -
 boost/make_shared.hpp
 -
+
+/home/secondtonone1/workspace/boostserver/ConsoleApplication1/main.cpp
+iostream
+-
+boost/asio.hpp
+-
+boost/bind.hpp
+-
+stdio.h
+-
+unistd.h
+-
+signal.h
+-
+errno.h
+-
+Server.h
+/home/secondtonone1/workspace/boostserver/ConsoleApplication1/Server.h
 
 /usr/local/include/boost/array.hpp
 boost/detail/workaround.hpp

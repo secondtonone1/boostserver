@@ -4,10 +4,10 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/secondtonone1/workspace/boostserver/ConsoleApplication1/ConsoleApplication1.cpp" "/home/secondtonone1/workspace/boostserver/ConsoleApplication1/CMakeFiles/server.dir/ConsoleApplication1.cpp.o"
   "/home/secondtonone1/workspace/boostserver/ConsoleApplication1/Server.cpp" "/home/secondtonone1/workspace/boostserver/ConsoleApplication1/CMakeFiles/server.dir/Server.cpp.o"
   "/home/secondtonone1/workspace/boostserver/ConsoleApplication1/Session.cpp" "/home/secondtonone1/workspace/boostserver/ConsoleApplication1/CMakeFiles/server.dir/Session.cpp.o"
   "/home/secondtonone1/workspace/boostserver/ConsoleApplication1/StreamNode.cpp" "/home/secondtonone1/workspace/boostserver/ConsoleApplication1/CMakeFiles/server.dir/StreamNode.cpp.o"
+  "/home/secondtonone1/workspace/boostserver/ConsoleApplication1/main.cpp" "/home/secondtonone1/workspace/boostserver/ConsoleApplication1/CMakeFiles/server.dir/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

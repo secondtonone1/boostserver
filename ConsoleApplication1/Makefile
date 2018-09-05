@@ -123,33 +123,6 @@ server/fast:
 	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/build
 .PHONY : server/fast
 
-ConsoleApplication1.o: ConsoleApplication1.cpp.o
-
-.PHONY : ConsoleApplication1.o
-
-# target to build an object file
-ConsoleApplication1.cpp.o:
-	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/ConsoleApplication1.cpp.o
-.PHONY : ConsoleApplication1.cpp.o
-
-ConsoleApplication1.i: ConsoleApplication1.cpp.i
-
-.PHONY : ConsoleApplication1.i
-
-# target to preprocess a source file
-ConsoleApplication1.cpp.i:
-	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/ConsoleApplication1.cpp.i
-.PHONY : ConsoleApplication1.cpp.i
-
-ConsoleApplication1.s: ConsoleApplication1.cpp.s
-
-.PHONY : ConsoleApplication1.s
-
-# target to generate assembly for a file
-ConsoleApplication1.cpp.s:
-	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/ConsoleApplication1.cpp.s
-.PHONY : ConsoleApplication1.cpp.s
-
 Server.o: Server.cpp.o
 
 .PHONY : Server.o
@@ -231,6 +204,33 @@ StreamNode.cpp.s:
 	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/StreamNode.cpp.s
 .PHONY : StreamNode.cpp.s
 
+main.o: main.cpp.o
+
+.PHONY : main.o
+
+# target to build an object file
+main.cpp.o:
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/main.cpp.o
+.PHONY : main.cpp.o
+
+main.i: main.cpp.i
+
+.PHONY : main.i
+
+# target to preprocess a source file
+main.cpp.i:
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/main.cpp.i
+.PHONY : main.cpp.i
+
+main.s: main.cpp.s
+
+.PHONY : main.s
+
+# target to generate assembly for a file
+main.cpp.s:
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/main.cpp.s
+.PHONY : main.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -240,9 +240,6 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... server"
 	@echo "... edit_cache"
-	@echo "... ConsoleApplication1.o"
-	@echo "... ConsoleApplication1.i"
-	@echo "... ConsoleApplication1.s"
 	@echo "... Server.o"
 	@echo "... Server.i"
 	@echo "... Server.s"
@@ -252,6 +249,9 @@ help:
 	@echo "... StreamNode.o"
 	@echo "... StreamNode.i"
 	@echo "... StreamNode.s"
+	@echo "... main.o"
+	@echo "... main.i"
+	@echo "... main.s"
 .PHONY : help
 
 
