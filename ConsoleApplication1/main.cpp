@@ -29,19 +29,20 @@ int main(void) {
 		}
 #endif //__linux__
 
-		boost::property_tree::ptree pt;
-		boost::property_tree::ini_parser::read_ini("config.ini",pt);
-		// ����������
+		boost::property_tree::ptree pt,tag_setting;
+		boost::property_tree::ini_parser::read_ini("../data/config.ini",pt);
+		//tag_setting = pt.get_child("config");
+		
 		boost::asio::io_service ios;
-		short sport = pt.get<short>("tcpport");
+		short sport = pt.get<short>("config.tcpport");
 		//boost::asio::ip::address add;
 		//add.from_string("127.0.0.1");
-		// ����ķ�������ַ��˿�
+		
 		//boost::asio::ip::tcp::endpoint endpotion(add, short(13695));
-		// ����Serverʵ$��
+		
 		boost::asio::ip::tcp::endpoint endpotion(boost::asio::ip::tcp::v4(),sport);
 		BoostServer server(ios, endpotion);
-		// ���첽�����¼�����ѭ��
+		
 		server.run();
 	}
 	catch (std::exception& _e) {
