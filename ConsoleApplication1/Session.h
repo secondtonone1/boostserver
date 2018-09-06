@@ -52,6 +52,8 @@ private:
 	bool m_bPendingRecv;
 	//需要取出的数据长度
 	int m_nPendingLen;
+	//心跳时间
+	boost::posix_time::ptime  m_nAliveTime;
 };
 
 #endif //__BOOST_SESSION_H__

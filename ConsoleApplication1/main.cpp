@@ -42,7 +42,6 @@ int main(void) {
 		
 		boost::asio::ip::tcp::endpoint endpotion(boost::asio::ip::tcp::v4(),sport);
 		BoostServer server(ios, endpotion);
-		
 		server.run();
 	}
 	catch (std::exception& _e) {

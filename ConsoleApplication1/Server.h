@@ -3,6 +3,7 @@
 #include <string.h>  
 #include <boost/asio.hpp>
 #include <boost/shared_ptr.hpp>
+#include <boost/unordered_map.hpp>
 class BoostSession;
 class BoostServer {
 private:
@@ -18,9 +19,13 @@ public:
 private:
 	// 会话启动
 	void accept_handler(session_ptr chatSession, const boost::system::error_code& errorcode);
+	//处理异常链接
+	void handleExpConn();
 private:
+	boost::asio::deadline_timer m_timer;
 	boost::asio::io_service &m_ioservice;
 	boost::asio::ip::tcp::acceptor m_acceptor;
+	std::list<session_ptr> m_listsession;
 };
 
 

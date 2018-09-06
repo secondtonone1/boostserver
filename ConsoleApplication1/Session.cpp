@@ -3,7 +3,7 @@
 #include <string.h>
 #include <assert.h>
 BoostSession::BoostSession(boost::asio::io_service& _ioService)
-	:m_socket(_ioService) {
+	:m_socket(_ioService),m_nAliveTime(boost::posix_time::microsec_clock::universal_time()) {
 		memset(m_cData, 0, BUFFERSIZE);
 		m_bPendingSend = false;
 		m_bPendingRecv = false;

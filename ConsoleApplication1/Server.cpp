@@ -4,7 +4,8 @@
 #include <iostream>
 using namespace std;
 BoostServer::BoostServer(boost::asio::io_service &_ioService, boost::asio::ip::tcp::endpoint &_endpoint)
-	: m_ioservice(_ioService), m_acceptor(_ioService, _endpoint) {
+	: m_ioservice(_ioService), m_acceptor(_ioService, _endpoint),m_timer(_ioService,boost::posix_time::minutes(15)) {
+		m_timer.async_wait(boost::bind(&BoostServer::handleExpConn,this));
 		start();
 }
 
@@ -13,6 +14,7 @@ BoostServer::~BoostServer(void) {
 
 void BoostServer::start(void) {
 	session_ptr	new_chat_session(new BoostSession(m_ioservice));
+	m_listsession.push_back(new_chat_session);
 	m_acceptor.async_accept(new_chat_session->socket(),
 		boost::bind(&BoostServer::accept_handler, this, new_chat_session,
 		boost::asio::placeholders::error));
@@ -37,4 +39,10 @@ void BoostServer::accept_handler(session_ptr _chatSession, const boost::system::
 	{
 		
 	}
+}
+
+//处理异常链接
+void BoostServer::handleExpConn()
+{
+
 }
