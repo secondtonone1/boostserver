@@ -20,7 +20,7 @@ public:
 
 	// socket 实例
 	boost::asio::ip::tcp::socket& socket(void);
-
+	const boost::posix_time::ptime &getLiveTime();
 private:
 	// 完成数据传输后触发的收尾工作
 	void done_handler(const boost::system::error_code& _error);
@@ -32,6 +32,7 @@ private:
 	void async_send();
 	int  getReadLen();
 	std::string  getReadData(int nDataLen = 0);
+	
 private:
 	// 临时信息缓冲区
 	char m_cData[BUFFERSIZE];

@@ -116,6 +116,11 @@ std::string  BoostSession::getReadData(int nDataLen )
 	return rtStr;
 }
 
+	const boost::posix_time::ptime &BoostSession::getLiveTime()
+	{
+		return m_nAliveTime;
+	}
+
 void BoostSession::read_handler(const boost::system::error_code& _error, size_t _readSize) {
 	if (_error) {
 		return;
