@@ -10,8 +10,10 @@
 #include <signal.h>
 #include <errno.h>
 #endif //__linux__
-
+#include <boost/property_tree/ptree.hpp>  
+#include <boost/property_tree/ini_parser.hpp>
 #include "Server.h"
+
 
 int main(void) {
 	try {
@@ -27,14 +29,19 @@ int main(void) {
 		}
 #endif //__linux__
 
-
-		// ½¨Ôì·þÎñ¶ÔÏó
+		boost::property_tree::ptree pt;
+		boost::property_tree::ini_parser::read_ini("config.ini",pt);
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		boost::asio::io_service ios;
-		// ¾ßÌåµÄ·þÎñÆ÷µØÖ·Óë¶Ë¿Ú
-		boost::asio::ip::tcp::endpoint endpotion(boost::asio::ip::tcp::v4(), 13695);
-		// ¹¹½¨ServerÊµÀý
+		short sport = pt.get<short>("tcpport");
+		//boost::asio::ip::address add;
+		//add.from_string("127.0.0.1");
+		// ï¿½ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½Ë¿ï¿½
+		//boost::asio::ip::tcp::endpoint endpotion(add, short(13695));
+		// ï¿½ï¿½ï¿½ï¿½ServerÊµ$ï¿½ï¿½
+		boost::asio::ip::tcp::endpoint endpotion(boost::asio::ip::tcp::v4(),sport);
 		BoostServer server(ios, endpotion);
-		// Æô¶¯Òì²½µ÷ÓÃÊÂ¼þ´¦ÀíÑ­»·
+		// ï¿½ï¿½ï¿½ì²½ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½
 		server.run();
 	}
 	catch (std::exception& _e) {
