@@ -9,6 +9,7 @@ class BoostServer {
 private:
 	// 会话 - 智能指针
 	typedef	boost::shared_ptr<BoostSession>	session_ptr;
+	typedef boost::weak_ptr<BoostSession> weak_session_ptr;
 public:
 	BoostServer(boost::asio::io_service & ioService, boost::asio::ip::tcp::endpoint & endpoint);
 	virtual ~BoostServer(void);
@@ -25,6 +26,7 @@ private:
 	boost::asio::deadline_timer m_timer;
 	boost::asio::io_service &m_ioservice;
 	boost::asio::ip::tcp::acceptor m_acceptor;
+	std::list<weak_session_ptr > m_listweaksession;
 };
 
 
