@@ -25,26 +25,26 @@ boost::asio::ip::tcp::socket& BoostSession::socket(void) {
 	return m_socket;
 }
 
-// Íê³ÉÊı¾İ´«Êä
+// å®Œæˆæ•°æ®ä¼ è¾“
 void BoostSession::done_handler(const boost::system::error_code& _error) {
 	if (_error) {
 		return;
 	}
-	//ÅäºÏĞòÁĞ»¯Ğ­Òé£¬½âÎöÈ¡³ö½ÚµãÊı¾İ£¬·â×°»Ø°ü
-	//ÕâÀïÏÈ²»×ö½âÎö´¦Àí£¬ÏÈ°ÑÊÕµ½µÄÊı¾İ»Ø°ü¸ø¿Í»§¶Ë
+	//é…åˆåºåˆ—åŒ–åè®®ï¼Œè§£æå–å‡ºèŠ‚ç‚¹æ•°æ®ï¼Œå°è£…å›åŒ…
+	//è¿™é‡Œå…ˆä¸åšè§£æå¤„ç†ï¼Œå…ˆæŠŠæ”¶åˆ°çš„æ•°æ®å›åŒ…ç»™å®¢æˆ·ç«¯
 	while(!m_pInPutQue.empty())
 	{
 		int nRemain = m_pInPutQue.front()->getRemain();
-		//ÅĞ¶ÏÊÇ·ñ¶ÁÈ«£¬Èç¹û¶ÁÈ«ÔòpopÍ·½áµã£¬¼ÌĞø¶ÁÏÂÒ»¸ö½Úµã
+		//åˆ¤æ–­æ˜¯å¦è¯»å…¨ï¼Œå¦‚æœè¯»å…¨åˆ™popå¤´ç»“ç‚¹ï¼Œç»§ç»­è¯»ä¸‹ä¸€ä¸ªèŠ‚ç‚¹
 		if(nRemain == 0)
 		{
 			m_pInPutQue.pop_front();
 			continue;
 		}
-		//ĞÂµÄ°ü
+		//æ–°çš„åŒ…
 		if(m_bPendingRecv == false)
 		{
-			//¸Ã½Úµã½ÓÊÕÊı¾İĞ¡ÓÚ¹æ¶¨°üÍ·´óĞ¡
+			//è¯¥èŠ‚ç‚¹æ¥æ”¶æ•°æ®å°äºè§„å®šåŒ…å¤´å¤§å°
 			if(getReadLen() < HEADSIZE)
 			{
 				return;
@@ -57,16 +57,16 @@ void BoostSession::done_handler(const boost::system::error_code& _error) {
 				m_bPendingRecv = true;
 				return;
 			}
-			//½ÓÊÕÍêÈ«
+			//æ¥æ”¶å®Œå…¨
 			std::string strMsgData = getReadData(m_nPendingLen);
 			std::cout <<"Receive Data : " <<strMsgData <<std::endl;
 			write_msg(strMsgData.c_str(),m_nPendingLen);
 			continue;
 		}
-		 //¼ÌĞøÉÏ´ÎÎ´ÊÕÈ«µÄ½ÓÊÕ
+		 //ç»§ç»­ä¸Šæ¬¡æœªæ”¶å…¨çš„æ¥æ”¶
 		if(getReadLen() <m_nPendingLen)
 			return;
-		//½ÓÊÕÍêÈ«
+		//æ¥æ”¶å®Œå…¨
 		std::string strMsgData = getReadData(m_nPendingLen);
 		std::cout <<"Receive Data : " <<strMsgData <<std::endl;
 		m_bPendingRecv = false;
@@ -91,7 +91,7 @@ std::string  BoostSession::getReadData(int nDataLen )
 		return rtStr;
 	while(m_pInPutQue.empty() == false)
 	{
-		//½Úµã¿É¶ÁÊı¾İ´óÓÚÇëÇóÊı¾İ
+		//èŠ‚ç‚¹å¯è¯»æ•°æ®å¤§äºè¯·æ±‚æ•°æ®
 		if(m_pInPutQue.front()->getRemain() >= nDataLen)
 		{
 			char * msgData =m_pInPutQue.front()->getMsgData();
@@ -100,13 +100,13 @@ std::string  BoostSession::getReadData(int nDataLen )
 			m_pInPutQue.front()->resetOffset(nDataLen);
 			return rtStr;
 		}
-		//½Úµã¿É¶ÁÊı¾İÎª¿Õ
+		//èŠ‚ç‚¹å¯è¯»æ•°æ®ä¸ºç©º
 		if(m_pInPutQue.front()->getRemain() == 0)
 		{
 			m_pInPutQue.pop_front();
 			continue;
 		}
-		//½ÚµãÓĞ¿É¶ÁÊı¾İ£¬ÇÒĞ¡ÓÚÇëÇóÊı¾İ
+		//èŠ‚ç‚¹æœ‰å¯è¯»æ•°æ®ï¼Œä¸”å°äºè¯·æ±‚æ•°æ®
 		char * msgData = m_pInPutQue.front()->getMsgData();
 		std::string msgDataStr(msgData + m_pInPutQue.front()->getOffSet(), m_pInPutQue.front()->getRemain());
 		nDataLen-=m_pInPutQue.front()->getRemain();
@@ -173,7 +173,7 @@ void BoostSession::async_send()
 			m_pOutPutQue.pop_front();
 			continue;
 		}
-		//ÕÒµ½·Ç¿Õ½Úµã
+		//æ‰¾åˆ°éç©ºèŠ‚ç‚¹
 		break;
 	}
 	if(m_pOutPutQue.empty())

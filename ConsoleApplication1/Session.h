@@ -6,7 +6,7 @@
 #include <boost/enable_shared_from_this.hpp>
 #include <deque>
 #include "StreamNode.h"
-// »á»°Àà
+// ä¼šè¯ç±»
 class BoostSession : public boost::enable_shared_from_this<BoostSession>
 {
 
@@ -18,15 +18,15 @@ public:
 
 	void start(void);
 
-	// socket ÊµÀı
+	// socket å®ä¾‹
 	boost::asio::ip::tcp::socket& socket(void);
 	const boost::posix_time::ptime &getLiveTime();
 private:
-	// Íê³ÉÊı¾İ´«Êäºó´¥·¢µÄÊÕÎ²¹¤×÷
+	// å®Œæˆæ•°æ®ä¼ è¾“åè§¦å‘çš„æ”¶å°¾å·¥ä½œ
 	void done_handler(const boost::system::error_code& _error);
-	// ¶ÁÈ¡³É¹¦ºó´¥·¢µÄº¯Êı
+	// è¯»å–æˆåŠŸåè§¦å‘çš„å‡½æ•°
 	void read_handler(const boost::system::error_code& _error, size_t _readSize);
-	// Ğ´ÈëÍê³Éºó´¥·¢µÄº¯Êı
+	// å†™å…¥å®Œæˆåè§¦å‘çš„å‡½æ•°
 	void write_handler(const boost::system::error_code& _error, size_t _writeSize);
 	void write_msg(const char * msg, int nLen);
 	void async_send();
@@ -34,26 +34,26 @@ private:
 	std::string  getReadData(int nDataLen = 0);
 	
 private:
-	// ÁÙÊ±ĞÅÏ¢»º³åÇø
+	// ä¸´æ—¶ä¿¡æ¯ç¼“å†²åŒº
 	char m_cData[BUFFERSIZE];
 	std::string currentMsg_;
-	// Êı¾İ×ÜÊıÁ¿
+	// æ•°æ®æ€»æ•°é‡
 	int sumSize_;
-	// µ¥¸öÊı¾İ°ü´óĞ¡
+	// å•ä¸ªæ•°æ®åŒ…å¤§å°
 	unsigned int maxSize_;
-	// socket¾ä±ú
+	// socketå¥æŸ„
 	boost::asio::ip::tcp::socket m_socket;
-	// ¶ÁÈ¡Êı¾İ»º³å¶ÓÁĞ
+	// è¯»å–æ•°æ®ç¼“å†²é˜Ÿåˆ—
 	std::deque<streamnode_ptr> m_pInPutQue;
-	// ·¢ËÍÊı¾İ»º³å¶ÓÁĞ
+	// å‘é€æ•°æ®ç¼“å†²é˜Ÿåˆ—
 	std::deque<streamnode_ptr> m_pOutPutQue;
-	//ÊÇ·ñ·¢ËÍÍê
+	//æ˜¯å¦å‘é€å®Œ
 	bool m_bPendingSend;
-	//ÊÇ·ñ½ÓÊÜÍê
+	//æ˜¯å¦æ¥å—å®Œ
 	bool m_bPendingRecv;
-	//ĞèÒªÈ¡³öµÄÊı¾İ³¤¶È
+	//éœ€è¦å–å‡ºçš„æ•°æ®é•¿åº¦
 	int m_nPendingLen;
-	//ĞÄÌøÊ±¼ä
+	//å¿ƒè·³æ—¶é—´
 	boost::posix_time::ptime  m_nAliveTime;
 };
 

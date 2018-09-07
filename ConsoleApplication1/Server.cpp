@@ -42,24 +42,24 @@ void BoostServer::accept_handler(session_ptr _chatSession, const boost::system::
 	}
 }
 
-//´¦ÀíÒì³£Á´½Ó
-//²Î¿¼ÎÄµµ
+//å¤„ç†å¼‚å¸¸é“¾æŽ¥
+//å‚è€ƒæ–‡æ¡£
 //https://stackoverflow.com/questions/6434316/using-boostasioiptcpsocketcancel-and-socketclose
 //https://blog.csdn.net/bobo0123/article/details/9835293
 void BoostServer::handleExpConn()
 {
-	//¿Í»§¶ËÃ¿3Ãë·¢ËÍÒ»´ÎÐÄÌø°ü£¬·þÎñÆ÷Ã¿¸ô10Ãë¼ì²â£¬³¬¹ý5ÃëËã³¬Ê±
+	//å®¢æˆ·ç«¯æ¯3ç§’å‘é€ä¸€æ¬¡å¿ƒè·³åŒ…ï¼ŒæœåŠ¡å™¨æ¯éš”10ç§’æ£€æµ‹ï¼Œè¶…è¿‡5ç§’ç®—è¶…æ—¶
 	boost::posix_time::ptime nowtime (boost::posix_time::microsec_clock::universal_time());
 	auto iterWeakSession = m_listweaksession.begin();
 	while(iterWeakSession != m_listweaksession.end())
 	{
-		//ÅÐ¶ÏÒýÓÃµÄ¹²ÏíÖ¸ÕëÊÇ·ñ±»ÊÍ·Å
+		//åˆ¤æ–­å¼•ç”¨çš„å…±äº«æŒ‡é’ˆæ˜¯å¦è¢«é‡Šæ”¾
 		if(iterWeakSession->expired())
 		{
 			iterWeakSession = m_listweaksession.erase(iterWeakSession);
 			continue;
 		}
-		//ÅÐ¶ÏÐÄÌøÊÇ·ñ³¬Ê±
+		//åˆ¤æ–­å¿ƒè·³æ˜¯å¦è¶…æ—¶
 		if(iterWeakSession->lock()->getLiveTime() + boost::posix_time::seconds(5) < nowtime)
 		{
 			iterWeakSession->lock()->socket().close();

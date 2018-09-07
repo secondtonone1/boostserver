@@ -7,20 +7,20 @@
 class BoostSession;
 class BoostServer {
 private:
-	// �Ự - ����ָ��
+	// 保存会话指针
 	typedef	boost::shared_ptr<BoostSession>	session_ptr;
 	typedef boost::weak_ptr<BoostSession> weak_session_ptr;
 public:
 	BoostServer(boost::asio::io_service & ioService, boost::asio::ip::tcp::endpoint & endpoint);
 	virtual ~BoostServer(void);
-	// ����
+	// 服务器开始监听
 	void start(void);
-	// �첽
+	// ioservice run
 	void run(void);
 private:
-	// �Ự��
+	// 新连接回调函数
 	void accept_handler(session_ptr chatSession, const boost::system::error_code& errorcode);
-	//�����쳣����
+	//处理异常
 	void handleExpConn();
 private:
 	boost::asio::io_service &m_ioservice;
