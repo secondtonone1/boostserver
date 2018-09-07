@@ -14,7 +14,6 @@ BoostServer::~BoostServer(void) {
 
 void BoostServer::start(void) {
 	session_ptr	new_chat_session(new BoostSession(m_ioservice));
-	m_listsession.push_back(new_chat_session);
 	m_acceptor.async_accept(new_chat_session->socket(),
 		boost::bind(&BoostServer::accept_handler, this, new_chat_session,
 		boost::asio::placeholders::error));
@@ -44,15 +43,5 @@ void BoostServer::accept_handler(session_ptr _chatSession, const boost::system::
 //处理异常链接
 void BoostServer::handleExpConn()
 {
-	auto iterList  = m_listsession.begin();
-	boost::posix_time::ptime nowtime (boost::posix_time::microsec_clock::universal_time());
-	while(iterList != m_listsession.end())
-	{
-		if(iterList->get()->getLiveTime() < nowtime + boost::posix_time::minutes(15))
-		{
-			iterList = m_listsession.erase(iterList);
-			continue;
-		}
-		iterList ++;
-	}
+	
 }

@@ -25,7 +25,6 @@ private:
 	boost::asio::deadline_timer m_timer;
 	boost::asio::io_service &m_ioservice;
 	boost::asio::ip::tcp::acceptor m_acceptor;
-	std::list<session_ptr> m_listsession;
 };
 
 
