@@ -7,25 +7,25 @@
 class BoostSession;
 class BoostServer {
 private:
-	// »á»° - ÖÇÄÜÖ¸Õë
+	// ï¿½á»° - ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
 	typedef	boost::shared_ptr<BoostSession>	session_ptr;
 	typedef boost::weak_ptr<BoostSession> weak_session_ptr;
 public:
 	BoostServer(boost::asio::io_service & ioService, boost::asio::ip::tcp::endpoint & endpoint);
 	virtual ~BoostServer(void);
-	// ¼àÌý
+	// ï¿½ï¿½ï¿½ï¿½
 	void start(void);
-	// Òì²½
+	// ï¿½ì²½
 	void run(void);
 private:
-	// »á»°Æô¶¯
+	// ï¿½á»°ï¿½ï¿½
 	void accept_handler(session_ptr chatSession, const boost::system::error_code& errorcode);
-	//´¦ÀíÒì³£Á´½Ó
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ì³£ï¿½ï¿½ï¿½ï¿½
 	void handleExpConn();
 private:
-	boost::asio::deadline_timer m_timer;
 	boost::asio::io_service &m_ioservice;
 	boost::asio::ip::tcp::acceptor m_acceptor;
+	boost::asio::deadline_timer m_timer;
 	std::list<weak_session_ptr > m_listweaksession;
 };
 
