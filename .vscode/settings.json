@@ -54,6 +54,7 @@
         "typeinfo": "cpp",
         "utility": "cpp",
         "variant": "cpp",
-        "algorithm": "cpp"
+        "algorithm": "cpp",
+        "*.ipp": "cpp"
     }
 }

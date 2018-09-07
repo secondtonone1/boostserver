@@ -8,7 +8,7 @@
             "program": "${workspaceRoot}/ConsoleApplication1/server",
             "args": [],
             "stopAtEntry": false,
-            "cwd": "${workspaceRoot}",
+            "cwd": "${workspaceRoot}/ConsoleApplication1",
             "environment": [],
             "externalConsole": true,
             "MIMode": "gdb",
