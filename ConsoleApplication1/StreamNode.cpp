@@ -2,9 +2,11 @@
 
 StreamNode::StreamNode(char * msg, int nLen)
 {
+	if(nLen > BUFFERSIZE)
+		nLen = BUFFERSIZE;
 	m_nLen = nLen;
 	m_nOffSet = 0;
-	m_pData = new char[m_nLen];
+	m_pData = new char[BUFFERSIZE];
 	memcpy(m_pData,msg,m_nLen);
 }
 

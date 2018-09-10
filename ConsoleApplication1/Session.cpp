@@ -13,6 +13,9 @@ BoostSession::BoostSession(boost::asio::io_service& _ioService)
 
 BoostSession::~BoostSession(void)
 {
+	m_pInPutQue.clear();
+	m_pOutPutQue.clear();
+	m_pAvailableQue.clear();
 }
 
 void BoostSession::start(void) {
@@ -50,12 +53,11 @@ bool BoostSession::done_handler(const boost::system::error_code& _error) {
 			{
 				return true;
 			}
-
-			std::string strTotalLen = getReadData(HEADSIZE);
-			memcpy(&m_nPendingLen, strTotalLen.c_str(),HEADSIZE);
-			std::string strMsgID = getReadData(MSGIDSIZE);
-			memcpy(&m_nMsgId, strMsgID.c_str(),MSGIDSIZE);
+			getReadData((char *)&m_nPendingLen, HEADSIZE);
+		    getReadData((char *)&m_nMsgId,MSGIDSIZE);
 			if(m_nMsgId > MAXMSGID)
+				return false;
+			if(m_nPendingLen > BUFFERSIZE)
 				return false;
 			if(getReadLen() < m_nPendingLen)
 			{
@@ -63,18 +65,20 @@ bool BoostSession::done_handler(const boost::system::error_code& _error) {
 				return true;
 			}
 			//接收完全
-			std::string strMsgData = getReadData(m_nPendingLen);
+			char strMsgData[BUFFERSIZE]={0};
+			getReadData(strMsgData,m_nPendingLen);
 			std::cout <<"Receive Data : " <<strMsgData <<std::endl;
-			write_msg(strMsgData.c_str(),m_nMsgId,m_nPendingLen);
+			write_msg(strMsgData,m_nMsgId,m_nPendingLen);
 			continue;
 		}
 		 //继续上次未收全的接收
 		if(getReadLen() <m_nPendingLen)
 			return true;
 		//接收完全
-		std::string strMsgData = getReadData(m_nPendingLen);
+		char strMsgData[BUFFERSIZE]={0};
+	    getReadData(strMsgData,m_nPendingLen);
 		std::cout <<"Receive Data : " <<strMsgData <<std::endl;
-		write_msg(strMsgData.c_str(),m_nMsgId,m_nPendingLen);
+		write_msg(strMsgData,m_nMsgId,m_nPendingLen);
 		m_bPendingRecv = false;
 
 	}
@@ -91,22 +95,23 @@ int  BoostSession::getReadLen()
 	return nTotal;
 }
 
-//tlv 形式，HEAD 四字节存储消息长度，MSGID 四字节存储消息类型id 
-std::string  BoostSession::getReadData(int nDataLen )
+int BoostSession::getReadData(char* pData, int nRead)
 {
-	std::string rtStr;
-	if(nDataLen == 0)
-		return rtStr;
+	if(pData == NULL)
+		return 0;
+	if(nRead == 0)
+		return 0;
+	int nCur = 0;
 	while(m_pInPutQue.empty() == false)
 	{
 		//节点可读数据大于请求数据
-		if(m_pInPutQue.front()->getRemain() >= nDataLen)
+		if(m_pInPutQue.front()->getRemain() >= nRead)
 		{
 			char * msgData =m_pInPutQue.front()->getMsgData();
-			std::string msgDataStr(msgData+m_pInPutQue.front()->getOffSet(),nDataLen);
-			rtStr+=msgDataStr;
-			m_pInPutQue.front()->resetOffset(nDataLen);
-			return rtStr;
+			memcpy(pData+nCur,msgData+m_pInPutQue.front()->getOffSet(),nRead);
+			nCur+=nRead;
+			m_pInPutQue.front()->resetOffset(nRead);
+			return nCur;
 		}
 		//节点可读数据为空
 		if(m_pInPutQue.front()->getRemain() == 0)
@@ -116,13 +121,46 @@ std::string  BoostSession::getReadData(int nDataLen )
 		}
 		//节点有可读数据，且小于请求数据
 		char * msgData = m_pInPutQue.front()->getMsgData();
-		std::string msgDataStr(msgData + m_pInPutQue.front()->getOffSet(), m_pInPutQue.front()->getRemain());
-		nDataLen-=m_pInPutQue.front()->getRemain();
-		rtStr += msgDataStr;
+		memcpy(pData+nCur,msgData+m_pInPutQue.front()->getOffSet(),m_pInPutQue.front()->getRemain());
+		nRead-=m_pInPutQue.front()->getRemain();
+		nCur+=m_pInPutQue.front()->getRemain();
 		m_pInPutQue.pop_front();
 	}
-	return rtStr;
+	return nCur;
 }
+
+//tlv 形式，HEAD 四字节存储消息长度，MSGID 四字节存储消息类型id 
+//std::string  BoostSession::getReadData(int nDataLen )
+//{
+//	std::string rtStr;
+//	if(nDataLen == 0)
+//		return rtStr;
+//	while(m_pInPutQue.empty() == false)
+//	{
+//		//节点可读数据大于请求数据
+//		if(m_pInPutQue.front()->getRemain() >= nDataLen)
+//		{
+//			char * msgData =m_pInPutQue.front()->getMsgData();
+//			std::string msgDataStr(msgData+m_pInPutQue.front()->getOffSet(),nDataLen);
+//			rtStr+=msgDataStr;
+//			m_pInPutQue.front()->resetOffset(nDataLen);
+//			return rtStr;
+//		}
+//		//节点可读数据为空
+//		if(m_pInPutQue.front()->getRemain() == 0)
+//		{
+//			m_pInPutQue.pop_front();
+//			continue;
+//		}
+//		//节点有可读数据，且小于请求数据
+//		char * msgData = m_pInPutQue.front()->getMsgData();
+//		std::string msgDataStr(msgData + m_pInPutQue.front()->getOffSet(), m_pInPutQue.front()->getRemain());
+//		nDataLen-=m_pInPutQue.front()->getRemain();
+//		rtStr += msgDataStr;
+//		m_pInPutQue.pop_front();
+//	}
+//	return rtStr;
+//}
 
 	const boost::posix_time::ptime &BoostSession::getLiveTime()
 	{
@@ -131,6 +169,11 @@ std::string  BoostSession::getReadData(int nDataLen )
 
 void BoostSession::read_handler(const boost::system::error_code& _error, size_t _readSize) {
 	if (_error) {
+		return;
+	}
+	if(_readSize > BUFFERSIZE)
+	{
+		std::cout << "receive msg len too large ,now buffsize is : " <<_readSize <<std::endl;
 		return;
 	}
 	streamnode_ptr nodePtr = boost::make_shared<StreamNode>(m_cData,_readSize);
@@ -162,8 +205,8 @@ void BoostSession::write_msg(const char * msg, int nMsgId, int nLen)
 		return;
 	}
 	char sendBuff[BUFFERSIZE] = {0};
-	memcpy(sendBuff,&nLen,HEADSIZE);
-	memcpy(sendBuff+HEADSIZE,&nMsgId, MSGIDSIZE);
+	memcpy(sendBuff,(void*)&nLen,HEADSIZE);
+	memcpy(sendBuff+HEADSIZE,(void*)&nMsgId, MSGIDSIZE);
 	memcpy(sendBuff+HEADSIZE+MSGIDSIZE,msg,nLen);
 	streamnode_ptr nodePtr = boost::make_shared<StreamNode>(sendBuff,nLen+HEADSIZE+MSGIDSIZE);
 	m_pOutPutQue.push_back(nodePtr);

@@ -31,7 +31,8 @@ private:
 	void write_msg(const char * msg, int nMsgId, int nLen);
 	void async_send();
 	int  getReadLen();
-	std::string  getReadData(int nDataLen = 0);
+	//std::string  getReadData(int nDataLen = 0);
+	int getReadData(char* pData, int nRead);
 	
 private:
 	// 临时信息缓冲区
@@ -47,6 +48,8 @@ private:
 	std::deque<streamnode_ptr> m_pInPutQue;
 	// 发送数据缓冲队列
 	std::deque<streamnode_ptr> m_pOutPutQue;
+    //备用队列
+	std::deque<streamnode_ptr> m_pAvailableQue;
 	//是否发送完
 	bool m_bPendingSend;
 	//是否接受完
