@@ -42,6 +42,7 @@ bool BoostSession::done_handler(const boost::system::error_code& _error) {
 		//判断是否读全，如果读全则pop头结点，继续读下一个节点
 		if(nRemain == 0)
 		{
+			addAvailableNode(m_pInPutQue.front());
 			m_pInPutQue.pop_front();
 			continue;
 		}
@@ -87,7 +88,7 @@ bool BoostSession::done_handler(const boost::system::error_code& _error) {
 	return true;
 }
 
-int  BoostSession::getReadLen()
+unsigned int  BoostSession::getReadLen()
 {
 	int nTotal = 0;
 	for( auto i = m_pInPutQue.begin(); i != m_pInPutQue.end(); i++)
@@ -97,7 +98,27 @@ int  BoostSession::getReadLen()
 	return nTotal;
 }
 
-int BoostSession::getReadData(char* pData, int nRead)
+bool BoostSession::getAvailableNode(streamnode_ptr & nodeptr)
+{
+	if(m_pAvailableQue.empty())
+		return false;
+	nodeptr = m_pAvailableQue.front();
+	m_pAvailableQue.pop_front();
+	return true;
+}
+
+bool BoostSession::addAvailableNode(const streamnode_ptr & nodeptr)
+{
+	if(m_pAvailableQue.size() > MAXAVAILABLE)
+		return true;
+	nodeptr->cleardata();
+	//test 
+	//std::cout << nodeptr->getself().use_count() <<std::endl; 
+	m_pAvailableQue.push_back(nodeptr);
+	return true;
+}
+
+unsigned int BoostSession::getReadData(char* pData, int nRead)
 {
 	if(pData == NULL)
 		return 0;
@@ -118,6 +139,7 @@ int BoostSession::getReadData(char* pData, int nRead)
 		//节点可读数据为空
 		if(m_pInPutQue.front()->getRemain() == 0)
 		{
+			addAvailableNode(m_pInPutQue.front());
 			m_pInPutQue.pop_front();
 			continue;
 		}
@@ -126,6 +148,7 @@ int BoostSession::getReadData(char* pData, int nRead)
 		memcpy(pData+nCur,msgData+m_pInPutQue.front()->getOffSet(),m_pInPutQue.front()->getRemain());
 		nRead-=m_pInPutQue.front()->getRemain();
 		nCur+=m_pInPutQue.front()->getRemain();
+		addAvailableNode(m_pInPutQue.front());
 		m_pInPutQue.pop_front();
 	}
 	return nCur;
@@ -147,7 +170,17 @@ void BoostSession::read_handler(const boost::system::error_code& _error, size_t 
 		std::cout << "receive msg len too large ,now buffsize is : " <<_readSize <<std::endl;
 		return;
 	}
-	streamnode_ptr nodePtr = boost::make_shared<StreamNode>(m_cData,_readSize);
+	streamnode_ptr nodePtr;
+	bool bRs = getAvailableNode(nodePtr);
+	if(bRs)
+	{
+		nodePtr->copydata(m_cData,_readSize);
+	}
+	else
+	{
+	  nodePtr = boost::make_shared<StreamNode>(m_cData,_readSize);
+	}
+	
 	m_pInPutQue.push_back(nodePtr);
 	if(done_handler(_error))
 		start();
@@ -181,7 +214,17 @@ void BoostSession::write_msg(const char * msg, unsigned int nMsgId,  unsigned in
 	msgHead.m_nMsgLen = htonl(nLen);
 	memcpy(sendBuff,(void*)&msgHead,HEADSIZE);
 	memcpy(sendBuff+HEADSIZE,msg,nLen);
-	streamnode_ptr nodePtr = boost::make_shared<StreamNode>(sendBuff,nLen+HEADSIZE);
+	streamnode_ptr nodePtr;
+    bool bRs = getAvailableNode(nodePtr);
+	if(bRs)
+	{
+		nodePtr->copydata(sendBuff,nLen+HEADSIZE);
+	}
+	else
+	{
+		nodePtr  = boost::make_shared<StreamNode>(sendBuff,nLen+HEADSIZE);
+	}
+	
 	m_pOutPutQue.push_back(nodePtr);
 	if(!m_bPendingSend)
 	{
@@ -196,6 +239,7 @@ void BoostSession::async_send()
 	{
  		if(m_pOutPutQue.front()->getRemain() == 0)
 		{
+			addAvailableNode(m_pOutPutQue.front());
 			m_pOutPutQue.pop_front();
 			continue;
 		}

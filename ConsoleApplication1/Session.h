@@ -30,10 +30,11 @@ private:
 	void write_handler(const boost::system::error_code& _error, size_t _writeSize);
 	void write_msg(const char * msg, unsigned int nMsgId,  unsigned int nLen);
 	void async_send();
-	int  getReadLen();
+	unsigned int  getReadLen();
 	//std::string  getReadData(int nDataLen = 0);
-	int getReadData(char* pData, int nRead);
-	
+	unsigned int getReadData(char* pData, int nRead);
+	bool getAvailableNode(streamnode_ptr & nodeptr);
+	bool addAvailableNode(const streamnode_ptr & nodeptr);
 private:
 	// 临时信息缓冲区
 	char m_cData[BUFFERSIZE];

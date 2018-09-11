@@ -6,8 +6,8 @@
 #include <boost/enable_shared_from_this.hpp>
 #include <boost/make_shared.hpp>
 #define BUFFERSIZE 1024
- 
-#define MAXMSGID 2048
+#define MAXAVAILABLE 50
+#define MAXMSGID 1700
 struct MsgHeadData
 {
 	 unsigned int m_nMsgId;
@@ -24,6 +24,9 @@ public:
 	int getRemain();
 	int getOffSet();
 	void resetOffset(int offsetAdd);
+	void cleardata();
+	void copydata(char * msg, int nLen);
+	boost::shared_ptr<StreamNode> getself();
 private:
 
 	char* m_pData;
