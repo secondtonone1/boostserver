@@ -1,0 +1,2 @@
+/usr/bin/ar qc libNetModellib.a  CMakeFiles/NetModellib.dir/Server.cpp.o CMakeFiles/NetModellib.dir/Session.cpp.o CMakeFiles/NetModellib.dir/StreamNode.cpp.o
+/usr/bin/ranlib libNetModellib.a

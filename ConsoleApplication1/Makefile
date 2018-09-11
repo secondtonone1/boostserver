@@ -123,86 +123,18 @@ server/fast:
 	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/build
 .PHONY : server/fast
 
-Server.o: Server.cpp.o
+#=============================================================================
+# Target rules for targets named NetModellib
 
-.PHONY : Server.o
+# Build rule for target.
+NetModellib: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 NetModellib
+.PHONY : NetModellib
 
-# target to build an object file
-Server.cpp.o:
-	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/Server.cpp.o
-.PHONY : Server.cpp.o
-
-Server.i: Server.cpp.i
-
-.PHONY : Server.i
-
-# target to preprocess a source file
-Server.cpp.i:
-	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/Server.cpp.i
-.PHONY : Server.cpp.i
-
-Server.s: Server.cpp.s
-
-.PHONY : Server.s
-
-# target to generate assembly for a file
-Server.cpp.s:
-	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/Server.cpp.s
-.PHONY : Server.cpp.s
-
-Session.o: Session.cpp.o
-
-.PHONY : Session.o
-
-# target to build an object file
-Session.cpp.o:
-	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/Session.cpp.o
-.PHONY : Session.cpp.o
-
-Session.i: Session.cpp.i
-
-.PHONY : Session.i
-
-# target to preprocess a source file
-Session.cpp.i:
-	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/Session.cpp.i
-.PHONY : Session.cpp.i
-
-Session.s: Session.cpp.s
-
-.PHONY : Session.s
-
-# target to generate assembly for a file
-Session.cpp.s:
-	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/Session.cpp.s
-.PHONY : Session.cpp.s
-
-StreamNode.o: StreamNode.cpp.o
-
-.PHONY : StreamNode.o
-
-# target to build an object file
-StreamNode.cpp.o:
-	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/StreamNode.cpp.o
-.PHONY : StreamNode.cpp.o
-
-StreamNode.i: StreamNode.cpp.i
-
-.PHONY : StreamNode.i
-
-# target to preprocess a source file
-StreamNode.cpp.i:
-	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/StreamNode.cpp.i
-.PHONY : StreamNode.cpp.i
-
-StreamNode.s: StreamNode.cpp.s
-
-.PHONY : StreamNode.s
-
-# target to generate assembly for a file
-StreamNode.cpp.s:
-	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/StreamNode.cpp.s
-.PHONY : StreamNode.cpp.s
+# fast build rule for target.
+NetModellib/fast:
+	$(MAKE) -f NetModel/CMakeFiles/NetModellib.dir/build.make NetModel/CMakeFiles/NetModellib.dir/build
+.PHONY : NetModellib/fast
 
 main.o: main.cpp.o
 
@@ -240,15 +172,7 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... server"
 	@echo "... edit_cache"
-	@echo "... Server.o"
-	@echo "... Server.i"
-	@echo "... Server.s"
-	@echo "... Session.o"
-	@echo "... Session.i"
-	@echo "... Session.s"
-	@echo "... StreamNode.o"
-	@echo "... StreamNode.i"
-	@echo "... StreamNode.s"
+	@echo "... NetModellib"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
