@@ -28,7 +28,7 @@ private:
 	void read_handler(const boost::system::error_code& _error, size_t _readSize);
 	// 写入完成后触发的函数
 	void write_handler(const boost::system::error_code& _error, size_t _writeSize);
-	void write_msg(const char * msg, int nMsgId, int nLen);
+	void write_msg(const char * msg, unsigned int nMsgId,  unsigned int nLen);
 	void async_send();
 	int  getReadLen();
 	//std::string  getReadData(int nDataLen = 0);
@@ -54,10 +54,8 @@ private:
 	bool m_bPendingSend;
 	//是否接受完
 	bool m_bPendingRecv;
-	//需要取出的数据长度
-	int m_nPendingLen;
-	//要处理的消息id
-	int m_nMsgId;
+	//消息头
+	MsgHeadData m_msgHead;
 	//心跳时间
 	boost::posix_time::ptime  m_nAliveTime;
 };

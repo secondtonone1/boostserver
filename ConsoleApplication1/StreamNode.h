@@ -6,10 +6,14 @@
 #include <boost/enable_shared_from_this.hpp>
 #include <boost/make_shared.hpp>
 #define BUFFERSIZE 1024
-#define HEADSIZE 4
-#define MSGIDSIZE 4
-#define MAXMSGID 22048
-
+ 
+#define MAXMSGID 2048
+struct MsgHeadData
+{
+	 unsigned int m_nMsgId;
+	 unsigned int m_nMsgLen;
+};
+#define HEADSIZE (sizeof(MsgHeadData))
 
 class StreamNode:public boost::enable_shared_from_this<StreamNode>
 {

@@ -7,8 +7,8 @@ BoostSession::BoostSession(boost::asio::io_service& _ioService)
 		memset(m_cData, 0, BUFFERSIZE);
 		m_bPendingSend = false;
 		m_bPendingRecv = false;
-		m_nPendingLen = 0;
-		m_nMsgId = 0;
+		m_msgHead.m_nMsgId =0;
+		m_msgHead.m_nMsgLen = 0;
 }
 
 BoostSession::~BoostSession(void)
@@ -20,7 +20,7 @@ BoostSession::~BoostSession(void)
 
 void BoostSession::start(void) {
 	memset(m_cData,0,BUFFERSIZE);
-	m_socket.async_read_some(boost::asio::buffer(m_cData, BUFFERSIZE-1),
+	m_socket.async_read_some(boost::asio::buffer(m_cData, BUFFERSIZE),
 		boost::bind(&BoostSession::read_handler, shared_from_this(),
 		boost::asio::placeholders::error, boost::asio::placeholders::bytes_transferred));
 }
@@ -49,36 +49,38 @@ bool BoostSession::done_handler(const boost::system::error_code& _error) {
 		if(m_bPendingRecv == false)
 		{
 			//该节点接收数据小于规定包头大小
-			if(getReadLen() < HEADSIZE+MSGIDSIZE)
+			if(getReadLen() < HEADSIZE)
 			{
 				return true;
 			}
-			getReadData((char *)&m_nPendingLen, HEADSIZE);
-		    getReadData((char *)&m_nMsgId,MSGIDSIZE);
-			if(m_nMsgId > MAXMSGID)
+			getReadData((char *)&m_msgHead, HEADSIZE);
+			m_msgHead.m_nMsgId = ntohl(m_msgHead.m_nMsgId);
+			m_msgHead.m_nMsgLen = ntohl(m_msgHead.m_nMsgLen);
+		  
+			if(m_msgHead.m_nMsgId > MAXMSGID)
 				return false;
-			if(m_nPendingLen > BUFFERSIZE)
+			if(m_msgHead.m_nMsgLen > BUFFERSIZE)
 				return false;
-			if(getReadLen() < m_nPendingLen)
+			if(getReadLen() < m_msgHead.m_nMsgLen)
 			{
 				m_bPendingRecv = true;
 				return true;
 			}
 			//接收完全
 			char strMsgData[BUFFERSIZE]={0};
-			getReadData(strMsgData,m_nPendingLen);
+			getReadData(strMsgData,m_msgHead.m_nMsgLen);
 			std::cout <<"Receive Data : " <<strMsgData <<std::endl;
-			write_msg(strMsgData,m_nMsgId,m_nPendingLen);
+			write_msg(strMsgData,m_msgHead.m_nMsgId,m_msgHead.m_nMsgLen);
 			continue;
 		}
 		 //继续上次未收全的接收
-		if(getReadLen() <m_nPendingLen)
+		if(getReadLen() <m_msgHead.m_nMsgLen)
 			return true;
 		//接收完全
 		char strMsgData[BUFFERSIZE]={0};
-	    getReadData(strMsgData,m_nPendingLen);
+	    getReadData(strMsgData,m_msgHead.m_nMsgLen);
 		std::cout <<"Receive Data : " <<strMsgData <<std::endl;
-		write_msg(strMsgData,m_nMsgId,m_nPendingLen);
+		write_msg(strMsgData,m_msgHead.m_nMsgId,m_msgHead.m_nMsgLen);
 		m_bPendingRecv = false;
 
 	}
@@ -129,38 +131,7 @@ int BoostSession::getReadData(char* pData, int nRead)
 	return nCur;
 }
 
-//tlv 形式，HEAD 四字节存储消息长度，MSGID 四字节存储消息类型id 
-//std::string  BoostSession::getReadData(int nDataLen )
-//{
-//	std::string rtStr;
-//	if(nDataLen == 0)
-//		return rtStr;
-//	while(m_pInPutQue.empty() == false)
-//	{
-//		//节点可读数据大于请求数据
-//		if(m_pInPutQue.front()->getRemain() >= nDataLen)
-//		{
-//			char * msgData =m_pInPutQue.front()->getMsgData();
-//			std::string msgDataStr(msgData+m_pInPutQue.front()->getOffSet(),nDataLen);
-//			rtStr+=msgDataStr;
-//			m_pInPutQue.front()->resetOffset(nDataLen);
-//			return rtStr;
-//		}
-//		//节点可读数据为空
-//		if(m_pInPutQue.front()->getRemain() == 0)
-//		{
-//			m_pInPutQue.pop_front();
-//			continue;
-//		}
-//		//节点有可读数据，且小于请求数据
-//		char * msgData = m_pInPutQue.front()->getMsgData();
-//		std::string msgDataStr(msgData + m_pInPutQue.front()->getOffSet(), m_pInPutQue.front()->getRemain());
-//		nDataLen-=m_pInPutQue.front()->getRemain();
-//		rtStr += msgDataStr;
-//		m_pInPutQue.pop_front();
-//	}
-//	return rtStr;
-//}
+
 
 	const boost::posix_time::ptime &BoostSession::getLiveTime()
 	{
@@ -197,18 +168,20 @@ void BoostSession::write_handler(const boost::system::error_code& _error, size_t
 	async_send();
 }
 
-void BoostSession::write_msg(const char * msg, int nMsgId, int nLen)
+void BoostSession::write_msg(const char * msg, unsigned int nMsgId,  unsigned int nLen)
 {
-	if(nLen + HEADSIZE+ MSGIDSIZE > BUFFERSIZE)
+	if(nLen + HEADSIZE > BUFFERSIZE)
 	{
 		std::cout <<"msglenth too long , now allow size is : " <<BUFFERSIZE<<std::endl;
 		return;
 	}
 	char sendBuff[BUFFERSIZE] = {0};
-	memcpy(sendBuff,(void*)&nLen,HEADSIZE);
-	memcpy(sendBuff+HEADSIZE,(void*)&nMsgId, MSGIDSIZE);
-	memcpy(sendBuff+HEADSIZE+MSGIDSIZE,msg,nLen);
-	streamnode_ptr nodePtr = boost::make_shared<StreamNode>(sendBuff,nLen+HEADSIZE+MSGIDSIZE);
+	MsgHeadData msgHead;
+	msgHead.m_nMsgId = htonl(nMsgId);
+	msgHead.m_nMsgLen = htonl(nLen);
+	memcpy(sendBuff,(void*)&msgHead,HEADSIZE);
+	memcpy(sendBuff+HEADSIZE,msg,nLen);
+	streamnode_ptr nodePtr = boost::make_shared<StreamNode>(sendBuff,nLen+HEADSIZE);
 	m_pOutPutQue.push_back(nodePtr);
 	if(!m_bPendingSend)
 	{
@@ -237,6 +210,6 @@ void BoostSession::async_send()
 	streamnode_ptr &frontNode = m_pOutPutQue.front();
 	boost::asio::async_write(m_socket,
 		boost::asio::buffer(frontNode->getMsgData()+frontNode->getOffSet(), frontNode->getRemain()),
-		boost::bind(&BoostSession::write_handler, this,
+		boost::bind(&BoostSession::write_handler, shared_from_this(),
 		boost::asio::placeholders::error,boost::asio::placeholders::bytes_transferred));
 }
