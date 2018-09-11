@@ -82,15 +82,17 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Server.h" />
-    <ClInclude Include="Session.h" />
-    <ClInclude Include="StreamNode.h" />
+    <ClInclude Include="MsgHandler.h" />
+    <ClInclude Include="NetModel\Server.h" />
+    <ClInclude Include="NetModel\Session.h" />
+    <ClInclude Include="NetModel\StreamNode.h" />
+    <ClInclude Include="Singleton.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Server.cpp" />
-    <ClCompile Include="Session.cpp" />
-    <ClCompile Include="StreamNode.cpp" />
+    <ClCompile Include="NetModel\Server.cpp" />
+    <ClCompile Include="NetModel\Session.cpp" />
+    <ClCompile Include="NetModel\StreamNode.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

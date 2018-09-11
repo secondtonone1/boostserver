@@ -12,7 +12,7 @@
 #endif //__linux__
 #include <boost/property_tree/ptree.hpp>  
 #include <boost/property_tree/ini_parser.hpp>
-#include "Server.h"
+#include "./NetModel/Server.h"
 
 
 int main(void) {
