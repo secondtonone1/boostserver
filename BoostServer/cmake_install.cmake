@@ -1,4 +1,4 @@
-# Install script for directory: /home/secondtonone1/workspace/boostserver/ConsoleApplication1
+# Install script for directory: /home/secondtonone1/workspace/boostserver/BoostServer
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -39,8 +39,8 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/secondtonone1/workspace/boostserver/ConsoleApplication1/NetModel/cmake_install.cmake")
-  include("/home/secondtonone1/workspace/boostserver/ConsoleApplication1/Logic/cmake_install.cmake")
+  include("/home/secondtonone1/workspace/boostserver/BoostServer/NetModel/cmake_install.cmake")
+  include("/home/secondtonone1/workspace/boostserver/BoostServer/Logic/cmake_install.cmake")
 
 endif()
 
@@ -52,5 +52,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/secondtonone1/workspace/boostserver/ConsoleApplication1/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/secondtonone1/workspace/boostserver/BoostServer/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

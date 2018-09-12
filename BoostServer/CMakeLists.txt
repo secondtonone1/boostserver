@@ -13,4 +13,4 @@ add_subdirectory(Logic)
 #指定生成目标
 add_executable(${PROJECT_NAME} main.cpp)
 #添加链接库
-target_link_libraries(${PROJECT_NAME} "libboost_thread.a" "libboost_system.a" "libboost_date_time.a" NetModellib Logiclib)
+target_link_libraries(${PROJECT_NAME} "libboost_thread.a" "libboost_system.a" "libboost_date_time.a"  NetModellib Logiclib)

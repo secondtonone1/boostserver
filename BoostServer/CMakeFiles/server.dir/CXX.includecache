@@ -6,39 +6,39 @@
 
 #IncludeRegexTransform: 
 
-/home/secondtonone1/workspace/boostserver/ConsoleApplication1/./Logic/HeartBeat.h
+/home/secondtonone1/workspace/boostserver/BoostServer/./Logic/HeartBeat.h
 Singleton.h
-/home/secondtonone1/workspace/boostserver/ConsoleApplication1/./Logic/Singleton.h
+/home/secondtonone1/workspace/boostserver/BoostServer/./Logic/Singleton.h
 ../NetModel/Session.h
-/home/secondtonone1/workspace/boostserver/ConsoleApplication1/./NetModel/Session.h
+/home/secondtonone1/workspace/boostserver/BoostServer/./NetModel/Session.h
 
-/home/secondtonone1/workspace/boostserver/ConsoleApplication1/./Logic/MsgDefine.h
+/home/secondtonone1/workspace/boostserver/BoostServer/./Logic/MsgDefine.h
 boost/asio.hpp
 -
 boost/enable_shared_from_this.hpp
 -
 MsgHandler.h
-/home/secondtonone1/workspace/boostserver/ConsoleApplication1/./Logic/MsgHandler.h
+/home/secondtonone1/workspace/boostserver/BoostServer/./Logic/MsgHandler.h
 HeartBeat.h
-/home/secondtonone1/workspace/boostserver/ConsoleApplication1/./Logic/HeartBeat.h
+/home/secondtonone1/workspace/boostserver/BoostServer/./Logic/HeartBeat.h
 
-/home/secondtonone1/workspace/boostserver/ConsoleApplication1/./Logic/MsgHandler.h
+/home/secondtonone1/workspace/boostserver/BoostServer/./Logic/MsgHandler.h
 boost/function.hpp
 -
 boost/unordered_map.hpp
 -
 Singleton.h
-/home/secondtonone1/workspace/boostserver/ConsoleApplication1/./Logic/Singleton.h
+/home/secondtonone1/workspace/boostserver/BoostServer/./Logic/Singleton.h
 ../NetModel/Session.h
-/home/secondtonone1/workspace/boostserver/ConsoleApplication1/./NetModel/Session.h
+/home/secondtonone1/workspace/boostserver/BoostServer/./NetModel/Session.h
 
-/home/secondtonone1/workspace/boostserver/ConsoleApplication1/./Logic/Singleton.h
+/home/secondtonone1/workspace/boostserver/BoostServer/./Logic/Singleton.h
 iostream
 -
 boost/shared_ptr.hpp
 -
 
-/home/secondtonone1/workspace/boostserver/ConsoleApplication1/./NetModel/Server.h
+/home/secondtonone1/workspace/boostserver/BoostServer/./NetModel/Server.h
 string.h
 -
 boost/asio.hpp
@@ -48,9 +48,9 @@ boost/shared_ptr.hpp
 boost/unordered_map.hpp
 -
 Session.h
-/home/secondtonone1/workspace/boostserver/ConsoleApplication1/./NetModel/Session.h
+/home/secondtonone1/workspace/boostserver/BoostServer/./NetModel/Session.h
 
-/home/secondtonone1/workspace/boostserver/ConsoleApplication1/./NetModel/Session.h
+/home/secondtonone1/workspace/boostserver/BoostServer/./NetModel/Session.h
 iostream
 -
 string
@@ -62,9 +62,9 @@ boost/enable_shared_from_this.hpp
 deque
 -
 StreamNode.h
-/home/secondtonone1/workspace/boostserver/ConsoleApplication1/./NetModel/StreamNode.h
+/home/secondtonone1/workspace/boostserver/BoostServer/./NetModel/StreamNode.h
 
-/home/secondtonone1/workspace/boostserver/ConsoleApplication1/./NetModel/StreamNode.h
+/home/secondtonone1/workspace/boostserver/BoostServer/./NetModel/StreamNode.h
 iostream
 -
 string
@@ -76,7 +76,7 @@ boost/enable_shared_from_this.hpp
 boost/make_shared.hpp
 -
 
-/home/secondtonone1/workspace/boostserver/ConsoleApplication1/main.cpp
+/home/secondtonone1/workspace/boostserver/BoostServer/main.cpp
 iostream
 -
 boost/asio.hpp
@@ -96,9 +96,9 @@ boost/property_tree/ptree.hpp
 boost/property_tree/ini_parser.hpp
 -
 ./NetModel/Server.h
-/home/secondtonone1/workspace/boostserver/ConsoleApplication1/./NetModel/Server.h
+/home/secondtonone1/workspace/boostserver/BoostServer/./NetModel/Server.h
 ./Logic/MsgDefine.h
-/home/secondtonone1/workspace/boostserver/ConsoleApplication1/./Logic/MsgDefine.h
+/home/secondtonone1/workspace/boostserver/BoostServer/./Logic/MsgDefine.h
 
 /usr/local/include/boost/any.hpp
 algorithm

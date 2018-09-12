@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/secondtonone1/workspace/boostserver/ConsoleApplication1
+CMAKE_SOURCE_DIR = /home/secondtonone1/workspace/boostserver/BoostServer
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/secondtonone1/workspace/boostserver/ConsoleApplication1
+CMAKE_BINARY_DIR = /home/secondtonone1/workspace/boostserver/BoostServer
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,14 +80,14 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/secondtonone1/workspace/boostserver/ConsoleApplication1 && $(CMAKE_COMMAND) -E cmake_progress_start /home/secondtonone1/workspace/boostserver/ConsoleApplication1/CMakeFiles /home/secondtonone1/workspace/boostserver/ConsoleApplication1/NetModel/CMakeFiles/progress.marks
-	cd /home/secondtonone1/workspace/boostserver/ConsoleApplication1 && $(MAKE) -f CMakeFiles/Makefile2 NetModel/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/secondtonone1/workspace/boostserver/ConsoleApplication1/CMakeFiles 0
+	cd /home/secondtonone1/workspace/boostserver/BoostServer && $(CMAKE_COMMAND) -E cmake_progress_start /home/secondtonone1/workspace/boostserver/BoostServer/CMakeFiles /home/secondtonone1/workspace/boostserver/BoostServer/NetModel/CMakeFiles/progress.marks
+	cd /home/secondtonone1/workspace/boostserver/BoostServer && $(MAKE) -f CMakeFiles/Makefile2 NetModel/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/secondtonone1/workspace/boostserver/BoostServer/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/secondtonone1/workspace/boostserver/ConsoleApplication1 && $(MAKE) -f CMakeFiles/Makefile2 NetModel/clean
+	cd /home/secondtonone1/workspace/boostserver/BoostServer && $(MAKE) -f CMakeFiles/Makefile2 NetModel/clean
 .PHONY : clean
 
 # The main clean target
@@ -97,22 +97,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/secondtonone1/workspace/boostserver/ConsoleApplication1 && $(MAKE) -f CMakeFiles/Makefile2 NetModel/preinstall
+	cd /home/secondtonone1/workspace/boostserver/BoostServer && $(MAKE) -f CMakeFiles/Makefile2 NetModel/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/secondtonone1/workspace/boostserver/ConsoleApplication1 && $(MAKE) -f CMakeFiles/Makefile2 NetModel/preinstall
+	cd /home/secondtonone1/workspace/boostserver/BoostServer && $(MAKE) -f CMakeFiles/Makefile2 NetModel/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/secondtonone1/workspace/boostserver/ConsoleApplication1 && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/secondtonone1/workspace/boostserver/BoostServer && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 NetModel/CMakeFiles/NetModellib.dir/rule:
-	cd /home/secondtonone1/workspace/boostserver/ConsoleApplication1 && $(MAKE) -f CMakeFiles/Makefile2 NetModel/CMakeFiles/NetModellib.dir/rule
+	cd /home/secondtonone1/workspace/boostserver/BoostServer && $(MAKE) -f CMakeFiles/Makefile2 NetModel/CMakeFiles/NetModellib.dir/rule
 .PHONY : NetModel/CMakeFiles/NetModellib.dir/rule
 
 # Convenience name for target.
@@ -122,7 +122,7 @@ NetModellib: NetModel/CMakeFiles/NetModellib.dir/rule
 
 # fast build rule for target.
 NetModellib/fast:
-	cd /home/secondtonone1/workspace/boostserver/ConsoleApplication1 && $(MAKE) -f NetModel/CMakeFiles/NetModellib.dir/build.make NetModel/CMakeFiles/NetModellib.dir/build
+	cd /home/secondtonone1/workspace/boostserver/BoostServer && $(MAKE) -f NetModel/CMakeFiles/NetModellib.dir/build.make NetModel/CMakeFiles/NetModellib.dir/build
 .PHONY : NetModellib/fast
 
 Server.o: Server.cpp.o
@@ -131,7 +131,7 @@ Server.o: Server.cpp.o
 
 # target to build an object file
 Server.cpp.o:
-	cd /home/secondtonone1/workspace/boostserver/ConsoleApplication1 && $(MAKE) -f NetModel/CMakeFiles/NetModellib.dir/build.make NetModel/CMakeFiles/NetModellib.dir/Server.cpp.o
+	cd /home/secondtonone1/workspace/boostserver/BoostServer && $(MAKE) -f NetModel/CMakeFiles/NetModellib.dir/build.make NetModel/CMakeFiles/NetModellib.dir/Server.cpp.o
 .PHONY : Server.cpp.o
 
 Server.i: Server.cpp.i
@@ -140,7 +140,7 @@ Server.i: Server.cpp.i
 
 # target to preprocess a source file
 Server.cpp.i:
-	cd /home/secondtonone1/workspace/boostserver/ConsoleApplication1 && $(MAKE) -f NetModel/CMakeFiles/NetModellib.dir/build.make NetModel/CMakeFiles/NetModellib.dir/Server.cpp.i
+	cd /home/secondtonone1/workspace/boostserver/BoostServer && $(MAKE) -f NetModel/CMakeFiles/NetModellib.dir/build.make NetModel/CMakeFiles/NetModellib.dir/Server.cpp.i
 .PHONY : Server.cpp.i
 
 Server.s: Server.cpp.s
@@ -149,7 +149,7 @@ Server.s: Server.cpp.s
 
 # target to generate assembly for a file
 Server.cpp.s:
-	cd /home/secondtonone1/workspace/boostserver/ConsoleApplication1 && $(MAKE) -f NetModel/CMakeFiles/NetModellib.dir/build.make NetModel/CMakeFiles/NetModellib.dir/Server.cpp.s
+	cd /home/secondtonone1/workspace/boostserver/BoostServer && $(MAKE) -f NetModel/CMakeFiles/NetModellib.dir/build.make NetModel/CMakeFiles/NetModellib.dir/Server.cpp.s
 .PHONY : Server.cpp.s
 
 Session.o: Session.cpp.o
@@ -158,7 +158,7 @@ Session.o: Session.cpp.o
 
 # target to build an object file
 Session.cpp.o:
-	cd /home/secondtonone1/workspace/boostserver/ConsoleApplication1 && $(MAKE) -f NetModel/CMakeFiles/NetModellib.dir/build.make NetModel/CMakeFiles/NetModellib.dir/Session.cpp.o
+	cd /home/secondtonone1/workspace/boostserver/BoostServer && $(MAKE) -f NetModel/CMakeFiles/NetModellib.dir/build.make NetModel/CMakeFiles/NetModellib.dir/Session.cpp.o
 .PHONY : Session.cpp.o
 
 Session.i: Session.cpp.i
@@ -167,7 +167,7 @@ Session.i: Session.cpp.i
 
 # target to preprocess a source file
 Session.cpp.i:
-	cd /home/secondtonone1/workspace/boostserver/ConsoleApplication1 && $(MAKE) -f NetModel/CMakeFiles/NetModellib.dir/build.make NetModel/CMakeFiles/NetModellib.dir/Session.cpp.i
+	cd /home/secondtonone1/workspace/boostserver/BoostServer && $(MAKE) -f NetModel/CMakeFiles/NetModellib.dir/build.make NetModel/CMakeFiles/NetModellib.dir/Session.cpp.i
 .PHONY : Session.cpp.i
 
 Session.s: Session.cpp.s
@@ -176,7 +176,7 @@ Session.s: Session.cpp.s
 
 # target to generate assembly for a file
 Session.cpp.s:
-	cd /home/secondtonone1/workspace/boostserver/ConsoleApplication1 && $(MAKE) -f NetModel/CMakeFiles/NetModellib.dir/build.make NetModel/CMakeFiles/NetModellib.dir/Session.cpp.s
+	cd /home/secondtonone1/workspace/boostserver/BoostServer && $(MAKE) -f NetModel/CMakeFiles/NetModellib.dir/build.make NetModel/CMakeFiles/NetModellib.dir/Session.cpp.s
 .PHONY : Session.cpp.s
 
 StreamNode.o: StreamNode.cpp.o
@@ -185,7 +185,7 @@ StreamNode.o: StreamNode.cpp.o
 
 # target to build an object file
 StreamNode.cpp.o:
-	cd /home/secondtonone1/workspace/boostserver/ConsoleApplication1 && $(MAKE) -f NetModel/CMakeFiles/NetModellib.dir/build.make NetModel/CMakeFiles/NetModellib.dir/StreamNode.cpp.o
+	cd /home/secondtonone1/workspace/boostserver/BoostServer && $(MAKE) -f NetModel/CMakeFiles/NetModellib.dir/build.make NetModel/CMakeFiles/NetModellib.dir/StreamNode.cpp.o
 .PHONY : StreamNode.cpp.o
 
 StreamNode.i: StreamNode.cpp.i
@@ -194,7 +194,7 @@ StreamNode.i: StreamNode.cpp.i
 
 # target to preprocess a source file
 StreamNode.cpp.i:
-	cd /home/secondtonone1/workspace/boostserver/ConsoleApplication1 && $(MAKE) -f NetModel/CMakeFiles/NetModellib.dir/build.make NetModel/CMakeFiles/NetModellib.dir/StreamNode.cpp.i
+	cd /home/secondtonone1/workspace/boostserver/BoostServer && $(MAKE) -f NetModel/CMakeFiles/NetModellib.dir/build.make NetModel/CMakeFiles/NetModellib.dir/StreamNode.cpp.i
 .PHONY : StreamNode.cpp.i
 
 StreamNode.s: StreamNode.cpp.s
@@ -203,7 +203,7 @@ StreamNode.s: StreamNode.cpp.s
 
 # target to generate assembly for a file
 StreamNode.cpp.s:
-	cd /home/secondtonone1/workspace/boostserver/ConsoleApplication1 && $(MAKE) -f NetModel/CMakeFiles/NetModellib.dir/build.make NetModel/CMakeFiles/NetModellib.dir/StreamNode.cpp.s
+	cd /home/secondtonone1/workspace/boostserver/BoostServer && $(MAKE) -f NetModel/CMakeFiles/NetModellib.dir/build.make NetModel/CMakeFiles/NetModellib.dir/StreamNode.cpp.s
 .PHONY : StreamNode.cpp.s
 
 # Help Target
@@ -235,6 +235,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/secondtonone1/workspace/boostserver/ConsoleApplication1 && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/secondtonone1/workspace/boostserver/BoostServer && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

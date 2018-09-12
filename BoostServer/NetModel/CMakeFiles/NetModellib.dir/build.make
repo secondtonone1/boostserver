@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/secondtonone1/workspace/boostserver/ConsoleApplication1
+CMAKE_SOURCE_DIR = /home/secondtonone1/workspace/boostserver/BoostServer
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/secondtonone1/workspace/boostserver/ConsoleApplication1
+CMAKE_BINARY_DIR = /home/secondtonone1/workspace/boostserver/BoostServer
 
 # Include any dependencies generated for this target.
 include NetModel/CMakeFiles/NetModellib.dir/depend.make
@@ -59,16 +59,16 @@ include NetModel/CMakeFiles/NetModellib.dir/flags.make
 
 NetModel/CMakeFiles/NetModellib.dir/Server.cpp.o: NetModel/CMakeFiles/NetModellib.dir/flags.make
 NetModel/CMakeFiles/NetModellib.dir/Server.cpp.o: NetModel/Server.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/secondtonone1/workspace/boostserver/ConsoleApplication1/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object NetModel/CMakeFiles/NetModellib.dir/Server.cpp.o"
-	cd /home/secondtonone1/workspace/boostserver/ConsoleApplication1/NetModel && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/NetModellib.dir/Server.cpp.o -c /home/secondtonone1/workspace/boostserver/ConsoleApplication1/NetModel/Server.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/secondtonone1/workspace/boostserver/BoostServer/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object NetModel/CMakeFiles/NetModellib.dir/Server.cpp.o"
+	cd /home/secondtonone1/workspace/boostserver/BoostServer/NetModel && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/NetModellib.dir/Server.cpp.o -c /home/secondtonone1/workspace/boostserver/BoostServer/NetModel/Server.cpp
 
 NetModel/CMakeFiles/NetModellib.dir/Server.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/NetModellib.dir/Server.cpp.i"
-	cd /home/secondtonone1/workspace/boostserver/ConsoleApplication1/NetModel && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/secondtonone1/workspace/boostserver/ConsoleApplication1/NetModel/Server.cpp > CMakeFiles/NetModellib.dir/Server.cpp.i
+	cd /home/secondtonone1/workspace/boostserver/BoostServer/NetModel && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/secondtonone1/workspace/boostserver/BoostServer/NetModel/Server.cpp > CMakeFiles/NetModellib.dir/Server.cpp.i
 
 NetModel/CMakeFiles/NetModellib.dir/Server.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/NetModellib.dir/Server.cpp.s"
-	cd /home/secondtonone1/workspace/boostserver/ConsoleApplication1/NetModel && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/secondtonone1/workspace/boostserver/ConsoleApplication1/NetModel/Server.cpp -o CMakeFiles/NetModellib.dir/Server.cpp.s
+	cd /home/secondtonone1/workspace/boostserver/BoostServer/NetModel && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/secondtonone1/workspace/boostserver/BoostServer/NetModel/Server.cpp -o CMakeFiles/NetModellib.dir/Server.cpp.s
 
 NetModel/CMakeFiles/NetModellib.dir/Server.cpp.o.requires:
 
@@ -83,16 +83,16 @@ NetModel/CMakeFiles/NetModellib.dir/Server.cpp.o.provides.build: NetModel/CMakeF
 
 NetModel/CMakeFiles/NetModellib.dir/Session.cpp.o: NetModel/CMakeFiles/NetModellib.dir/flags.make
 NetModel/CMakeFiles/NetModellib.dir/Session.cpp.o: NetModel/Session.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/secondtonone1/workspace/boostserver/ConsoleApplication1/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object NetModel/CMakeFiles/NetModellib.dir/Session.cpp.o"
-	cd /home/secondtonone1/workspace/boostserver/ConsoleApplication1/NetModel && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/NetModellib.dir/Session.cpp.o -c /home/secondtonone1/workspace/boostserver/ConsoleApplication1/NetModel/Session.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/secondtonone1/workspace/boostserver/BoostServer/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object NetModel/CMakeFiles/NetModellib.dir/Session.cpp.o"
+	cd /home/secondtonone1/workspace/boostserver/BoostServer/NetModel && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/NetModellib.dir/Session.cpp.o -c /home/secondtonone1/workspace/boostserver/BoostServer/NetModel/Session.cpp
 
 NetModel/CMakeFiles/NetModellib.dir/Session.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/NetModellib.dir/Session.cpp.i"
-	cd /home/secondtonone1/workspace/boostserver/ConsoleApplication1/NetModel && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/secondtonone1/workspace/boostserver/ConsoleApplication1/NetModel/Session.cpp > CMakeFiles/NetModellib.dir/Session.cpp.i
+	cd /home/secondtonone1/workspace/boostserver/BoostServer/NetModel && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/secondtonone1/workspace/boostserver/BoostServer/NetModel/Session.cpp > CMakeFiles/NetModellib.dir/Session.cpp.i
 
 NetModel/CMakeFiles/NetModellib.dir/Session.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/NetModellib.dir/Session.cpp.s"
-	cd /home/secondtonone1/workspace/boostserver/ConsoleApplication1/NetModel && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/secondtonone1/workspace/boostserver/ConsoleApplication1/NetModel/Session.cpp -o CMakeFiles/NetModellib.dir/Session.cpp.s
+	cd /home/secondtonone1/workspace/boostserver/BoostServer/NetModel && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/secondtonone1/workspace/boostserver/BoostServer/NetModel/Session.cpp -o CMakeFiles/NetModellib.dir/Session.cpp.s
 
 NetModel/CMakeFiles/NetModellib.dir/Session.cpp.o.requires:
 
@@ -107,16 +107,16 @@ NetModel/CMakeFiles/NetModellib.dir/Session.cpp.o.provides.build: NetModel/CMake
 
 NetModel/CMakeFiles/NetModellib.dir/StreamNode.cpp.o: NetModel/CMakeFiles/NetModellib.dir/flags.make
 NetModel/CMakeFiles/NetModellib.dir/StreamNode.cpp.o: NetModel/StreamNode.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/secondtonone1/workspace/boostserver/ConsoleApplication1/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object NetModel/CMakeFiles/NetModellib.dir/StreamNode.cpp.o"
-	cd /home/secondtonone1/workspace/boostserver/ConsoleApplication1/NetModel && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/NetModellib.dir/StreamNode.cpp.o -c /home/secondtonone1/workspace/boostserver/ConsoleApplication1/NetModel/StreamNode.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/secondtonone1/workspace/boostserver/BoostServer/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object NetModel/CMakeFiles/NetModellib.dir/StreamNode.cpp.o"
+	cd /home/secondtonone1/workspace/boostserver/BoostServer/NetModel && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/NetModellib.dir/StreamNode.cpp.o -c /home/secondtonone1/workspace/boostserver/BoostServer/NetModel/StreamNode.cpp
 
 NetModel/CMakeFiles/NetModellib.dir/StreamNode.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/NetModellib.dir/StreamNode.cpp.i"
-	cd /home/secondtonone1/workspace/boostserver/ConsoleApplication1/NetModel && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/secondtonone1/workspace/boostserver/ConsoleApplication1/NetModel/StreamNode.cpp > CMakeFiles/NetModellib.dir/StreamNode.cpp.i
+	cd /home/secondtonone1/workspace/boostserver/BoostServer/NetModel && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/secondtonone1/workspace/boostserver/BoostServer/NetModel/StreamNode.cpp > CMakeFiles/NetModellib.dir/StreamNode.cpp.i
 
 NetModel/CMakeFiles/NetModellib.dir/StreamNode.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/NetModellib.dir/StreamNode.cpp.s"
-	cd /home/secondtonone1/workspace/boostserver/ConsoleApplication1/NetModel && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/secondtonone1/workspace/boostserver/ConsoleApplication1/NetModel/StreamNode.cpp -o CMakeFiles/NetModellib.dir/StreamNode.cpp.s
+	cd /home/secondtonone1/workspace/boostserver/BoostServer/NetModel && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/secondtonone1/workspace/boostserver/BoostServer/NetModel/StreamNode.cpp -o CMakeFiles/NetModellib.dir/StreamNode.cpp.s
 
 NetModel/CMakeFiles/NetModellib.dir/StreamNode.cpp.o.requires:
 
@@ -143,9 +143,9 @@ NetModel/libNetModellib.a: NetModel/CMakeFiles/NetModellib.dir/Session.cpp.o
 NetModel/libNetModellib.a: NetModel/CMakeFiles/NetModellib.dir/StreamNode.cpp.o
 NetModel/libNetModellib.a: NetModel/CMakeFiles/NetModellib.dir/build.make
 NetModel/libNetModellib.a: NetModel/CMakeFiles/NetModellib.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/secondtonone1/workspace/boostserver/ConsoleApplication1/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX static library libNetModellib.a"
-	cd /home/secondtonone1/workspace/boostserver/ConsoleApplication1/NetModel && $(CMAKE_COMMAND) -P CMakeFiles/NetModellib.dir/cmake_clean_target.cmake
-	cd /home/secondtonone1/workspace/boostserver/ConsoleApplication1/NetModel && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/NetModellib.dir/link.txt --verbose=$(VERBOSE)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/secondtonone1/workspace/boostserver/BoostServer/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX static library libNetModellib.a"
+	cd /home/secondtonone1/workspace/boostserver/BoostServer/NetModel && $(CMAKE_COMMAND) -P CMakeFiles/NetModellib.dir/cmake_clean_target.cmake
+	cd /home/secondtonone1/workspace/boostserver/BoostServer/NetModel && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/NetModellib.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
 NetModel/CMakeFiles/NetModellib.dir/build: NetModel/libNetModellib.a
@@ -159,10 +159,10 @@ NetModel/CMakeFiles/NetModellib.dir/requires: NetModel/CMakeFiles/NetModellib.di
 .PHONY : NetModel/CMakeFiles/NetModellib.dir/requires
 
 NetModel/CMakeFiles/NetModellib.dir/clean:
-	cd /home/secondtonone1/workspace/boostserver/ConsoleApplication1/NetModel && $(CMAKE_COMMAND) -P CMakeFiles/NetModellib.dir/cmake_clean.cmake
+	cd /home/secondtonone1/workspace/boostserver/BoostServer/NetModel && $(CMAKE_COMMAND) -P CMakeFiles/NetModellib.dir/cmake_clean.cmake
 .PHONY : NetModel/CMakeFiles/NetModellib.dir/clean
 
 NetModel/CMakeFiles/NetModellib.dir/depend:
-	cd /home/secondtonone1/workspace/boostserver/ConsoleApplication1 && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/secondtonone1/workspace/boostserver/ConsoleApplication1 /home/secondtonone1/workspace/boostserver/ConsoleApplication1/NetModel /home/secondtonone1/workspace/boostserver/ConsoleApplication1 /home/secondtonone1/workspace/boostserver/ConsoleApplication1/NetModel /home/secondtonone1/workspace/boostserver/ConsoleApplication1/NetModel/CMakeFiles/NetModellib.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/secondtonone1/workspace/boostserver/BoostServer && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/secondtonone1/workspace/boostserver/BoostServer /home/secondtonone1/workspace/boostserver/BoostServer/NetModel /home/secondtonone1/workspace/boostserver/BoostServer /home/secondtonone1/workspace/boostserver/BoostServer/NetModel /home/secondtonone1/workspace/boostserver/BoostServer/NetModel/CMakeFiles/NetModellib.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : NetModel/CMakeFiles/NetModellib.dir/depend
 

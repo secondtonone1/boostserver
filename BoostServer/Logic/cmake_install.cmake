@@ -1,4 +1,4 @@
-# Install script for directory: /home/secondtonone1/workspace/boostserver/ConsoleApplication1/Logic
+# Install script for directory: /home/secondtonone1/workspace/boostserver/BoostServer/Logic
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

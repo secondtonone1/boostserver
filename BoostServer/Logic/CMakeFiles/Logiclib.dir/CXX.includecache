@@ -6,25 +6,25 @@
 
 #IncludeRegexTransform: 
 
-/home/secondtonone1/workspace/boostserver/ConsoleApplication1/Logic/HeartBeat.cpp
+/home/secondtonone1/workspace/boostserver/BoostServer/Logic/HeartBeat.cpp
 HeartBeat.h
-/home/secondtonone1/workspace/boostserver/ConsoleApplication1/Logic/HeartBeat.h
+/home/secondtonone1/workspace/boostserver/BoostServer/Logic/HeartBeat.h
 iostream
 -
 
-/home/secondtonone1/workspace/boostserver/ConsoleApplication1/Logic/HeartBeat.h
+/home/secondtonone1/workspace/boostserver/BoostServer/Logic/HeartBeat.h
 Singleton.h
-/home/secondtonone1/workspace/boostserver/ConsoleApplication1/Logic/Singleton.h
+/home/secondtonone1/workspace/boostserver/BoostServer/Logic/Singleton.h
 ../NetModel/Session.h
-/home/secondtonone1/workspace/boostserver/ConsoleApplication1/NetModel/Session.h
+/home/secondtonone1/workspace/boostserver/BoostServer/NetModel/Session.h
 
-/home/secondtonone1/workspace/boostserver/ConsoleApplication1/Logic/Singleton.h
+/home/secondtonone1/workspace/boostserver/BoostServer/Logic/Singleton.h
 iostream
 -
 boost/shared_ptr.hpp
 -
 
-/home/secondtonone1/workspace/boostserver/ConsoleApplication1/NetModel/Session.h
+/home/secondtonone1/workspace/boostserver/BoostServer/NetModel/Session.h
 iostream
 -
 string
@@ -36,9 +36,9 @@ boost/enable_shared_from_this.hpp
 deque
 -
 StreamNode.h
-/home/secondtonone1/workspace/boostserver/ConsoleApplication1/NetModel/StreamNode.h
+/home/secondtonone1/workspace/boostserver/BoostServer/NetModel/StreamNode.h
 
-/home/secondtonone1/workspace/boostserver/ConsoleApplication1/NetModel/StreamNode.h
+/home/secondtonone1/workspace/boostserver/BoostServer/NetModel/StreamNode.h
 iostream
 -
 string
