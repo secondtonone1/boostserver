@@ -14,6 +14,12 @@
     <ClCompile Include="NetModel\StreamNode.cpp">
       <Filter>NetModel</Filter>
     </ClCompile>
+    <ClCompile Include="Logic\LogicSystem.cpp">
+      <Filter>Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\Player.cpp">
+      <Filter>Logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Logic\Singleton.h">
@@ -36,6 +42,12 @@
     </ClInclude>
     <ClInclude Include="NetModel\StreamNode.h">
       <Filter>NetModel</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\LogicSystem.h">
+      <Filter>Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\Player.h">
+      <Filter>Logic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

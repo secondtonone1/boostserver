@@ -5,6 +5,8 @@
 
 #include "MsgHandler.h"
 #include "HeartBeat.h"
+typedef unsigned long long  uint64;
+typedef unsigned int uint32;
 enum MsgIDs
 {
 	//基本消息
