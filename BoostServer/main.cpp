@@ -30,7 +30,7 @@ int main(void) {
 #endif //__linux__
 		REGISTER_MSG();
 		boost::property_tree::ptree pt,tag_setting;
-		boost::property_tree::ini_parser::read_ini("../data/config.ini",pt);
+		boost::property_tree::ini_parser::read_ini("./data/config.ini",pt);
 		//tag_setting = pt.get_child("config");
 		
 		boost::asio::io_service ios;
