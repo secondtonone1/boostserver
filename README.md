@@ -6,6 +6,8 @@
 3. 异步收发数据  
 4. 心跳检测  
 5. 连接管理和异常处理  
+6. 回调函数封装和注册  
+
 ### 配合客户端
 配合客户端示例查看 [https://github.com/secondtonone1/boostclient](https://github.com/secondtonone1/boostclient)
 ### 存在的问题
