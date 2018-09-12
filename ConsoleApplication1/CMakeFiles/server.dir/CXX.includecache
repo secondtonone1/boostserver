@@ -6,17 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/secondtonone1/workspace/boostserver/ConsoleApplication1/Server.cpp
-Server.h
-/home/secondtonone1/workspace/boostserver/ConsoleApplication1/Server.h
-boost/bind.hpp
--
-Session.h
-/home/secondtonone1/workspace/boostserver/ConsoleApplication1/Session.h
-iostream
--
-
-/home/secondtonone1/workspace/boostserver/ConsoleApplication1/Server.h
+/home/secondtonone1/workspace/boostserver/ConsoleApplication1/./NetModel/Server.h
 string.h
 -
 boost/asio.hpp
@@ -24,46 +14,6 @@ boost/asio.hpp
 boost/shared_ptr.hpp
 -
 boost/unordered_map.hpp
--
-
-/home/secondtonone1/workspace/boostserver/ConsoleApplication1/Session.cpp
-Session.h
-/home/secondtonone1/workspace/boostserver/ConsoleApplication1/Session.h
-boost/bind.hpp
--
-string.h
--
-assert.h
--
-
-/home/secondtonone1/workspace/boostserver/ConsoleApplication1/Session.h
-iostream
--
-string
--
-boost/asio.hpp
--
-boost/enable_shared_from_this.hpp
--
-deque
--
-StreamNode.h
-/home/secondtonone1/workspace/boostserver/ConsoleApplication1/StreamNode.h
-
-/home/secondtonone1/workspace/boostserver/ConsoleApplication1/StreamNode.cpp
-StreamNode.h
-/home/secondtonone1/workspace/boostserver/ConsoleApplication1/StreamNode.h
-
-/home/secondtonone1/workspace/boostserver/ConsoleApplication1/StreamNode.h
-iostream
--
-string
--
-boost/asio.hpp
--
-boost/enable_shared_from_this.hpp
--
-boost/make_shared.hpp
 -
 
 /home/secondtonone1/workspace/boostserver/ConsoleApplication1/main.cpp
@@ -85,8 +35,8 @@ boost/property_tree/ptree.hpp
 -
 boost/property_tree/ini_parser.hpp
 -
-Server.h
-/home/secondtonone1/workspace/boostserver/ConsoleApplication1/Server.h
+./NetModel/Server.h
+/home/secondtonone1/workspace/boostserver/ConsoleApplication1/./NetModel/Server.h
 
 /usr/local/include/boost/any.hpp
 algorithm
@@ -9238,10 +9188,6 @@ boost/detail/winapi/detail/deprecated_namespace.hpp
 boost/config/workaround.hpp
 -
 
-/usr/local/include/boost/enable_shared_from_this.hpp
-boost/smart_ptr/enable_shared_from_this.hpp
--
-
 /usr/local/include/boost/exception/exception.hpp
 memory
 -
@@ -9844,10 +9790,6 @@ boost/config.hpp
 limits
 -
 climits
--
-
-/usr/local/include/boost/make_shared.hpp
-boost/smart_ptr/make_shared.hpp
 -
 
 /usr/local/include/boost/mem_fn.hpp
@@ -17468,20 +17410,6 @@ boost/mpl/bool_fwd.hpp
 boost/smart_ptr/shared_ptr.hpp
 -
 
-/usr/local/include/boost/smart_ptr/allocate_shared_array.hpp
-boost/smart_ptr/shared_ptr.hpp
--
-boost/type_traits/alignment_of.hpp
--
-boost/type_traits/has_trivial_assign.hpp
--
-boost/type_traits/has_trivial_constructor.hpp
--
-boost/type_traits/has_trivial_destructor.hpp
--
-boost/type_traits/type_with_alignment.hpp
--
-
 /usr/local/include/boost/smart_ptr/bad_weak_ptr.hpp
 boost/config.hpp
 -
@@ -17812,10 +17740,6 @@ cstddef
 boost/config.hpp
 -
 
-/usr/local/include/boost/smart_ptr/detail/sp_forward.hpp
-boost/config.hpp
--
-
 /usr/local/include/boost/smart_ptr/detail/sp_has_sync.hpp
 
 /usr/local/include/boost/smart_ptr/detail/sp_interlocked.hpp
@@ -17910,52 +17834,6 @@ windows.h
 sched.h
 -
 time.h
--
-
-/usr/local/include/boost/smart_ptr/enable_shared_from_this.hpp
-boost/smart_ptr/weak_ptr.hpp
--
-boost/smart_ptr/shared_ptr.hpp
--
-boost/smart_ptr/detail/sp_noexcept.hpp
--
-boost/assert.hpp
--
-boost/config.hpp
--
-
-/usr/local/include/boost/smart_ptr/make_shared.hpp
-boost/smart_ptr/make_shared_object.hpp
--
-boost/smart_ptr/make_shared_array.hpp
--
-boost/smart_ptr/allocate_shared_array.hpp
--
-
-/usr/local/include/boost/smart_ptr/make_shared_array.hpp
-boost/smart_ptr/allocate_shared_array.hpp
--
-
-/usr/local/include/boost/smart_ptr/make_shared_object.hpp
-boost/config.hpp
--
-boost/move/core.hpp
--
-boost/move/utility_core.hpp
--
-boost/smart_ptr/shared_ptr.hpp
--
-boost/smart_ptr/detail/sp_forward.hpp
--
-boost/smart_ptr/detail/sp_noexcept.hpp
--
-boost/type_traits/type_with_alignment.hpp
--
-boost/type_traits/alignment_of.hpp
--
-cstddef
--
-new
 -
 
 /usr/local/include/boost/smart_ptr/scoped_array.hpp
