@@ -2,8 +2,9 @@
 #include <boost/bind.hpp>
 #include <string.h>
 #include <assert.h>
+#include "../Logic/MsgDefine.h"
 BoostSession::BoostSession(boost::asio::io_service& _ioService)
-	:m_socket(_ioService),m_nAliveTime(boost::posix_time::microsec_clock::universal_time()) {
+	:m_socket(_ioService),m_nAliveTime(boost::posix_time::second_clock::universal_time()) {
 		memset(m_cData, 0, BUFFERSIZE);
 		m_bPendingSend = false;
 		m_bPendingRecv = false;
@@ -70,8 +71,9 @@ bool BoostSession::done_handler(const boost::system::error_code& _error) {
 			//接收完全
 			char strMsgData[BUFFERSIZE]={0};
 			getReadData(strMsgData,m_msgHead.m_nMsgLen);
-			std::cout <<"Receive Data : " <<strMsgData <<std::endl;
-			write_msg(strMsgData,m_msgHead.m_nMsgId,m_msgHead.m_nMsgLen);
+			MsgHandlerInst::instance()->HandleMsg(m_msgHead.m_nMsgId, strMsgData, shared_from_this());
+			//std::cout <<"Receive Data : " <<strMsgData <<std::endl;
+			//write_msg(strMsgData,m_msgHead.m_nMsgId,m_msgHead.m_nMsgLen);
 			continue;
 		}
 		 //继续上次未收全的接收
@@ -80,8 +82,9 @@ bool BoostSession::done_handler(const boost::system::error_code& _error) {
 		//接收完全
 		char strMsgData[BUFFERSIZE]={0};
 	    getReadData(strMsgData,m_msgHead.m_nMsgLen);
-		std::cout <<"Receive Data : " <<strMsgData <<std::endl;
-		write_msg(strMsgData,m_msgHead.m_nMsgId,m_msgHead.m_nMsgLen);
+		MsgHandlerInst::instance()->HandleMsg(m_msgHead.m_nMsgId, strMsgData, shared_from_this());
+		//std::cout <<"Receive Data : " <<strMsgData <<std::endl;
+		//write_msg(strMsgData,m_msgHead.m_nMsgId,m_msgHead.m_nMsgLen);
 		m_bPendingRecv = false;
 
 	}
@@ -154,12 +157,15 @@ unsigned int BoostSession::getReadData(char* pData, int nRead)
 	return nCur;
 }
 
-
-
-	const boost::posix_time::ptime &BoostSession::getLiveTime()
-	{
+const boost::posix_time::ptime &BoostSession::getLiveTime()
+{
 		return m_nAliveTime;
-	}
+}
+
+void BoostSession::updateLive()
+{
+		m_nAliveTime = boost::posix_time::second_clock::universal_time();
+}
 
 void BoostSession::read_handler(const boost::system::error_code& _error, size_t _readSize) {
 	if (_error) {
@@ -195,8 +201,8 @@ void BoostSession::write_handler(const boost::system::error_code& _error, size_t
 		   m_bPendingSend = false;
 		   return;
 	}
-	std::cout << "Send Msg Success:  "<< std::string(m_pOutPutQue.front()->getMsgData()+m_pOutPutQue.front()->getOffSet(),_writeSize)
-		<<std::endl;
+	//std::cout << "Send Msg Success:  "<< std::string(m_pOutPutQue.front()->getMsgData()+m_pOutPutQue.front()->getOffSet(),_writeSize)
+		//<<std::endl;
 	m_pOutPutQue.front()->resetOffset(_writeSize);
 	async_send();
 }

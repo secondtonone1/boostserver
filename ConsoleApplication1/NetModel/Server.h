@@ -4,12 +4,11 @@
 #include <boost/asio.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/unordered_map.hpp>
-class BoostSession;
+#include "Session.h"
 class BoostServer {
 private:
 	// 保存会话指针
-	typedef	boost::shared_ptr<BoostSession>	session_ptr;
-	typedef boost::weak_ptr<BoostSession> weak_session_ptr;
+	
 public:
 	BoostServer(boost::asio::io_service & ioService, boost::asio::ip::tcp::endpoint & endpoint);
 	virtual ~BoostServer(void);

@@ -82,13 +82,16 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MsgHandler.h" />
+    <ClInclude Include="Logic\HeartBeat.h" />
+    <ClInclude Include="Logic\MsgDefine.h" />
+    <ClInclude Include="Logic\MsgHandler.h" />
+    <ClInclude Include="Logic\Singleton.h" />
     <ClInclude Include="NetModel\Server.h" />
     <ClInclude Include="NetModel\Session.h" />
     <ClInclude Include="NetModel\StreamNode.h" />
-    <ClInclude Include="Singleton.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Logic\HeartBeat.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="NetModel\Server.cpp" />
     <ClCompile Include="NetModel\Session.cpp" />

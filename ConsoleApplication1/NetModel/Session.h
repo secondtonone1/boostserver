@@ -6,10 +6,10 @@
 #include <boost/enable_shared_from_this.hpp>
 #include <deque>
 #include "StreamNode.h"
+
 // 会话类
 class BoostSession : public boost::enable_shared_from_this<BoostSession>
 {
-
 public:
 	// 
 	typedef	boost::shared_ptr<StreamNode>	streamnode_ptr;
@@ -21,6 +21,8 @@ public:
 	// socket 实例
 	boost::asio::ip::tcp::socket& socket(void);
 	const boost::posix_time::ptime &getLiveTime();
+	void updateLive();
+	void write_msg(const char * msg, unsigned int nMsgId,  unsigned int nLen);
 private:
 	// 完成数据传输后触发的收尾工作
 	bool done_handler(const boost::system::error_code& _error);
@@ -28,7 +30,7 @@ private:
 	void read_handler(const boost::system::error_code& _error, size_t _readSize);
 	// 写入完成后触发的函数
 	void write_handler(const boost::system::error_code& _error, size_t _writeSize);
-	void write_msg(const char * msg, unsigned int nMsgId,  unsigned int nLen);
+	
 	void async_send();
 	unsigned int  getReadLen();
 	//std::string  getReadData(int nDataLen = 0);
@@ -60,5 +62,8 @@ private:
 	//心跳时间
 	boost::posix_time::ptime  m_nAliveTime;
 };
+
+typedef	boost::shared_ptr<BoostSession>	session_ptr;
+typedef boost::weak_ptr<BoostSession> weak_session_ptr;
 
 #endif //__BOOST_SESSION_H__

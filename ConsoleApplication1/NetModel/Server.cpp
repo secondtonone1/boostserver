@@ -49,7 +49,7 @@ void BoostServer::accept_handler(session_ptr _chatSession, const boost::system::
 void BoostServer::handleExpConn()
 {
 	//客户端每3秒发送一次心跳包，服务器每隔10秒检测，超过5秒算超时
-	boost::posix_time::ptime nowtime (boost::posix_time::microsec_clock::universal_time());
+	boost::posix_time::ptime nowtime (boost::posix_time::second_clock::universal_time());
 	auto iterWeakSession = m_listweaksession.begin();
 	while(iterWeakSession != m_listweaksession.end())
 	{

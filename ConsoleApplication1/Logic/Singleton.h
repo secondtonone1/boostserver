@@ -30,6 +30,6 @@ private:
 };
 
 template <typename T>
-boost::shared_ptr<T> Singleton::_instance = NULL;
+boost::shared_ptr<T> Singleton<T>::_instance = NULL;
 
 #endif//__MSG_SINGLETON_H__

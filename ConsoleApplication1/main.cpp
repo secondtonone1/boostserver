@@ -13,7 +13,7 @@
 #include <boost/property_tree/ptree.hpp>  
 #include <boost/property_tree/ini_parser.hpp>
 #include "./NetModel/Server.h"
-
+#include "./Logic/MsgDefine.h"
 
 int main(void) {
 	try {
@@ -28,7 +28,7 @@ int main(void) {
 			std::cout << "Error ignoring SIGPIPE!"<<std::endl;
 		}
 #endif //__linux__
-
+		REGISTER_MSG();
 		boost::property_tree::ptree pt,tag_setting;
 		boost::property_tree::ini_parser::read_ini("../data/config.ini",pt);
 		//tag_setting = pt.get_child("config");

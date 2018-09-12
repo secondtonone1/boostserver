@@ -13,12 +13,6 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MsgHandler.h">
-      <Filter>Logic</Filter>
-    </ClInclude>
-    <ClInclude Include="Singleton.h">
-      <Filter>Logic</Filter>
-    </ClInclude>
     <ClInclude Include="NetModel\StreamNode.h">
       <Filter>NetModel</Filter>
     </ClInclude>
@@ -28,11 +22,20 @@
     <ClInclude Include="NetModel\Session.h">
       <Filter>NetModel</Filter>
     </ClInclude>
+    <ClInclude Include="Logic\HeartBeat.h">
+      <Filter>Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\MsgHandler.h">
+      <Filter>Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\Singleton.h">
+      <Filter>Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\MsgDefine.h">
+      <Filter>Logic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Logic</Filter>
-    </ClCompile>
     <ClCompile Include="NetModel\Server.cpp">
       <Filter>NetModel</Filter>
     </ClCompile>
@@ -41,6 +44,10 @@
     </ClCompile>
     <ClCompile Include="NetModel\StreamNode.cpp">
       <Filter>NetModel</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Logic\HeartBeat.cpp">
+      <Filter>Logic</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
