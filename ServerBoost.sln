@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ConsoleApplication1", "ConsoleApplication1\ConsoleApplication1.vcxproj", "{1C5B029B-A9EF-41E1-8139-A0B66E9E38CE}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BoostServer", "BoostServer\BoostServer.vcxproj", "{1C5B029B-A9EF-41E1-8139-A0B66E9E38CE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

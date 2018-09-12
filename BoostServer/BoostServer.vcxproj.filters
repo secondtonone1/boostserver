@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Logic\HeartBeat.cpp">
+      <Filter>Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="NetModel\Server.cpp">
+      <Filter>NetModel</Filter>
+    </ClCompile>
+    <ClCompile Include="NetModel\Session.cpp">
+      <Filter>NetModel</Filter>
+    </ClCompile>
+    <ClCompile Include="NetModel\StreamNode.cpp">
+      <Filter>NetModel</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Logic\Singleton.h">
+      <Filter>Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\MsgHandler.h">
+      <Filter>Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\MsgDefine.h">
+      <Filter>Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\HeartBeat.h">
+      <Filter>Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="NetModel\Server.h">
+      <Filter>NetModel</Filter>
+    </ClInclude>
+    <ClInclude Include="NetModel\Session.h">
+      <Filter>NetModel</Filter>
+    </ClInclude>
+    <ClInclude Include="NetModel\StreamNode.h">
+      <Filter>NetModel</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Logic">
+      <UniqueIdentifier>{74c94e2b-698c-4110-a965-01b60fe26281}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NetModel">
+      <UniqueIdentifier>{ecade6ba-09bc-4fe9-bbbb-1eb33e9df66a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

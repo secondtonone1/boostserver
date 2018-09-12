@@ -1,1 +1,0 @@
-/usr/bin/c++  -pthread  -rdynamic CMakeFiles/server.dir/main.cpp.o  -o server  -L/usr/local/lib -Wl,-rpath,/usr/local/lib -Wl,-Bstatic -lboost_thread -lboost_system -lboost_date_time NetModel/libNetModellib.a Logic/libLogiclib.a -Wl,-Bdynamic 

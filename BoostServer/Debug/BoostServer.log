@@ -1,0 +1,38 @@
+﻿生成启动时间为 2018/9/12 星期三 下午 2:44:21。
+     1>项目“D:\github\boostserver\BoostServer\BoostServer.vcxproj”在节点 2 上(Build 个目标)。
+     1>ClCompile:
+         F:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ID:\boost_1_68_0 /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Logic\HeartBeat.cpp NetModel\Server.cpp NetModel\Session.cpp NetModel\StreamNode.cpp main.cpp
+         StreamNode.cpp
+         Please define _WIN32_WINNT or _WIN32_WINDOWS appropriately. For example:
+         - add -D_WIN32_WINNT=0x0501 to the compiler command line; or
+         - add _WIN32_WINNT=0x0501 to your project's Preprocessor Definitions.
+         Assuming _WIN32_WINNT=0x0501 (i.e. Windows XP target).
+         Session.cpp
+     1>d:\github\boostserver\boostserver\netmodel\session.cpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+     1>d:\github\boostserver\boostserver\netmodel\session.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+         Please define _WIN32_WINNT or _WIN32_WINDOWS appropriately. For example:
+         - add -D_WIN32_WINNT=0x0501 to the compiler command line; or
+         - add _WIN32_WINNT=0x0501 to your project's Preprocessor Definitions.
+         Assuming _WIN32_WINNT=0x0501 (i.e. Windows XP target).
+         HeartBeat.cpp
+     1>d:\github\boostserver\boostserver\netmodel\session.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+         Please define _WIN32_WINNT or _WIN32_WINDOWS appropriately. For example:
+         - add -D_WIN32_WINNT=0x0501 to the compiler command line; or
+         - add _WIN32_WINNT=0x0501 to your project's Preprocessor Definitions.
+         Assuming _WIN32_WINNT=0x0501 (i.e. Windows XP target).
+         正在生成代码...
+         正在跳过...(未检测到相关更改)
+         main.cpp
+         Server.cpp
+       Link:
+         F:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\github\boostserver\Debug\BoostServer.exe" /INCREMENTAL /NOLOGO /LIBPATH:F:\boost\boost_1_53_0\bin\vc11\lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\github\boostserver\Debug\BoostServer.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\github\boostserver\Debug\BoostServer.lib" /MACHINE:X86 Debug\HeartBeat.obj
+         Debug\main.obj
+         Debug\Server.obj
+         Debug\Session.obj
+         Debug\StreamNode.obj
+         BoostServer.vcxproj -> D:\github\boostserver\Debug\BoostServer.exe
+     1>已完成生成项目“D:\github\boostserver\BoostServer\BoostServer.vcxproj”(Build 个目标)的操作。
+
+生成成功。
+
+已用时间 00:00:09.72
