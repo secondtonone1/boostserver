@@ -136,6 +136,19 @@ NetModellib/fast:
 	$(MAKE) -f NetModel/CMakeFiles/NetModellib.dir/build.make NetModel/CMakeFiles/NetModellib.dir/build
 .PHONY : NetModellib/fast
 
+#=============================================================================
+# Target rules for targets named Logiclib
+
+# Build rule for target.
+Logiclib: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 Logiclib
+.PHONY : Logiclib
+
+# fast build rule for target.
+Logiclib/fast:
+	$(MAKE) -f Logic/CMakeFiles/Logiclib.dir/build.make Logic/CMakeFiles/Logiclib.dir/build
+.PHONY : Logiclib/fast
+
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -173,6 +186,7 @@ help:
 	@echo "... server"
 	@echo "... edit_cache"
 	@echo "... NetModellib"
+	@echo "... Logiclib"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

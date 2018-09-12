@@ -6,6 +6,38 @@
 
 #IncludeRegexTransform: 
 
+/home/secondtonone1/workspace/boostserver/ConsoleApplication1/Logic/HeartBeat.h
+Singleton.h
+/home/secondtonone1/workspace/boostserver/ConsoleApplication1/Logic/Singleton.h
+../NetModel/Session.h
+/home/secondtonone1/workspace/boostserver/ConsoleApplication1/NetModel/Session.h
+
+/home/secondtonone1/workspace/boostserver/ConsoleApplication1/Logic/MsgDefine.h
+boost/asio.hpp
+-
+boost/enable_shared_from_this.hpp
+-
+MsgHandler.h
+/home/secondtonone1/workspace/boostserver/ConsoleApplication1/Logic/MsgHandler.h
+HeartBeat.h
+/home/secondtonone1/workspace/boostserver/ConsoleApplication1/Logic/HeartBeat.h
+
+/home/secondtonone1/workspace/boostserver/ConsoleApplication1/Logic/MsgHandler.h
+boost/function.hpp
+-
+boost/unordered_map.hpp
+-
+Singleton.h
+/home/secondtonone1/workspace/boostserver/ConsoleApplication1/Logic/Singleton.h
+../NetModel/Session.h
+/home/secondtonone1/workspace/boostserver/ConsoleApplication1/NetModel/Session.h
+
+/home/secondtonone1/workspace/boostserver/ConsoleApplication1/Logic/Singleton.h
+iostream
+-
+boost/shared_ptr.hpp
+-
+
 /home/secondtonone1/workspace/boostserver/ConsoleApplication1/NetModel/Server.cpp
 Server.h
 /home/secondtonone1/workspace/boostserver/ConsoleApplication1/NetModel/Server.h
@@ -25,6 +57,8 @@ boost/shared_ptr.hpp
 -
 boost/unordered_map.hpp
 -
+Session.h
+/home/secondtonone1/workspace/boostserver/ConsoleApplication1/NetModel/Session.h
 
 /home/secondtonone1/workspace/boostserver/ConsoleApplication1/NetModel/Session.cpp
 Session.h
@@ -35,6 +69,8 @@ string.h
 -
 assert.h
 -
+../Logic/MsgDefine.h
+/home/secondtonone1/workspace/boostserver/ConsoleApplication1/Logic/MsgDefine.h
 
 /home/secondtonone1/workspace/boostserver/ConsoleApplication1/NetModel/Session.h
 iostream

@@ -64,9 +64,10 @@ CMAKE_BINARY_DIR = /home/secondtonone1/workspace/boostserver/ConsoleApplication1
 
 # All Build rule for target.
 CMakeFiles/server.dir/all: NetModel/CMakeFiles/NetModellib.dir/all
+CMakeFiles/server.dir/all: Logic/CMakeFiles/Logiclib.dir/all
 	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/depend
 	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/secondtonone1/workspace/boostserver/ConsoleApplication1/CMakeFiles --progress-num=5,6 "Built target server"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/secondtonone1/workspace/boostserver/ConsoleApplication1/CMakeFiles --progress-num=7,8 "Built target server"
 .PHONY : CMakeFiles/server.dir/all
 
 # Include target in all.
@@ -76,7 +77,7 @@ all: CMakeFiles/server.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/server.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/secondtonone1/workspace/boostserver/ConsoleApplication1/CMakeFiles 6
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/secondtonone1/workspace/boostserver/ConsoleApplication1/CMakeFiles 8
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/server.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/secondtonone1/workspace/boostserver/ConsoleApplication1/CMakeFiles 0
 .PHONY : CMakeFiles/server.dir/rule
@@ -121,7 +122,7 @@ NetModel/preinstall:
 NetModel/CMakeFiles/NetModellib.dir/all:
 	$(MAKE) -f NetModel/CMakeFiles/NetModellib.dir/build.make NetModel/CMakeFiles/NetModellib.dir/depend
 	$(MAKE) -f NetModel/CMakeFiles/NetModellib.dir/build.make NetModel/CMakeFiles/NetModellib.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/secondtonone1/workspace/boostserver/ConsoleApplication1/CMakeFiles --progress-num=1,2,3,4 "Built target NetModellib"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/secondtonone1/workspace/boostserver/ConsoleApplication1/CMakeFiles --progress-num=3,4,5,6 "Built target NetModellib"
 .PHONY : NetModel/CMakeFiles/NetModellib.dir/all
 
 # Include target in all.
@@ -148,6 +149,61 @@ NetModel/CMakeFiles/NetModellib.dir/clean:
 
 # clean rule for target.
 clean: NetModel/CMakeFiles/NetModellib.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Directory level rules for directory Logic
+
+# Convenience name for "all" pass in the directory.
+Logic/all: Logic/CMakeFiles/Logiclib.dir/all
+
+.PHONY : Logic/all
+
+# Convenience name for "clean" pass in the directory.
+Logic/clean: Logic/CMakeFiles/Logiclib.dir/clean
+
+.PHONY : Logic/clean
+
+# Convenience name for "preinstall" pass in the directory.
+Logic/preinstall:
+
+.PHONY : Logic/preinstall
+
+#=============================================================================
+# Target rules for target Logic/CMakeFiles/Logiclib.dir
+
+# All Build rule for target.
+Logic/CMakeFiles/Logiclib.dir/all:
+	$(MAKE) -f Logic/CMakeFiles/Logiclib.dir/build.make Logic/CMakeFiles/Logiclib.dir/depend
+	$(MAKE) -f Logic/CMakeFiles/Logiclib.dir/build.make Logic/CMakeFiles/Logiclib.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/secondtonone1/workspace/boostserver/ConsoleApplication1/CMakeFiles --progress-num=1,2 "Built target Logiclib"
+.PHONY : Logic/CMakeFiles/Logiclib.dir/all
+
+# Include target in all.
+all: Logic/CMakeFiles/Logiclib.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+Logic/CMakeFiles/Logiclib.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/secondtonone1/workspace/boostserver/ConsoleApplication1/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 Logic/CMakeFiles/Logiclib.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/secondtonone1/workspace/boostserver/ConsoleApplication1/CMakeFiles 0
+.PHONY : Logic/CMakeFiles/Logiclib.dir/rule
+
+# Convenience name for target.
+Logiclib: Logic/CMakeFiles/Logiclib.dir/rule
+
+.PHONY : Logiclib
+
+# clean rule for target.
+Logic/CMakeFiles/Logiclib.dir/clean:
+	$(MAKE) -f Logic/CMakeFiles/Logiclib.dir/build.make Logic/CMakeFiles/Logiclib.dir/clean
+.PHONY : Logic/CMakeFiles/Logiclib.dir/clean
+
+# clean rule for target.
+clean: Logic/CMakeFiles/Logiclib.dir/clean
 
 .PHONY : clean
 

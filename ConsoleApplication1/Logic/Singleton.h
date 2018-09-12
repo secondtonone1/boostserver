@@ -1,7 +1,7 @@
 #ifndef __MSG_SINGLETON_H__
 #define __MSG_SINGLETON_H__
 #include <iostream>
-#include <boost\shared_ptr.hpp>
+#include <boost/shared_ptr.hpp>
 
 template <typename T>
 class Singleton

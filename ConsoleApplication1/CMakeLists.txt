@@ -8,7 +8,9 @@ include_directories(/usr/local/include)
 link_directories(/usr/local/lib)
 #添加 netmodel子目录
 add_subdirectory(NetModel)
+#添加 logic子目录
+add_subdirectory(Logic)
 #指定生成目标
 add_executable(${PROJECT_NAME} main.cpp)
 #添加链接库
-target_link_libraries(${PROJECT_NAME} "libboost_thread.a" "libboost_system.a" "libboost_date_time.a" NetModellib)
+target_link_libraries(${PROJECT_NAME} "libboost_thread.a" "libboost_system.a" "libboost_date_time.a" NetModellib Logiclib)

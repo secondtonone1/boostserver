@@ -91,6 +91,7 @@ server_EXTERNAL_OBJECTS =
 server: CMakeFiles/server.dir/main.cpp.o
 server: CMakeFiles/server.dir/build.make
 server: NetModel/libNetModellib.a
+server: Logic/libLogiclib.a
 server: CMakeFiles/server.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/secondtonone1/workspace/boostserver/ConsoleApplication1/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable server"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/server.dir/link.txt --verbose=$(VERBOSE)

@@ -16,6 +16,7 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
   "/home/secondtonone1/workspace/boostserver/ConsoleApplication1/NetModel/CMakeFiles/NetModellib.dir/DependInfo.cmake"
+  "/home/secondtonone1/workspace/boostserver/ConsoleApplication1/Logic/CMakeFiles/Logiclib.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.

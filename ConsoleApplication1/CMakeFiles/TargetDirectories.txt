@@ -4,3 +4,6 @@
 /home/secondtonone1/workspace/boostserver/ConsoleApplication1/NetModel/CMakeFiles/rebuild_cache.dir
 /home/secondtonone1/workspace/boostserver/ConsoleApplication1/NetModel/CMakeFiles/NetModellib.dir
 /home/secondtonone1/workspace/boostserver/ConsoleApplication1/NetModel/CMakeFiles/edit_cache.dir
+/home/secondtonone1/workspace/boostserver/ConsoleApplication1/Logic/CMakeFiles/rebuild_cache.dir
+/home/secondtonone1/workspace/boostserver/ConsoleApplication1/Logic/CMakeFiles/Logiclib.dir
+/home/secondtonone1/workspace/boostserver/ConsoleApplication1/Logic/CMakeFiles/edit_cache.dir
