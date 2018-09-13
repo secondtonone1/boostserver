@@ -8,12 +8,7 @@
 #define BUFFERSIZE 1024
 #define MAXAVAILABLE 50
 #define MAXMSGID 1700
-struct MsgHeadData
-{
-	 unsigned int m_nMsgId;
-	 unsigned int m_nMsgLen;
-};
-#define HEADSIZE (sizeof(MsgHeadData))
+#define HEADSIZE 4 // msgid 2 ×Ö½Ú + msglen 2 ×Ö½Ú
 
 class StreamNode:public boost::enable_shared_from_this<StreamNode>
 {

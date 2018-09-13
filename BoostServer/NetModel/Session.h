@@ -37,6 +37,8 @@ private:
 	unsigned int getReadData(char* pData, int nRead);
 	bool getAvailableNode(streamnode_ptr & nodeptr);
 	bool addAvailableNode(const streamnode_ptr & nodeptr);
+	bool unserializeHead();
+	bool serializeHead(char * pData, unsigned short nMsgId, unsigned short nMsgLen);
 private:
 	// 临时信息缓冲区
 	char m_cData[BUFFERSIZE];
@@ -57,10 +59,12 @@ private:
 	bool m_bPendingSend;
 	//是否接受完
 	bool m_bPendingRecv;
-	//消息头
-	MsgHeadData m_msgHead;
 	//心跳时间
 	boost::posix_time::ptime  m_nAliveTime;
+	//消息id
+	unsigned short m_nMsgId;
+	//消息长度
+	unsigned short m_nMsgLen;
 };
 
 typedef	boost::shared_ptr<BoostSession>	session_ptr;

@@ -8,8 +8,8 @@ BoostSession::BoostSession(boost::asio::io_service& _ioService)
 		memset(m_cData, 0, BUFFERSIZE);
 		m_bPendingSend = false;
 		m_bPendingRecv = false;
-		m_msgHead.m_nMsgId =0;
-		m_msgHead.m_nMsgLen = 0;
+		m_nMsgId =0;
+		m_nMsgLen = 0;
 }
 
 BoostSession::~BoostSession(void)
@@ -28,6 +28,65 @@ void BoostSession::start(void) {
 
 boost::asio::ip::tcp::socket& BoostSession::socket(void) {
 	return m_socket;
+}
+
+bool BoostSession::unserializeHead()
+{
+	char msgHead[HEADSIZE] = {0};
+	getReadData(msgHead, HEADSIZE);
+	m_nMsgId = 0;
+	m_nMsgLen = 0;
+	//前两个字节按位存id
+	//后两个字节按位存len
+	//0x 0000 0001  0001 0001 = 273 小端存储
+	
+	for(int i = 0; i <2; i++)
+	{
+		for(int j =0; j < 8; j++)
+		{
+			if(msgHead[i]& (0x01<<j))
+				m_nMsgId+=(0x01<<j);
+		}
+		m_nMsgId = m_nMsgId <<8*(1-i);
+	}
+
+	for(int i = 2; i <HEADSIZE; i++)
+	{
+		for(int j = 0; j < 8; j++)
+		{
+			if(msgHead[i]&(0x01<<j))
+				m_nMsgLen+= (0x01<<j);
+		}
+		m_nMsgLen=m_nMsgLen <<8*(HEADSIZE-i-1);
+	}
+	return true;
+}
+
+bool BoostSession::serializeHead(char * pData, unsigned short nMsgId, unsigned short nMsgLen)
+{
+	//前两个字节按位存id
+	//后两个字节按位存len
+	//0x 0000 0001  0001 0001 = 273
+	for(unsigned int i =  0; i < 2; i++)
+	{
+		unsigned short nByte = (nMsgId >> 8*(1-i));
+		for(int j = 0; j < 8; j++)
+		{
+			if(nByte & (0x01 <<j) )
+				pData[i]=(pData[i]|(0x01 <<j));
+		}
+	}
+
+	for(unsigned int i=2; i <HEADSIZE; i++)
+	{
+		unsigned short nByte = (nMsgLen >> 8*(HEADSIZE-i-1));
+		for(int j=0; j<2;j++)
+		{
+			if(nByte & (0x01 <<j))
+				pData[i]=(pData[i]|(0x01 <<j));		
+		}
+	}
+	return true;
 }
 
 // 完成数据传输
@@ -54,35 +113,28 @@ bool BoostSession::done_handler(const boost::system::error_code& _error) {
 			if(getReadLen() < HEADSIZE)
 			{
 				return true;
-			}
-			getReadData((char *)&m_msgHead, HEADSIZE);
-			m_msgHead.m_nMsgId = ntohl(m_msgHead.m_nMsgId);
-			m_msgHead.m_nMsgLen = ntohl(m_msgHead.m_nMsgLen);
-		  
-			if(m_msgHead.m_nMsgId > MAXMSGID)
-				return false;
-			if(m_msgHead.m_nMsgLen > BUFFERSIZE)
-				return false;
-			if(getReadLen() < m_msgHead.m_nMsgLen)
+			}  
+			unserializeHead();
+			if(getReadLen() < m_nMsgLen)
 			{
 				m_bPendingRecv = true;
 				return true;
 			}
 			//接收完全
 			char strMsgData[BUFFERSIZE]={0};
-			getReadData(strMsgData,m_msgHead.m_nMsgLen);
-			MsgHandlerInst::instance()->HandleMsg(m_msgHead.m_nMsgId, strMsgData, shared_from_this());
+			getReadData(strMsgData,m_nMsgLen);
+			MsgHandlerInst::instance()->HandleMsg(m_nMsgId, strMsgData, shared_from_this());
 			//std::cout <<"Receive Data : " <<strMsgData <<std::endl;
 			//write_msg(strMsgData,m_msgHead.m_nMsgId,m_msgHead.m_nMsgLen);
 			continue;
 		}
 		 //继续上次未收全的接收
-		if(getReadLen() <m_msgHead.m_nMsgLen)
+		if(getReadLen() <m_nMsgLen)
 			return true;
 		//接收完全
 		char strMsgData[BUFFERSIZE]={0};
-	    getReadData(strMsgData,m_msgHead.m_nMsgLen);
-		MsgHandlerInst::instance()->HandleMsg(m_msgHead.m_nMsgId, strMsgData, shared_from_this());
+	    getReadData(strMsgData,m_nMsgLen);
+		MsgHandlerInst::instance()->HandleMsg(m_nMsgId, strMsgData, shared_from_this());
 		//std::cout <<"Receive Data : " <<strMsgData <<std::endl;
 		//write_msg(strMsgData,m_msgHead.m_nMsgId,m_msgHead.m_nMsgLen);
 		m_bPendingRecv = false;
@@ -215,10 +267,7 @@ void BoostSession::write_msg(const char * msg, unsigned int nMsgId,  unsigned in
 		return;
 	}
 	char sendBuff[BUFFERSIZE] = {0};
-	MsgHeadData msgHead;
-	msgHead.m_nMsgId = htonl(nMsgId);
-	msgHead.m_nMsgLen = htonl(nLen);
-	memcpy(sendBuff,(void*)&msgHead,HEADSIZE);
+	serializeHead(sendBuff,nMsgId,nLen);
 	memcpy(sendBuff+HEADSIZE,msg,nLen);
 	streamnode_ptr nodePtr;
     bool bRs = getAvailableNode(nodePtr);
