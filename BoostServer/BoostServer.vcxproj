@@ -80,15 +80,19 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Logic\HeartBeat.h" />
+    <ClInclude Include="Logic\LogicSystem.h" />
     <ClInclude Include="Logic\MsgDefine.h" />
-    <ClInclude Include="Logic\MsgHandler.h" />
-    <ClInclude Include="Logic\Singleton.h" />
+    <ClInclude Include="Logic\Player.h" />
+    <ClInclude Include="NetModel\MsgHandler.h" />
     <ClInclude Include="NetModel\Server.h" />
     <ClInclude Include="NetModel\Session.h" />
+    <ClInclude Include="NetModel\Singleton.h" />
     <ClInclude Include="NetModel\StreamNode.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Logic\HeartBeat.cpp" />
+    <ClCompile Include="Logic\LogicSystem.cpp" />
+    <ClCompile Include="Logic\Player.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="NetModel\Server.cpp" />
     <ClCompile Include="NetModel\Session.cpp" />

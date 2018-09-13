@@ -14,14 +14,14 @@
     <ClCompile Include="NetModel\StreamNode.cpp">
       <Filter>NetModel</Filter>
     </ClCompile>
+    <ClCompile Include="Logic\LogicSystem.cpp">
+      <Filter>Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\Player.cpp">
+      <Filter>Logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Logic\Singleton.h">
-      <Filter>Logic</Filter>
-    </ClInclude>
-    <ClInclude Include="Logic\MsgHandler.h">
-      <Filter>Logic</Filter>
-    </ClInclude>
     <ClInclude Include="Logic\MsgDefine.h">
       <Filter>Logic</Filter>
     </ClInclude>
@@ -35,6 +35,18 @@
       <Filter>NetModel</Filter>
     </ClInclude>
     <ClInclude Include="NetModel\StreamNode.h">
+      <Filter>NetModel</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\LogicSystem.h">
+      <Filter>Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\Player.h">
+      <Filter>Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="NetModel\MsgHandler.h">
+      <Filter>NetModel</Filter>
+    </ClInclude>
+    <ClInclude Include="NetModel\Singleton.h">
       <Filter>NetModel</Filter>
     </ClInclude>
   </ItemGroup>

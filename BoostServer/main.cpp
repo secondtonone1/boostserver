@@ -13,7 +13,7 @@
 #include <boost/property_tree/ptree.hpp>  
 #include <boost/property_tree/ini_parser.hpp>
 #include "./NetModel/Server.h"
-#include "./Logic/MsgDefine.h"
+#include "./Logic/LogicSystem.h"
 
 int main(void) {
 	try {
@@ -28,18 +28,12 @@ int main(void) {
 			std::cout << "Error ignoring SIGPIPE!"<<std::endl;
 		}
 #endif //__linux__
-		REGISTER_MSG();
-		boost::property_tree::ptree pt,tag_setting;
-		boost::property_tree::ini_parser::read_ini("./Data/config.ini",pt);
-		//tag_setting = pt.get_child("config");
 		
+		boost::property_tree::ptree pt,tag_setting;
+		boost::property_tree::ini_parser::read_ini("./Data/config.ini",pt);	
 		boost::asio::io_service ios;
 		short sport = pt.get<short>("config.tcpport");
-		//boost::asio::ip::address add;
-		//add.from_string("127.0.0.1");
-		
-		//boost::asio::ip::tcp::endpoint endpotion(add, short(13695));
-		
+		LogicSystem::instance()->startup();
 		boost::asio::ip::tcp::endpoint endpotion(boost::asio::ip::tcp::v4(),sport);
 		BoostServer server(ios, endpotion);
 		server.run();
