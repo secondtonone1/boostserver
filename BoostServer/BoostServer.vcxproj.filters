@@ -22,12 +22,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Logic\Singleton.h">
-      <Filter>Logic</Filter>
-    </ClInclude>
-    <ClInclude Include="Logic\MsgHandler.h">
-      <Filter>Logic</Filter>
-    </ClInclude>
     <ClInclude Include="Logic\MsgDefine.h">
       <Filter>Logic</Filter>
     </ClInclude>
@@ -48,6 +42,12 @@
     </ClInclude>
     <ClInclude Include="Logic\Player.h">
       <Filter>Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="NetModel\MsgHandler.h">
+      <Filter>NetModel</Filter>
+    </ClInclude>
+    <ClInclude Include="NetModel\Singleton.h">
+      <Filter>NetModel</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

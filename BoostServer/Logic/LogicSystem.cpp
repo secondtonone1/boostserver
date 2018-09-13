@@ -9,7 +9,7 @@ LogicSystem::LogicSystem()
 
 LogicSystem::~LogicSystem()
 {
-
+	m_mapPlayer.clear();
 }
 
 void LogicSystem::startup()

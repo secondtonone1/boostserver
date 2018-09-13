@@ -1,6 +1,6 @@
 #ifndef __MSG_PLAYER_H__
 #define __MSG_PLAYER_H__
-#include "Singleton.h"
+#include "../NetModel/Singleton.h"
 #include "../NetModel/Session.h"
 #include "MsgDefine.h"
 //A class that handles logic

@@ -1,6 +1,6 @@
 #ifndef __MSG_HEARTBEAT_H__
 #define __MSG_HEARTBEAT_H__
-#include "Singleton.h"
+#include "../NetModel/Singleton.h"
 #include "../NetModel/Session.h"
 class HeartBeat
 {

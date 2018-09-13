@@ -2,8 +2,7 @@
 #define __MSG_DEFINE_H__
 #include <boost/asio.hpp>
 #include <boost/enable_shared_from_this.hpp>
-
-#include "MsgHandler.h"
+#include "../NetModel/MsgHandler.h"
 #include "HeartBeat.h"
 typedef unsigned long long  uint64;
 typedef unsigned int uint32;
