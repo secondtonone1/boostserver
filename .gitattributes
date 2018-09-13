@@ -3,3 +3,5 @@
 *.js linguist-language=cpp
 *.css linguist-language=cpp
 *.html linguist-language=cpp
+*.makefile linguist-language=cpp
+ 
