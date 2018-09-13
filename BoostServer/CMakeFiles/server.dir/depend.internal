@@ -3,11 +3,13 @@
 
 CMakeFiles/server.dir/main.cpp.o
  /home/secondtonone1/workspace/boostserver/BoostServer/./Logic/HeartBeat.h
+ /home/secondtonone1/workspace/boostserver/BoostServer/./Logic/LogicSystem.h
  /home/secondtonone1/workspace/boostserver/BoostServer/./Logic/MsgDefine.h
- /home/secondtonone1/workspace/boostserver/BoostServer/./Logic/MsgHandler.h
- /home/secondtonone1/workspace/boostserver/BoostServer/./Logic/Singleton.h
+ /home/secondtonone1/workspace/boostserver/BoostServer/./Logic/Player.h
+ /home/secondtonone1/workspace/boostserver/BoostServer/./NetModel/MsgHandler.h
  /home/secondtonone1/workspace/boostserver/BoostServer/./NetModel/Server.h
  /home/secondtonone1/workspace/boostserver/BoostServer/./NetModel/Session.h
+ /home/secondtonone1/workspace/boostserver/BoostServer/./NetModel/Singleton.h
  /home/secondtonone1/workspace/boostserver/BoostServer/./NetModel/StreamNode.h
  /home/secondtonone1/workspace/boostserver/BoostServer/main.cpp
  /usr/local/include/boost/any.hpp

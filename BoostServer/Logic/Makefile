@@ -152,6 +152,60 @@ HeartBeat.cpp.s:
 	cd /home/secondtonone1/workspace/boostserver/BoostServer && $(MAKE) -f Logic/CMakeFiles/Logiclib.dir/build.make Logic/CMakeFiles/Logiclib.dir/HeartBeat.cpp.s
 .PHONY : HeartBeat.cpp.s
 
+LogicSystem.o: LogicSystem.cpp.o
+
+.PHONY : LogicSystem.o
+
+# target to build an object file
+LogicSystem.cpp.o:
+	cd /home/secondtonone1/workspace/boostserver/BoostServer && $(MAKE) -f Logic/CMakeFiles/Logiclib.dir/build.make Logic/CMakeFiles/Logiclib.dir/LogicSystem.cpp.o
+.PHONY : LogicSystem.cpp.o
+
+LogicSystem.i: LogicSystem.cpp.i
+
+.PHONY : LogicSystem.i
+
+# target to preprocess a source file
+LogicSystem.cpp.i:
+	cd /home/secondtonone1/workspace/boostserver/BoostServer && $(MAKE) -f Logic/CMakeFiles/Logiclib.dir/build.make Logic/CMakeFiles/Logiclib.dir/LogicSystem.cpp.i
+.PHONY : LogicSystem.cpp.i
+
+LogicSystem.s: LogicSystem.cpp.s
+
+.PHONY : LogicSystem.s
+
+# target to generate assembly for a file
+LogicSystem.cpp.s:
+	cd /home/secondtonone1/workspace/boostserver/BoostServer && $(MAKE) -f Logic/CMakeFiles/Logiclib.dir/build.make Logic/CMakeFiles/Logiclib.dir/LogicSystem.cpp.s
+.PHONY : LogicSystem.cpp.s
+
+Player.o: Player.cpp.o
+
+.PHONY : Player.o
+
+# target to build an object file
+Player.cpp.o:
+	cd /home/secondtonone1/workspace/boostserver/BoostServer && $(MAKE) -f Logic/CMakeFiles/Logiclib.dir/build.make Logic/CMakeFiles/Logiclib.dir/Player.cpp.o
+.PHONY : Player.cpp.o
+
+Player.i: Player.cpp.i
+
+.PHONY : Player.i
+
+# target to preprocess a source file
+Player.cpp.i:
+	cd /home/secondtonone1/workspace/boostserver/BoostServer && $(MAKE) -f Logic/CMakeFiles/Logiclib.dir/build.make Logic/CMakeFiles/Logiclib.dir/Player.cpp.i
+.PHONY : Player.cpp.i
+
+Player.s: Player.cpp.s
+
+.PHONY : Player.s
+
+# target to generate assembly for a file
+Player.cpp.s:
+	cd /home/secondtonone1/workspace/boostserver/BoostServer && $(MAKE) -f Logic/CMakeFiles/Logiclib.dir/build.make Logic/CMakeFiles/Logiclib.dir/Player.cpp.s
+.PHONY : Player.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -164,6 +218,12 @@ help:
 	@echo "... HeartBeat.o"
 	@echo "... HeartBeat.i"
 	@echo "... HeartBeat.s"
+	@echo "... LogicSystem.o"
+	@echo "... LogicSystem.i"
+	@echo "... LogicSystem.s"
+	@echo "... Player.o"
+	@echo "... Player.i"
+	@echo "... Player.s"
 .PHONY : help
 
 

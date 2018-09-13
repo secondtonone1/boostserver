@@ -1270,10 +1270,10 @@ NetModel/CMakeFiles/NetModellib.dir/Server.cpp.o: /usr/local/include/boost/winap
 
 NetModel/CMakeFiles/NetModellib.dir/Session.cpp.o: Logic/HeartBeat.h
 NetModel/CMakeFiles/NetModellib.dir/Session.cpp.o: Logic/MsgDefine.h
-NetModel/CMakeFiles/NetModellib.dir/Session.cpp.o: Logic/MsgHandler.h
-NetModel/CMakeFiles/NetModellib.dir/Session.cpp.o: Logic/Singleton.h
+NetModel/CMakeFiles/NetModellib.dir/Session.cpp.o: NetModel/MsgHandler.h
 NetModel/CMakeFiles/NetModellib.dir/Session.cpp.o: NetModel/Session.cpp
 NetModel/CMakeFiles/NetModellib.dir/Session.cpp.o: NetModel/Session.h
+NetModel/CMakeFiles/NetModellib.dir/Session.cpp.o: NetModel/Singleton.h
 NetModel/CMakeFiles/NetModellib.dir/Session.cpp.o: NetModel/StreamNode.h
 NetModel/CMakeFiles/NetModellib.dir/Session.cpp.o: /usr/local/include/boost/array.hpp
 NetModel/CMakeFiles/NetModellib.dir/Session.cpp.o: /usr/local/include/boost/asio.hpp

@@ -1271,10 +1271,10 @@ NetModel/CMakeFiles/NetModellib.dir/Server.cpp.o
 NetModel/CMakeFiles/NetModellib.dir/Session.cpp.o
  /home/secondtonone1/workspace/boostserver/BoostServer/Logic/HeartBeat.h
  /home/secondtonone1/workspace/boostserver/BoostServer/Logic/MsgDefine.h
- /home/secondtonone1/workspace/boostserver/BoostServer/Logic/MsgHandler.h
- /home/secondtonone1/workspace/boostserver/BoostServer/Logic/Singleton.h
+ /home/secondtonone1/workspace/boostserver/BoostServer/NetModel/MsgHandler.h
  /home/secondtonone1/workspace/boostserver/BoostServer/NetModel/Session.cpp
  /home/secondtonone1/workspace/boostserver/BoostServer/NetModel/Session.h
+ /home/secondtonone1/workspace/boostserver/BoostServer/NetModel/Singleton.h
  /home/secondtonone1/workspace/boostserver/BoostServer/NetModel/StreamNode.h
  /usr/local/include/boost/array.hpp
  /usr/local/include/boost/asio.hpp

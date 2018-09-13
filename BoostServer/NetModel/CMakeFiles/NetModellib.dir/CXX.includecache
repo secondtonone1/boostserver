@@ -7,8 +7,8 @@
 #IncludeRegexTransform: 
 
 /home/secondtonone1/workspace/boostserver/BoostServer/Logic/HeartBeat.h
-Singleton.h
-/home/secondtonone1/workspace/boostserver/BoostServer/Logic/Singleton.h
+../NetModel/Singleton.h
+/home/secondtonone1/workspace/boostserver/BoostServer/NetModel/Singleton.h
 ../NetModel/Session.h
 /home/secondtonone1/workspace/boostserver/BoostServer/NetModel/Session.h
 
@@ -17,26 +17,20 @@ boost/asio.hpp
 -
 boost/enable_shared_from_this.hpp
 -
-MsgHandler.h
-/home/secondtonone1/workspace/boostserver/BoostServer/Logic/MsgHandler.h
+../NetModel/MsgHandler.h
+/home/secondtonone1/workspace/boostserver/BoostServer/NetModel/MsgHandler.h
 HeartBeat.h
 /home/secondtonone1/workspace/boostserver/BoostServer/Logic/HeartBeat.h
 
-/home/secondtonone1/workspace/boostserver/BoostServer/Logic/MsgHandler.h
+/home/secondtonone1/workspace/boostserver/BoostServer/NetModel/MsgHandler.h
 boost/function.hpp
 -
 boost/unordered_map.hpp
 -
 Singleton.h
-/home/secondtonone1/workspace/boostserver/BoostServer/Logic/Singleton.h
+/home/secondtonone1/workspace/boostserver/BoostServer/NetModel/Singleton.h
 ../NetModel/Session.h
 /home/secondtonone1/workspace/boostserver/BoostServer/NetModel/Session.h
-
-/home/secondtonone1/workspace/boostserver/BoostServer/Logic/Singleton.h
-iostream
--
-boost/shared_ptr.hpp
--
 
 /home/secondtonone1/workspace/boostserver/BoostServer/NetModel/Server.cpp
 Server.h
@@ -85,6 +79,12 @@ deque
 -
 StreamNode.h
 /home/secondtonone1/workspace/boostserver/BoostServer/NetModel/StreamNode.h
+
+/home/secondtonone1/workspace/boostserver/BoostServer/NetModel/Singleton.h
+iostream
+-
+boost/shared_ptr.hpp
+-
 
 /home/secondtonone1/workspace/boostserver/BoostServer/NetModel/StreamNode.cpp
 StreamNode.h

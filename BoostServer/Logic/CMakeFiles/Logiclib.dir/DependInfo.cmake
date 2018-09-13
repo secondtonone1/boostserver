@@ -5,6 +5,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/secondtonone1/workspace/boostserver/BoostServer/Logic/HeartBeat.cpp" "/home/secondtonone1/workspace/boostserver/BoostServer/Logic/CMakeFiles/Logiclib.dir/HeartBeat.cpp.o"
+  "/home/secondtonone1/workspace/boostserver/BoostServer/Logic/LogicSystem.cpp" "/home/secondtonone1/workspace/boostserver/BoostServer/Logic/CMakeFiles/Logiclib.dir/LogicSystem.cpp.o"
+  "/home/secondtonone1/workspace/boostserver/BoostServer/Logic/Player.cpp" "/home/secondtonone1/workspace/boostserver/BoostServer/Logic/CMakeFiles/Logiclib.dir/Player.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

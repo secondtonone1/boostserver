@@ -81,17 +81,69 @@ Logic/CMakeFiles/Logiclib.dir/HeartBeat.cpp.o.provides: Logic/CMakeFiles/Logicli
 Logic/CMakeFiles/Logiclib.dir/HeartBeat.cpp.o.provides.build: Logic/CMakeFiles/Logiclib.dir/HeartBeat.cpp.o
 
 
+Logic/CMakeFiles/Logiclib.dir/LogicSystem.cpp.o: Logic/CMakeFiles/Logiclib.dir/flags.make
+Logic/CMakeFiles/Logiclib.dir/LogicSystem.cpp.o: Logic/LogicSystem.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/secondtonone1/workspace/boostserver/BoostServer/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object Logic/CMakeFiles/Logiclib.dir/LogicSystem.cpp.o"
+	cd /home/secondtonone1/workspace/boostserver/BoostServer/Logic && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Logiclib.dir/LogicSystem.cpp.o -c /home/secondtonone1/workspace/boostserver/BoostServer/Logic/LogicSystem.cpp
+
+Logic/CMakeFiles/Logiclib.dir/LogicSystem.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Logiclib.dir/LogicSystem.cpp.i"
+	cd /home/secondtonone1/workspace/boostserver/BoostServer/Logic && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/secondtonone1/workspace/boostserver/BoostServer/Logic/LogicSystem.cpp > CMakeFiles/Logiclib.dir/LogicSystem.cpp.i
+
+Logic/CMakeFiles/Logiclib.dir/LogicSystem.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Logiclib.dir/LogicSystem.cpp.s"
+	cd /home/secondtonone1/workspace/boostserver/BoostServer/Logic && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/secondtonone1/workspace/boostserver/BoostServer/Logic/LogicSystem.cpp -o CMakeFiles/Logiclib.dir/LogicSystem.cpp.s
+
+Logic/CMakeFiles/Logiclib.dir/LogicSystem.cpp.o.requires:
+
+.PHONY : Logic/CMakeFiles/Logiclib.dir/LogicSystem.cpp.o.requires
+
+Logic/CMakeFiles/Logiclib.dir/LogicSystem.cpp.o.provides: Logic/CMakeFiles/Logiclib.dir/LogicSystem.cpp.o.requires
+	$(MAKE) -f Logic/CMakeFiles/Logiclib.dir/build.make Logic/CMakeFiles/Logiclib.dir/LogicSystem.cpp.o.provides.build
+.PHONY : Logic/CMakeFiles/Logiclib.dir/LogicSystem.cpp.o.provides
+
+Logic/CMakeFiles/Logiclib.dir/LogicSystem.cpp.o.provides.build: Logic/CMakeFiles/Logiclib.dir/LogicSystem.cpp.o
+
+
+Logic/CMakeFiles/Logiclib.dir/Player.cpp.o: Logic/CMakeFiles/Logiclib.dir/flags.make
+Logic/CMakeFiles/Logiclib.dir/Player.cpp.o: Logic/Player.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/secondtonone1/workspace/boostserver/BoostServer/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object Logic/CMakeFiles/Logiclib.dir/Player.cpp.o"
+	cd /home/secondtonone1/workspace/boostserver/BoostServer/Logic && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Logiclib.dir/Player.cpp.o -c /home/secondtonone1/workspace/boostserver/BoostServer/Logic/Player.cpp
+
+Logic/CMakeFiles/Logiclib.dir/Player.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Logiclib.dir/Player.cpp.i"
+	cd /home/secondtonone1/workspace/boostserver/BoostServer/Logic && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/secondtonone1/workspace/boostserver/BoostServer/Logic/Player.cpp > CMakeFiles/Logiclib.dir/Player.cpp.i
+
+Logic/CMakeFiles/Logiclib.dir/Player.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Logiclib.dir/Player.cpp.s"
+	cd /home/secondtonone1/workspace/boostserver/BoostServer/Logic && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/secondtonone1/workspace/boostserver/BoostServer/Logic/Player.cpp -o CMakeFiles/Logiclib.dir/Player.cpp.s
+
+Logic/CMakeFiles/Logiclib.dir/Player.cpp.o.requires:
+
+.PHONY : Logic/CMakeFiles/Logiclib.dir/Player.cpp.o.requires
+
+Logic/CMakeFiles/Logiclib.dir/Player.cpp.o.provides: Logic/CMakeFiles/Logiclib.dir/Player.cpp.o.requires
+	$(MAKE) -f Logic/CMakeFiles/Logiclib.dir/build.make Logic/CMakeFiles/Logiclib.dir/Player.cpp.o.provides.build
+.PHONY : Logic/CMakeFiles/Logiclib.dir/Player.cpp.o.provides
+
+Logic/CMakeFiles/Logiclib.dir/Player.cpp.o.provides.build: Logic/CMakeFiles/Logiclib.dir/Player.cpp.o
+
+
 # Object files for target Logiclib
 Logiclib_OBJECTS = \
-"CMakeFiles/Logiclib.dir/HeartBeat.cpp.o"
+"CMakeFiles/Logiclib.dir/HeartBeat.cpp.o" \
+"CMakeFiles/Logiclib.dir/LogicSystem.cpp.o" \
+"CMakeFiles/Logiclib.dir/Player.cpp.o"
 
 # External object files for target Logiclib
 Logiclib_EXTERNAL_OBJECTS =
 
 Logic/libLogiclib.a: Logic/CMakeFiles/Logiclib.dir/HeartBeat.cpp.o
+Logic/libLogiclib.a: Logic/CMakeFiles/Logiclib.dir/LogicSystem.cpp.o
+Logic/libLogiclib.a: Logic/CMakeFiles/Logiclib.dir/Player.cpp.o
 Logic/libLogiclib.a: Logic/CMakeFiles/Logiclib.dir/build.make
 Logic/libLogiclib.a: Logic/CMakeFiles/Logiclib.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/secondtonone1/workspace/boostserver/BoostServer/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX static library libLogiclib.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/secondtonone1/workspace/boostserver/BoostServer/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX static library libLogiclib.a"
 	cd /home/secondtonone1/workspace/boostserver/BoostServer/Logic && $(CMAKE_COMMAND) -P CMakeFiles/Logiclib.dir/cmake_clean_target.cmake
 	cd /home/secondtonone1/workspace/boostserver/BoostServer/Logic && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Logiclib.dir/link.txt --verbose=$(VERBOSE)
 
@@ -101,6 +153,8 @@ Logic/CMakeFiles/Logiclib.dir/build: Logic/libLogiclib.a
 .PHONY : Logic/CMakeFiles/Logiclib.dir/build
 
 Logic/CMakeFiles/Logiclib.dir/requires: Logic/CMakeFiles/Logiclib.dir/HeartBeat.cpp.o.requires
+Logic/CMakeFiles/Logiclib.dir/requires: Logic/CMakeFiles/Logiclib.dir/LogicSystem.cpp.o.requires
+Logic/CMakeFiles/Logiclib.dir/requires: Logic/CMakeFiles/Logiclib.dir/Player.cpp.o.requires
 
 .PHONY : Logic/CMakeFiles/Logiclib.dir/requires
 
