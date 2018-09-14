@@ -9,7 +9,7 @@ typedef unsigned int uint32;
 enum MsgIDs
 {
 	//基本消息
-	MsgHeartBeat = 1,
+	MsgHeartBeat = 1, //心跳
 };
 
 

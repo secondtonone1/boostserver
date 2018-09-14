@@ -7,7 +7,7 @@
 #include <boost/make_shared.hpp>
 #define BUFFERSIZE 1024
 #define MAXAVAILABLE 50
-#define MAXMSGID 1700
+#define MAXMSGID 2048
 #define HEADSIZE 4 // msgid 2 ×Ö½Ú + msglen 2 ×Ö½Ú
 
 class StreamNode:public boost::enable_shared_from_this<StreamNode>

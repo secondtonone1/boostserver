@@ -49,7 +49,12 @@ bool BoostSession::unserializeHead()
 		}
 		m_nMsgId = m_nMsgId <<8*(1-i);
 	}
-
+	if(m_nMsgId >MAXMSGID)
+	{
+		std::cout << "Invalid MSGID!!!"<<std::endl;
+		return false;
+	}
+		
 	for(int i = 2; i <HEADSIZE; i++)
 	{
 		for(int j = 0; j < 8; j++)
@@ -59,6 +64,11 @@ bool BoostSession::unserializeHead()
 		}
 		m_nMsgLen=m_nMsgLen <<8*(HEADSIZE-i-1);
 	}
+	if(m_nMsgLen > BUFFERSIZE)
+	{
+		std::cout << "Invalid MSGLEN !!!"<<std::endl;
+		return false;
+	}	
 	return true;
 }
 
@@ -80,7 +90,7 @@ bool BoostSession::serializeHead(char * pData, unsigned short nMsgId, unsigned s
 	for(unsigned int i=2; i <HEADSIZE; i++)
 	{
 		unsigned short nByte = (nMsgLen >> 8*(HEADSIZE-i-1));
-		for(int j=0; j<2;j++)
+		for(int j=0; j<8;j++)
 		{
 			if(nByte & (0x01 <<j))
 				pData[i]=(pData[i]|(0x01 <<j));		
@@ -114,7 +124,8 @@ bool BoostSession::done_handler(const boost::system::error_code& _error) {
 			{
 				return true;
 			}  
-			unserializeHead();
+			if(unserializeHead() == false)
+				return false;
 			if(getReadLen() < m_nMsgLen)
 			{
 				m_bPendingRecv = true;
