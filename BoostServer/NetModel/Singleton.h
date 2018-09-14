@@ -25,7 +25,7 @@ protected:
 		std::cout << "Singleton::Singleton()" << std::endl;
 	}
 private:
-	Singleton& operator=(const Singleton&){}
+	Singleton& operator=(const Singleton&){return *this;}
 	static boost::shared_ptr<T> _instance;
 };
 
