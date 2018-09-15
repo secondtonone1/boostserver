@@ -33,6 +33,7 @@ private:
 	
 	void async_send();
 	unsigned int  getReadLen();
+	bool readComplete(unsigned int nLen);
 	//std::string  getReadData(int nDataLen = 0);
 	unsigned int getReadData(char* pData, int nRead);
 	bool getAvailableNode(streamnode_ptr & nodeptr);

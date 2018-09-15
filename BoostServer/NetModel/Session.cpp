@@ -64,7 +64,7 @@ bool BoostSession::unserializeHead()
 		}
 		m_nMsgLen=m_nMsgLen <<8*(HEADSIZE-i-1);
 	}
-	if(m_nMsgLen > BUFFERSIZE)
+	if(m_nMsgLen > BUFFERSIZE || m_nMsgLen <= 0)
 	{
 		std::cout << "Invalid MSGLEN !!!"<<std::endl;
 		return false;
@@ -120,17 +120,20 @@ bool BoostSession::done_handler(const boost::system::error_code& _error) {
 		if(m_bPendingRecv == false)
 		{
 			//该节点接收数据小于规定包头大小
-			if(getReadLen() < HEADSIZE)
+			if(readComplete(HEADSIZE) == false)
 			{
 				return true;
-			}  
+			}
+
 			if(unserializeHead() == false)
 				return false;
-			if(getReadLen() < m_nMsgLen)
+		
+			if(readComplete(m_nMsgLen) == false)
 			{
 				m_bPendingRecv = true;
 				return true;
 			}
+
 			//接收完全
 			char strMsgData[BUFFERSIZE]={0};
 			getReadData(strMsgData,m_nMsgLen);
@@ -140,8 +143,9 @@ bool BoostSession::done_handler(const boost::system::error_code& _error) {
 			continue;
 		}
 		 //继续上次未收全的接收
-		if(getReadLen() <m_nMsgLen)
+		if(readComplete(m_nMsgLen) == false)
 			return true;
+
 		//接收完全
 		char strMsgData[BUFFERSIZE]={0};
 	    getReadData(strMsgData,m_nMsgLen);
@@ -162,6 +166,20 @@ unsigned int  BoostSession::getReadLen()
 		nTotal += i->get()->getRemain();
 	}
 	return nTotal;
+}
+
+bool BoostSession::readComplete(unsigned int nLen)
+{
+	if(nLen == 0)
+		return true;
+	unsigned int nTotal = 0;
+	for( auto i = m_pInPutQue.begin(); i != m_pInPutQue.end(); i++)
+	{
+		nTotal += i->get()->getRemain();
+		if(nTotal >= nLen)
+			return true;
+	}
+	return false;
 }
 
 bool BoostSession::getAvailableNode(streamnode_ptr & nodeptr)
