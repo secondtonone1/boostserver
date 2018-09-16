@@ -7,6 +7,13 @@
 #include <deque>
 #include "StreamNode.h"
 
+enum TCPSTATE{
+	TCPSUCCESS = 0,//TCP处理完全
+	TCPHEADLESS,  //TCP头部未收全
+	TCPHEADERROR, //TCP头部错误
+	TCPDATALESS, //TCP数据域未收全
+};
+
 // 会话类
 class BoostSession : public boost::enable_shared_from_this<BoostSession>
 {
@@ -30,7 +37,6 @@ private:
 	void read_handler(const boost::system::error_code& _error, size_t _readSize);
 	// 写入完成后触发的函数
 	void write_handler(const boost::system::error_code& _error, size_t _writeSize);
-	
 	void async_send();
 	unsigned int  getReadLen();
 	bool readComplete(unsigned int nLen);
@@ -40,6 +46,8 @@ private:
 	bool addAvailableNode(const streamnode_ptr & nodeptr);
 	bool unserializeHead();
 	bool serializeHead(char * pData, unsigned short nMsgId, unsigned short nMsgLen);
+	int  handleTcp();
+	int  handleWeb();
 private:
 	// 临时信息缓冲区
 	char m_cData[BUFFERSIZE];
@@ -66,6 +74,12 @@ private:
 	unsigned short m_nMsgId;
 	//消息长度
 	unsigned short m_nMsgLen;
+	//是否是websocket通信
+	bool m_bWebSocket;
+	//是否确认通信类型tcp or websocket
+	bool m_bTypeConfirm;
+	//是否已经进行握手
+	bool m_bWebHandShake;
 };
 
 typedef	boost::shared_ptr<BoostSession>	session_ptr;

@@ -10,6 +10,9 @@ BoostSession::BoostSession(boost::asio::io_service& _ioService)
 		m_bPendingRecv = false;
 		m_nMsgId =0;
 		m_nMsgLen = 0;
+		m_bWebSocket = false;
+		m_bTypeConfirm = false;
+		m_bWebHandShake = false;
 }
 
 BoostSession::~BoostSession(void)
@@ -99,6 +102,49 @@ bool BoostSession::serializeHead(char * pData, unsigned short nMsgId, unsigned s
 	return true;
 }
 
+int  BoostSession::handleTcp()
+{
+	//新的包
+	if(m_bPendingRecv == false)
+	{
+		//该节点接收数据小于规定包头大小
+		if(readComplete(HEADSIZE) == false)
+		{
+			return TCPHEADLESS;
+		}
+
+		if(unserializeHead() == false)
+			return TCPHEADERROR;
+
+		if(readComplete(m_nMsgLen) == false)
+		{
+			m_bPendingRecv = true;
+			return TCPDATALESS;
+		}
+
+		//接收完全
+		char strMsgData[BUFFERSIZE]={0};
+		getReadData(strMsgData,m_nMsgLen);
+		MsgHandlerInst::instance()->HandleMsg(m_nMsgId, strMsgData, shared_from_this());
+		return TCPSUCCESS;
+	}
+	//继续上次未收全的接收
+	if(readComplete(m_nMsgLen) == false)
+		return TCPDATALESS;
+
+	//接收完全
+	char strMsgData[BUFFERSIZE]={0};
+	getReadData(strMsgData,m_nMsgLen);
+	MsgHandlerInst::instance()->HandleMsg(m_nMsgId, strMsgData, shared_from_this());
+	m_bPendingRecv = false;
+	return TCPSUCCESS;
+}
+
+int  BoostSession::handleWeb()
+{
+	return true;
+}
+
 // 完成数据传输
 bool BoostSession::done_handler(const boost::system::error_code& _error) {
 	if (_error) {
@@ -116,44 +162,27 @@ bool BoostSession::done_handler(const boost::system::error_code& _error) {
 			m_pInPutQue.pop_front();
 			continue;
 		}
-		//新的包
-		if(m_bPendingRecv == false)
+
+		if(m_bTypeConfirm==false)
 		{
-			//该节点接收数据小于规定包头大小
-			if(readComplete(HEADSIZE) == false)
-			{
-				return true;
-			}
 
-			if(unserializeHead() == false)
-				return false;
-		
-			if(readComplete(m_nMsgLen) == false)
-			{
-				m_bPendingRecv = true;
-				return true;
-			}
-
-			//接收完全
-			char strMsgData[BUFFERSIZE]={0};
-			getReadData(strMsgData,m_nMsgLen);
-			MsgHandlerInst::instance()->HandleMsg(m_nMsgId, strMsgData, shared_from_this());
-			//std::cout <<"Receive Data : " <<strMsgData <<std::endl;
-			//write_msg(strMsgData,m_msgHead.m_nMsgId,m_msgHead.m_nMsgLen);
-			continue;
+			m_bTypeConfirm = true;
 		}
-		 //继续上次未收全的接收
-		if(readComplete(m_nMsgLen) == false)
-			return true;
 
-		//接收完全
-		char strMsgData[BUFFERSIZE]={0};
-	    getReadData(strMsgData,m_nMsgLen);
-		MsgHandlerInst::instance()->HandleMsg(m_nMsgId, strMsgData, shared_from_this());
-		//std::cout <<"Receive Data : " <<strMsgData <<std::endl;
-		//write_msg(strMsgData,m_msgHead.m_nMsgId,m_msgHead.m_nMsgLen);
-		m_bPendingRecv = false;
+		if(m_bWebSocket == false)
+		{
+			int  tcpState = handleTcp();
+			if(tcpState == TCPSUCCESS )
+				continue;
+			if(tcpState == TCPHEADLESS || tcpState == TCPDATALESS)
+				return true;
+			if(tcpState == TCPHEADERROR)
+				return false;
+		}
+		else
+		{
 
+		}
 	}
 	return true;
 }
