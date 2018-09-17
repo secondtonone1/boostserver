@@ -22,6 +22,7 @@ public:
 	void cleardata();
 	void copydata(char * msg, int nLen);
 	boost::shared_ptr<StreamNode> getself();
+	char getFirstChar(void);
 private:
 
 	char* m_pData;

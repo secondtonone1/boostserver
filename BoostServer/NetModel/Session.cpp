@@ -140,9 +140,25 @@ int  BoostSession::handleTcp()
 	return TCPSUCCESS;
 }
 
+ void BoostSession::confirmType()
+ {
+	 if(m_bTypeConfirm)
+		 return;
+	 if(m_pInPutQue.empty())
+		 return;
+	 m_pInPutQue.front()->getFirstChar()=='H'?m_bWebSocket=true:m_bWebSocket=false;
+	 m_bTypeConfirm = true;
+ }
+
 int  BoostSession::handleWeb()
 {
 	return true;
+}
+
+int  BoostSession::handleHandShake()
+{
+	m_bWebHandShake = true;
+	return 0;
 }
 
 // 完成数据传输
@@ -165,8 +181,7 @@ bool BoostSession::done_handler(const boost::system::error_code& _error) {
 
 		if(m_bTypeConfirm==false)
 		{
-
-			m_bTypeConfirm = true;
+			confirmType();	
 		}
 
 		if(m_bWebSocket == false)
@@ -181,7 +196,13 @@ bool BoostSession::done_handler(const boost::system::error_code& _error) {
 		}
 		else
 		{
-
+			//留作以后处理web握手请求
+			if(m_bWebHandShake == false)
+			{
+				handleHandShake();
+				continue;
+			}
+			//处理websocket通信	
 		}
 	}
 	return true;

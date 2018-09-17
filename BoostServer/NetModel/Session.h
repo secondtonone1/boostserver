@@ -48,6 +48,9 @@ private:
 	bool serializeHead(char * pData, unsigned short nMsgId, unsigned short nMsgLen);
 	int  handleTcp();
 	int  handleWeb();
+	int  handleHandShake();
+	//确定消息类型
+    void confirmType();
 private:
 	// 临时信息缓冲区
 	char m_cData[BUFFERSIZE];

@@ -69,3 +69,10 @@ boost::shared_ptr<StreamNode> StreamNode::getself()
 	return shared_from_this();
 }
 
+char StreamNode::getFirstChar(void)
+{
+	if(getRemain() < 1)
+		return ' ';
+	return m_pData[m_nOffSet];
+}
+
