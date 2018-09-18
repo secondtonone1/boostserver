@@ -33,12 +33,13 @@ void BoostServer::accept_handler(session_ptr _chatSession, const boost::system::
 			start();
 		}
 		catch (...) {
+			_chatSession->socket().close();
 			return;
 		}
 	}
 	else
 	{
-		
+		_chatSession->socket().close();
 	}
 }
 
