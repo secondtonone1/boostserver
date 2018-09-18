@@ -62,7 +62,7 @@ void BoostServer::accept_handler(session_ptr _chatSession, const boost::system::
 //https://blog.csdn.net/bobo0123/article/details/9835293
 void BoostServer::handleExpConn()
 {
-	//客户端每3秒发送一次心跳包，服务器每隔10秒检测，超过5秒算超时
+	//客户端每3秒发送一次心跳包，服务器每隔15秒检测，超过10秒算超时
 	boost::posix_time::ptime nowtime (boost::posix_time::second_clock::universal_time());
 	auto iterWeakSession = m_listweaksession.begin();
 	while(iterWeakSession != m_listweaksession.end())
@@ -74,15 +74,15 @@ void BoostServer::handleExpConn()
 			continue;
 		}
 		//判断心跳是否超时
-		if(iterWeakSession->lock()->getLiveTime() + boost::posix_time::seconds(5) < nowtime)
+		if(iterWeakSession->lock()->getLiveTime() + boost::posix_time::seconds(10) < nowtime)
 		{
-			//iterWeakSession->lock()->socket().close();
+			iterWeakSession->lock()->socket().close();
 			iterWeakSession++;
 			continue;
 		}
 		iterWeakSession++;
 	}
-	m_timer.expires_from_now(boost::posix_time::seconds(10));
+	m_timer.expires_from_now(boost::posix_time::seconds(15));
 	m_timer.async_wait(boost::bind(&BoostServer::handleExpConn,this));
 }
 
