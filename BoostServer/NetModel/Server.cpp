@@ -33,13 +33,13 @@ void BoostServer::accept_handler(session_ptr _chatSession, const boost::system::
 			start();
 		}
 		catch (...) {
-			_chatSession->socket().close();
+			cout << "accept exception"<<endl;		
 			return;
 		}
 	}
 	else
 	{
-		_chatSession->socket().close();
+		cout << "accept error: "<<_error <<endl;
 	}
 }
 
