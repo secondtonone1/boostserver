@@ -21,11 +21,15 @@ private:
 	void accept_handler(session_ptr chatSession, const boost::system::error_code& errorcode);
 	//处理异常
 	void handleExpConn();
+	//处理accept错误
+	void handleAcceptError(session_ptr _chatSession);
 private:
 	boost::asio::io_service &m_ioservice;
 	boost::asio::ip::tcp::acceptor m_acceptor;
 	boost::asio::deadline_timer m_timer;
 	std::list<weak_session_ptr > m_listweaksession;
+	FILE *  m_pFile;
+	bool m_bEmfile;
 };
 
 

@@ -7,10 +7,17 @@ using namespace std;
 BoostServer::BoostServer(boost::asio::io_service &_ioService, boost::asio::ip::tcp::endpoint &_endpoint)
 	: m_ioservice(_ioService), m_acceptor(_ioService, _endpoint),m_timer(_ioService,boost::posix_time::seconds(10)) {
 		m_timer.async_wait(boost::bind(&BoostServer::handleExpConn,this));
-		start();
+		m_bEmfile = false;
+		m_pFile = fopen("./NetModel/emfile.txt", "r"); //打开文件
+		if(m_pFile)
+			start();
+		else
+			cout << "Fileopen filed, Server Start Error !!! "<<endl;
 }
 
 BoostServer::~BoostServer(void) {
+	if(m_pFile)
+		fclose(m_pFile);
 }
 
 void BoostServer::start(void) {
@@ -28,18 +35,33 @@ void BoostServer::accept_handler(session_ptr _chatSession, const boost::system::
 	if (!_error && _chatSession) {
 		try {
 			cout << "accept connection from "<< _chatSession->socket().remote_endpoint().address().to_string()<<endl;
+			if(m_bEmfile)
+			{
+				_chatSession->socket().close();
+				m_bEmfile=false;
+				m_pFile = fopen("../Data/emfile.txt", "r"); //打开文件
+				if(m_pFile)
+					start();
+				return;
+			}
 			_chatSession->start();
 			m_listweaksession.push_back(_chatSession);
 			start();
 		}
 		catch (...) {
-			cout << "accept exception"<<endl;		
+			cout << "accept exception"<<endl;	
+			start();
 			return;
 		}
 	}
 	else
 	{
 		cout << "accept error: "<<_error <<endl;
+		if(_chatSession != NULL)
+			_chatSession->socket().close();
+		m_bEmfile = true;
+		fclose(m_pFile);
+		start();
 	}
 }
 
@@ -72,3 +94,5 @@ void BoostServer::handleExpConn()
 	m_timer.expires_from_now(boost::posix_time::seconds(10));
 	m_timer.async_wait(boost::bind(&BoostServer::handleExpConn,this));
 }
+
+

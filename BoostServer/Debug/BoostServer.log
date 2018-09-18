@@ -1,7 +1,7 @@
-﻿生成启动时间为 2018/9/17 星期一 下午 10:23:11。
+﻿生成启动时间为 2018/9/18 星期二 下午 1:37:18。
      1>项目“D:\github\boostserver\BoostServer\BoostServer.vcxproj”在节点 2 上(Build 个目标)。
      1>ClCompile:
-         F:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ID:\boost_1_68_0 /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt NetModel\Server.cpp
+         F:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ID:\boost_1_68_0 /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _CRT_SECURE_NO_WARNINGS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt NetModel\Server.cpp
          Server.cpp
      1>d:\github\boostserver\boostserver\netmodel\server.cpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
      1>d:\github\boostserver\boostserver\netmodel\server.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
@@ -23,4 +23,4 @@
 
 生成成功。
 
-已用时间 00:00:04.67
+已用时间 00:00:04.18
