@@ -62,7 +62,7 @@ void BoostServer::handleExpConn()
 		//判断心跳是否超时
 		if(iterWeakSession->lock()->getLiveTime() + boost::posix_time::seconds(5) < nowtime)
 		{
-			iterWeakSession->lock()->socket().close();
+			//iterWeakSession->lock()->socket().close();
 			iterWeakSession++;
 			continue;
 		}
