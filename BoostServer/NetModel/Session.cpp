@@ -146,7 +146,8 @@ int  BoostSession::handleTcp()
 		 return;
 	 if(m_pInPutQue.empty())
 		 return;
-	 m_pInPutQue.front()->getFirstChar()=='H'?m_bWebSocket=true:m_bWebSocket=false;
+	char typechar = m_pInPutQue.front()->getFirstChar();
+	typechar=='H'or typechar== 'h'? m_bWebSocket=true:m_bWebSocket=false;
 	 m_bTypeConfirm = true;
  }
 
@@ -157,8 +158,15 @@ int  BoostSession::handleWeb()
 
 int  BoostSession::handleHandShake()
 {
+	if(m_pInPutQue.empty())
+	{
+		return WEBHANDSHAKELESS;
+	}
 	m_bWebHandShake = true;
-	return 0;
+	char shakedata[BUFFERSIZE]={0};
+	getReadData(shakedata,BUFFERSIZE);
+	//查找/r/n/r/n
+	return WEBHANDSHAKESUCCESS;
 }
 
 // 完成数据传输
