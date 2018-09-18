@@ -8,7 +8,7 @@
 #define BUFFERSIZE 1024
 #define MAXAVAILABLE 50
 #define MAXMSGID 2048
-#define HEADSIZE 4 // msgid 2 ×Ö½Ú + msglen 2 ×Ö½Ú
+#define HEADSIZE 4 // msgid 2 ï¿½Ö½ï¿½ + msglen 2 ï¿½Ö½ï¿½
 
 class StreamNode:public boost::enable_shared_from_this<StreamNode>
 {

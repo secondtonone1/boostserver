@@ -7,24 +7,24 @@ using namespace std;
 BoostServer::BoostServer(boost::asio::io_service &_ioService, boost::asio::ip::tcp::endpoint &_endpoint)
 	: m_ioservice(_ioService), m_acceptor(_ioService, _endpoint),m_timer(_ioService,boost::posix_time::seconds(10)) {
 		m_timer.async_wait(boost::bind(&BoostServer::handleExpConn,this));
-		m_bEmfile = false;
-		m_pFile = fopen("./NetModel/emfile.txt", "r"); //打开文件
-		if(m_pFile)
-			start();
-		else
-			cout << "Fileopen filed, Server Start Error !!! "<<endl;
+		start();
 }
 
 BoostServer::~BoostServer(void) {
-	if(m_pFile)
-		fclose(m_pFile);
+	
 }
 
 void BoostServer::start(void) {
-	session_ptr	new_chat_session(new BoostSession(m_ioservice));
-	m_acceptor.async_accept(new_chat_session->socket(),
+	try{
+		session_ptr	new_chat_session(new BoostSession(m_ioservice));
+		m_acceptor.async_accept(new_chat_session->socket(),
 		boost::bind(&BoostServer::accept_handler, this, new_chat_session,
 		boost::asio::placeholders::error));
+	}
+	catch(...){
+		cout  << "malloc not enough" <<endl;
+	}
+	
 }
 
 void BoostServer::run(void) {
@@ -35,13 +35,10 @@ void BoostServer::accept_handler(session_ptr _chatSession, const boost::system::
 	if (!_error && _chatSession) {
 		try {
 			cout << "accept connection from "<< _chatSession->socket().remote_endpoint().address().to_string()<<endl;
-			if(m_bEmfile)
+			
+			if(m_listweaksession.size() >= MAXCLIENTNUM-1)
 			{
-				_chatSession->socket().close();
-				m_bEmfile=false;
-				m_pFile = fopen("../Data/emfile.txt", "r"); //打开文件
-				if(m_pFile)
-					start();
+				start();
 				return;
 			}
 			_chatSession->start();
@@ -50,18 +47,12 @@ void BoostServer::accept_handler(session_ptr _chatSession, const boost::system::
 		}
 		catch (...) {
 			cout << "accept exception"<<endl;	
-			start();
 			return;
 		}
 	}
 	else
 	{
-		cout << "accept error: "<<_error <<endl;
-		if(_chatSession != NULL)
-			_chatSession->socket().close();
-		m_bEmfile = true;
-		fclose(m_pFile);
-		start();
+		cout << "accept error: "<<_error.message() <<endl;	
 	}
 }
 

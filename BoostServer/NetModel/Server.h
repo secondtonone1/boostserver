@@ -5,6 +5,7 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/unordered_map.hpp>
 #include "Session.h"
+#define MAXCLIENTNUM 1024
 class BoostServer {
 private:
 	// 保存会话指针
@@ -28,8 +29,7 @@ private:
 	boost::asio::ip::tcp::acceptor m_acceptor;
 	boost::asio::deadline_timer m_timer;
 	std::list<weak_session_ptr > m_listweaksession;
-	FILE *  m_pFile;
-	bool m_bEmfile;
+	
 };
 
 
