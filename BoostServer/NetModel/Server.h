@@ -5,7 +5,7 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/unordered_map.hpp>
 #include "Session.h"
-#define MAXCLIENTNUM 1024
+#define MAXCLIENTNUM 4096
 class BoostServer {
 private:
 	// 保存会话指针
