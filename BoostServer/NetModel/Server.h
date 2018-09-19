@@ -29,7 +29,7 @@ private:
 	boost::asio::ip::tcp::acceptor m_acceptor;
 	boost::asio::deadline_timer m_timer;
 	std::list<weak_session_ptr > m_listweaksession;
-	
+	FILE* m_pEmfile;
 };
 
 

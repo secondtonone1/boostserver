@@ -7,11 +7,20 @@ using namespace std;
 BoostServer::BoostServer(boost::asio::io_service &_ioService, boost::asio::ip::tcp::endpoint &_endpoint)
 	: m_ioservice(_ioService), m_acceptor(_ioService, _endpoint),m_timer(_ioService,boost::posix_time::seconds(10)) {
 		m_timer.async_wait(boost::bind(&BoostServer::handleExpConn,this));
-		start();
+		try{
+			m_pEmfile = fopen("./NetModel/emfile.txt","r");
+		}
+		catch (...)
+		{
+			cout << "open file exception"<<endl;
+		}
+		if(m_pEmfile)
+			start();
 }
 
 BoostServer::~BoostServer(void) {
-	
+	if(m_pEmfile)
+		fclose(m_pEmfile);
 }
 
 void BoostServer::start(void) {
@@ -41,6 +50,15 @@ void BoostServer::accept_handler(session_ptr _chatSession, const boost::system::
 				start();
 				return;
 			}
+
+			if(m_pEmfile == NULL)
+			{
+				_chatSession->socket().close();
+				m_pEmfile = fopen("./NetModel/emfile.txt","r");
+				if(m_pEmfile)
+					start();
+				return;
+			}
 			_chatSession->start();
 			m_listweaksession.push_back(_chatSession);
 			start();
@@ -52,7 +70,15 @@ void BoostServer::accept_handler(session_ptr _chatSession, const boost::system::
 	}
 	else
 	{
-		cout << "accept error: "<<_error.message() <<endl;	
+		cout << "accept error: "<<_error.message() <<endl;
+		cout << "error code: "<<_error.value()<<endl;
+		if(_error.value() == 24)
+		{
+			if(m_pEmfile)
+				fclose(m_pEmfile);
+			m_pEmfile =  NULL;
+			start();
+		}	
 	}
 }
 
