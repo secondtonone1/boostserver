@@ -53,6 +53,7 @@ void BoostServer::accept_handler(session_ptr _chatSession, const boost::system::
 	else
 	{
 		cout << "accept error: "<<_error.message() <<endl;	
+		cout << "accept error:"<<_error.value();
 	}
 }
 
