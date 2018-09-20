@@ -14,6 +14,13 @@ enum TCPSTATE{
 	TCPDATALESS, //TCP数据域未收全
 };
 
+enum WEBSTATE{
+	WEBHANDSHAKESUCCESS = 0, // 握手成功
+	WEBHANDSHAKELESS , //握手信息未收全
+	WEBHANDSHAKEFAIL, //握手失败
+
+};
+
 // 会话类
 class BoostSession : public boost::enable_shared_from_this<BoostSession>
 {
