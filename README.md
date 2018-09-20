@@ -8,6 +8,7 @@
 5. 连接管理和异常处理  
 6. 回调函数封装和注册  
 7. 增加最大连接数限制，避免emfile，linux下可根据进程允许打开的最多描述符修改此数值。
+8. 增加描述符超过进程上限处理，即emfile错误处理。
 
 ### 配合客户端
 配合客户端示例查看 [https://github.com/secondtonone1/boostclient](https://github.com/secondtonone1/boostclient)
