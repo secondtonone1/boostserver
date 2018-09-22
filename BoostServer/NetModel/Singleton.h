@@ -10,7 +10,7 @@ public:
 	static boost::shared_ptr<T> instance()
 	{
 		if (_instance == 0)
-			_instance = boost::shared_ptr<T>(new T);
+			_instance = boost::shared_ptr<T>(new T());
 		return _instance;
 	}
 
