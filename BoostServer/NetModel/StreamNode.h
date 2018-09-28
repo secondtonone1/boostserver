@@ -5,7 +5,7 @@
 #include <boost/asio.hpp>
 #include <boost/enable_shared_from_this.hpp>
 #include <boost/make_shared.hpp>
-#define BUFFERSIZE 1024
+#define BUFFERSIZE 2048
 #define MAXAVAILABLE 50
 #define MAXMSGID 2048
 #define HEADSIZE 4 // msgid 2 �ֽ� + msglen 2 �ֽ�
@@ -22,7 +22,7 @@ public:
 	void cleardata();
 	void copydata(char * msg, int nLen);
 	boost::shared_ptr<StreamNode> getself();
-	char getFirstChar(void);
+	std::string getRemainData();
 private:
 
 	char* m_pData;

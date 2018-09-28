@@ -37,6 +37,7 @@ public:
 	const boost::posix_time::ptime &getLiveTime();
 	void updateLive();
 	void write_msg(const char * msg, unsigned int nMsgId,  unsigned int nLen);
+	void write_webmsg(const char* msg, unsigned int nLen);
 private:
 	// 完成数据传输后触发的收尾工作
 	bool done_handler(const boost::system::error_code& _error);

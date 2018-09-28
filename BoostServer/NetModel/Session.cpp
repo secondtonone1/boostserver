@@ -3,6 +3,8 @@
 #include <string.h>
 #include <assert.h>
 #include "../Logic/MsgDefine.h"
+#include<boost/uuid/detail/sha1.hpp>
+#include "Base64Handler.h"
 BoostSession::BoostSession(boost::asio::io_service& _ioService)
 	:m_socket(_ioService),m_nAliveTime(boost::posix_time::second_clock::universal_time()) {
 		memset(m_cData, 0, BUFFERSIZE);
@@ -39,9 +41,9 @@ bool BoostSession::unserializeHead()
 	getReadData(msgHead, HEADSIZE);
 	m_nMsgId = 0;
 	m_nMsgLen = 0;
-	//前两个字节按位存id
-	//后两个字节按位存len
-	//0x 0000 0001  0001 0001 = 273 小端存储
+	//first two bytes save as bit for id
+	//last two bytes save as bit for len
+	//0x 0000 0001  0001 0001 = 273 Little Endian
 	
 	for(int i = 0; i <2; i++)
 	{
@@ -77,8 +79,8 @@ bool BoostSession::unserializeHead()
 
 bool BoostSession::serializeHead(char * pData, unsigned short nMsgId, unsigned short nMsgLen)
 {
-	//前两个字节按位存id
-	//后两个字节按位存len
+	//first two bytes save as bit for id
+	//last two bytes save as bit for len
 	//0x 0000 0001  0001 0001 = 273
 	for(unsigned int i =  0; i < 2; i++)
 	{
@@ -104,35 +106,36 @@ bool BoostSession::serializeHead(char * pData, unsigned short nMsgId, unsigned s
 
 int  BoostSession::handleTcp()
 {
-	//新的包
+	//new package
 	if(m_bPendingRecv == false)
 	{
-		//该节点接收数据小于规定包头大小
+		//head data didn't receive completely
 		if(readComplete(HEADSIZE) == false)
 		{
 			return TCPHEADLESS;
 		}
-
+		//unserializeHead failed
 		if(unserializeHead() == false)
 			return TCPHEADERROR;
-
+		//MSG data did not receive completely, msg length is less than m_nMsgLen
 		if(readComplete(m_nMsgLen) == false)
 		{
 			m_bPendingRecv = true;
 			return TCPDATALESS;
 		}
 
-		//接收完全
+		//MSG data  received completely, msg len is m_nMsgLen
 		char strMsgData[BUFFERSIZE]={0};
 		getReadData(strMsgData,m_nMsgLen);
 		MsgHandlerInst::instance()->HandleMsg(m_nMsgId, strMsgData, shared_from_this());
 		return TCPSUCCESS;
 	}
-	//继续上次未收全的接收
+	//m_bPendingRecv is true, It means the last head data received completely, MSG data did not receive completely
+	//The news is still incomplete
 	if(readComplete(m_nMsgLen) == false)
 		return TCPDATALESS;
 
-	//接收完全
+	//Message receive complete 
 	char strMsgData[BUFFERSIZE]={0};
 	getReadData(strMsgData,m_nMsgLen);
 	MsgHandlerInst::instance()->HandleMsg(m_nMsgId, strMsgData, shared_from_this());
@@ -140,21 +143,52 @@ int  BoostSession::handleTcp()
 	return TCPSUCCESS;
 }
 
+//The handshake format requested by the client
+//GET / HTTP/1.1
+//Host: 192.168.1.172:8898
+//Connection: Upgrade
+//Pragma: no-cache
+//Cache-Control: no-cache
+//Upgrade: websocket
+//Origin: http://coolaf.com\r\nSec-WebSocket-Version: 13\r\nUser-Agent: Mozilla/...
+
  void BoostSession::confirmType()
  {
 	 if(m_bTypeConfirm)
 		 return;
 	 if(m_pInPutQue.empty())
 		 return;
-	char typechar = m_pInPutQue.front()->getFirstChar();
-	typechar=='H'or typechar== 'h'? m_bWebSocket=true:m_bWebSocket=false;
+	std::string & typeStr=m_pInPutQue.front()->getRemainData();
+	std::string::size_type pos = typeStr.find("GET / HTTP/1.1");
+	if (pos != std::string::npos)
+	{
+		m_bWebSocket=true;
+		m_bTypeConfirm = true;
+		return;
+	}
+	pos = typeStr.find("GET /chat HTTP/1.1");
+	if (pos != std::string::npos)
+	{
+		m_bWebSocket=true;
+		m_bTypeConfirm = true;
+		return;
+	}
+	m_bWebSocket=false;
 	 m_bTypeConfirm = true;
+	 return;
  }
 
 int  BoostSession::handleWeb()
 {
 	return true;
 }
+
+//he handshake format,The server replies to t
+//HTTP/1.1 101 Switching Protocols
+//Upgrade: websocket
+//Connection: Upgrade
+//Sec-WebSocket-Accept: s3pPLMBiTxaQ9kYGzzhZRbK+xOo=
+//Sec-WebSocket-Protocol: chat
 
 int  BoostSession::handleHandShake()
 {
@@ -165,33 +199,72 @@ int  BoostSession::handleHandShake()
 	m_bWebHandShake = true;
 	char shakedata[BUFFERSIZE]={0};
 	getReadData(shakedata,BUFFERSIZE);
-	//查找/r/n/r/n
+	std::string strShakedata(shakedata);
+	int socketkeyindex = strShakedata.find("Sec-WebSocket-Key");
+	std::string keyStr = strShakedata.substr(socketkeyindex + 19, 24);
+
+	//Construct the server handshake resp message
+	char request[BUFFERSIZE]={0};
+	strcat(request, "HTTP/1.1 101 Switching Protocols\r\n");
+	strcat(request, "Upgrade: websocket\r\n");
+	strcat(request, "Connection: upgrade\r\n");
+	strcat(request, "Sec-WebSocket-Accept: ");
+	keyStr += "258EAFA5-E914-47DA-95CA-C5AB0DC85B11";
+	boost::uuids::detail::sha1 sha;
+	unsigned int message_digest[5];
+	sha.reset();
+	sha.process_bytes(keyStr.c_str(), keyStr.length());
+	sha.get_digest(message_digest);
+	
+	for(int i=0; i <5; i++){
+		std::cout<< std::hex << message_digest[i]; 
+	}
+	
+	/*for (int i = 0; i < 5; i++) {
+	message_digest[i] = htonl(message_digest[i]);
+	}*/
+	cout <<endl;
+	char digestarray[20]={};
+	memcpy(digestarray,reinterpret_cast<const unsigned char*>(message_digest),20);
+	int test[5]={0};
+	memcpy(test,digestarray,20);
+	for(int i=0; i <5; i++){
+		std::cout<< std::hex << test[i]<<endl; 
+	}
+	
+	std::string respkeystr;
+	Base64HandlerInst::instance()->Base64Encode(std::string(digestarray), &respkeystr);
+	respkeystr += "\r\n";
+	strcat(request, respkeystr.c_str());
+	strcat(request, "Sec-WebSocket-Protocol: chat\r\n\r\n");
+	cout << "shalserver_key:" << keyStr << endl;
+	cout << "after encode base64: "<< respkeystr <<endl;
+	write_webmsg(request,strlen(request));
+
 	return WEBHANDSHAKESUCCESS;
 }
 
-// 完成数据传输
+// Process after receiving the message
 bool BoostSession::done_handler(const boost::system::error_code& _error) {
 	if (_error) {
 		return false;
 	}
-	//配合序列化协议，解析取出节点数据，封装回包
-	//这里先不做解析处理，先把收到的数据回包给客户端
 	while(!m_pInPutQue.empty())
 	{
 		int nRemain = m_pInPutQue.front()->getRemain();
-		//判断是否读全，如果读全则pop头结点，继续读下一个节点
+		//The node data is parsed and processed completely
 		if(nRemain == 0)
 		{
 			addAvailableNode(m_pInPutQue.front());
 			m_pInPutQue.pop_front();
 			continue;
 		}
-
+		//Message type not determined, websocket or tcp
 		if(m_bTypeConfirm==false)
 		{
 			confirmType();	
 		}
-
+		//handle tcp msg
 		if(m_bWebSocket == false)
 		{
 			int  tcpState = handleTcp();
@@ -202,15 +275,15 @@ bool BoostSession::done_handler(const boost::system::error_code& _error) {
 			if(tcpState == TCPHEADERROR)
 				return false;
 		}
-		else
+		else 
 		{
-			//留作以后处理web握手请求
+			//Process the web handshake request
 			if(m_bWebHandShake == false)
 			{
 				handleHandShake();
 				continue;
 			}
-			//处理websocket通信	
+			//Handle websocket communication
 		}
 	}
 	return true;
@@ -269,7 +342,7 @@ unsigned int BoostSession::getReadData(char* pData, int nRead)
 	int nCur = 0;
 	while(m_pInPutQue.empty() == false)
 	{
-		//节点可读数据大于请求数据
+		//the node readable data is more than nRead
 		if(m_pInPutQue.front()->getRemain() >= nRead)
 		{
 			char * msgData =m_pInPutQue.front()->getMsgData();
@@ -278,14 +351,14 @@ unsigned int BoostSession::getReadData(char* pData, int nRead)
 			m_pInPutQue.front()->resetOffset(nRead);
 			return nCur;
 		}
-		//节点可读数据为空
+		//the node readable data is empty
 		if(m_pInPutQue.front()->getRemain() == 0)
 		{
 			addAvailableNode(m_pInPutQue.front());
 			m_pInPutQue.pop_front();
 			continue;
 		}
-		//节点有可读数据，且小于请求数据
+		//the node readable data is less than nRead
 		char * msgData = m_pInPutQue.front()->getMsgData();
 		memcpy(pData+nCur,msgData+m_pInPutQue.front()->getOffSet(),m_pInPutQue.front()->getRemain());
 		nRead-=m_pInPutQue.front()->getRemain();
@@ -346,6 +419,35 @@ void BoostSession::write_handler(const boost::system::error_code& _error, size_t
 	async_send();
 }
 
+void BoostSession::write_webmsg(const char* msg, unsigned int nLen)
+{
+	if(nLen > BUFFERSIZE)
+	{
+		std::cout << "msglenth too long , now allow size is : " <<BUFFERSIZE<<std::endl;
+		return;
+	}
+
+	char sendBuff[BUFFERSIZE] = {0};
+	memcpy(sendBuff,msg,nLen);
+	streamnode_ptr nodePtr;
+	bool bRs = getAvailableNode(nodePtr);
+	if(bRs)
+	{
+		nodePtr->copydata(sendBuff,nLen);
+	}
+	else
+	{
+		nodePtr  = boost::make_shared<StreamNode>(sendBuff,nLen);
+	}
+
+	m_pOutPutQue.push_back(nodePtr);
+	if(!m_bPendingSend)
+	{
+		m_bPendingSend = true;
+		async_send();
+	}
+}
+
 void BoostSession::write_msg(const char * msg, unsigned int nMsgId,  unsigned int nLen)
 {
 	if(nLen + HEADSIZE > BUFFERSIZE)
@@ -385,7 +487,7 @@ void BoostSession::async_send()
 			m_pOutPutQue.pop_front();
 			continue;
 		}
-		//找到非空节点
+		//find the node , which data is not empty
 		break;
 	}
 	if(m_pOutPutQue.empty())

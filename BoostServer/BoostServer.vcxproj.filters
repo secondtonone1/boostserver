@@ -49,6 +49,9 @@
     <ClInclude Include="NetModel\Singleton.h">
       <Filter>NetModel</Filter>
     </ClInclude>
+    <ClInclude Include="NetModel\Base64Handler.h">
+      <Filter>NetModel</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Logic">
