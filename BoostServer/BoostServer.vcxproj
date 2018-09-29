@@ -83,7 +83,7 @@
     <ClInclude Include="Logic\LogicSystem.h" />
     <ClInclude Include="Logic\MsgDefine.h" />
     <ClInclude Include="Logic\Player.h" />
-    <ClInclude Include="NetModel\Base64Handler.h" />
+    <ClInclude Include="NetModel\Base64.h" />
     <ClInclude Include="NetModel\MsgHandler.h" />
     <ClInclude Include="NetModel\Server.h" />
     <ClInclude Include="NetModel\Session.h" />
@@ -95,6 +95,7 @@
     <ClCompile Include="Logic\LogicSystem.cpp" />
     <ClCompile Include="Logic\Player.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="NetModel\Base64.cpp" />
     <ClCompile Include="NetModel\Server.cpp" />
     <ClCompile Include="NetModel\Session.cpp" />
     <ClCompile Include="NetModel\StreamNode.cpp" />

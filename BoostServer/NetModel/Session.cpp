@@ -4,7 +4,7 @@
 #include <assert.h>
 #include "../Logic/MsgDefine.h"
 #include<boost/uuid/detail/sha1.hpp>
-#include "Base64Handler.h"
+#include "Base64.h"
 BoostSession::BoostSession(boost::asio::io_service& _ioService)
 	:m_socket(_ioService),m_nAliveTime(boost::posix_time::second_clock::universal_time()) {
 		memset(m_cData, 0, BUFFERSIZE);
@@ -202,12 +202,10 @@ int  BoostSession::handleHandShake()
 	std::string strShakedata(shakedata);
 	int socketkeyindex = strShakedata.find("Sec-WebSocket-Key");
 	std::string keyStr = strShakedata.substr(socketkeyindex + 19, 24);
-
 	//Construct the server handshake resp message
 	char request[BUFFERSIZE]={0};
 	strcat(request, "HTTP/1.1 101 Switching Protocols\r\n");
-	strcat(request, "Upgrade: websocket\r\n");
-	strcat(request, "Connection: upgrade\r\n");
+	strcat(request, "Connection: Upgrade\r\n");
 	strcat(request, "Sec-WebSocket-Accept: ");
 	keyStr += "258EAFA5-E914-47DA-95CA-C5AB0DC85B11";
 	boost::uuids::detail::sha1 sha;
@@ -220,25 +218,15 @@ int  BoostSession::handleHandShake()
 		std::cout<< std::hex << message_digest[i]; 
 	}
 	
-	/*for (int i = 0; i < 5; i++) {
-	message_digest[i] = htonl(message_digest[i]);
-	}*/
-	cout <<endl;
-	char digestarray[20]={};
-	memcpy(digestarray,reinterpret_cast<const unsigned char*>(message_digest),20);
-	int test[5]={0};
-	memcpy(test,digestarray,20);
-	for(int i=0; i <5; i++){
-		std::cout<< std::hex << test[i]<<endl; 
+	for (int i = 0; i < 5; i++) {
+		message_digest[i] = htonl(message_digest[i]);
 	}
-	
-	std::string respkeystr;
-	Base64HandlerInst::instance()->Base64Encode(std::string(digestarray), &respkeystr);
-	respkeystr += "\r\n";
-	strcat(request, respkeystr.c_str());
-	strcat(request, "Sec-WebSocket-Protocol: chat\r\n\r\n");
-	cout << "shalserver_key:" << keyStr << endl;
-	cout << "after encode base64: "<< respkeystr <<endl;
+	cout << endl;	
+	std::string server_key = Base64HandlerInst::instance()->base64_encode( reinterpret_cast<const unsigned char*>(message_digest),20);
+	server_key += "\r\n";
+	strcat(request, server_key.c_str());
+	strcat(request, "Upgrade: websocket\r\n\r\n");
+	cout << "after encode base64: "<< server_key <<endl;
 	write_webmsg(request,strlen(request));
 
 	return WEBHANDSHAKESUCCESS;

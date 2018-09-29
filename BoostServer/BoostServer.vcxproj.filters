@@ -20,6 +20,9 @@
     <ClCompile Include="Logic\Player.cpp">
       <Filter>Logic</Filter>
     </ClCompile>
+    <ClCompile Include="NetModel\Base64.cpp">
+      <Filter>NetModel</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Logic\MsgDefine.h">
@@ -49,7 +52,7 @@
     <ClInclude Include="NetModel\Singleton.h">
       <Filter>NetModel</Filter>
     </ClInclude>
-    <ClInclude Include="NetModel\Base64Handler.h">
+    <ClInclude Include="NetModel\Base64.h">
       <Filter>NetModel</Filter>
     </ClInclude>
   </ItemGroup>
