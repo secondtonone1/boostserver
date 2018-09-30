@@ -18,8 +18,12 @@ enum WEBSTATE{
 	WEBHANDSHAKESUCCESS = 0, // 握手成功
 	WEBHANDSHAKELESS , //握手信息未收全
 	WEBHANDSHAKEFAIL, //握手失败
-
+	WEBSOCKETNOFIN,  //websocket fin字段为0
+	WEBSOCKETDATALESS,//websocket 数据粘包未收全
+	WEBSOCKETSUCCESS, //websocket 处理成功
+	WEBSOCKETCLOSE,//websocket close
 };
+
 
 // 会话类
 class BoostSession : public boost::enable_shared_from_this<BoostSession>
@@ -91,6 +95,8 @@ private:
 	bool m_bTypeConfirm;
 	//是否已经进行握手
 	bool m_bWebHandShake;
+	int    m_nWebDataRemain; //websocket data 数据黏连本节点不够，需要查询下一个节点
+	
 };
 
 typedef	boost::shared_ptr<BoostSession>	session_ptr;

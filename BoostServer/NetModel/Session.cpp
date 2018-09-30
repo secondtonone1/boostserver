@@ -15,6 +15,7 @@ BoostSession::BoostSession(boost::asio::io_service& _ioService)
 		m_bWebSocket = false;
 		m_bTypeConfirm = false;
 		m_bWebHandShake = false;
+		m_nWebDataRemain = false;
 }
 
 BoostSession::~BoostSession(void)
@@ -180,7 +181,46 @@ int  BoostSession::handleTcp()
 
 int  BoostSession::handleWeb()
 {
-	return true;
+	if(m_pInPutQue.empty())
+	{
+		return WEBSOCKETDATALESS;
+	}
+	//unpack webhead package
+	int index=0;		
+	int nRemain=m_pInPutQue.front()->getRemain();
+	if(nRemain==0)
+		return WEBSOCKETCLOSE;
+	int nOffset= m_pInPutQue.front()->getOffSet();
+	index+=nOffset;
+	char * msgData= m_pInPutQue.front()->getMsgData();
+	char firstByte=msgData[index];
+	//first byte
+	int finishbit=(firstByte&0x80)>>7;
+	int  opcode=(int)(firstByte&0x0F);
+	if(opcode==8)
+		return WEBSOCKETCLOSE;
+	//second byte
+	index++;
+	char secondByte=msgData[index];
+	int maskbit = (secondByte&0x80)>>7;
+	int datalen = (int)(msgData[index] & 0x7F);
+	if(datalen==126)
+	{
+		char extended[2] = {0};
+		extended[0] = msgData[++index];
+		extended[1] = msgData[++index];
+		int shift = 0;
+		datalen = 0;
+		for (int i = 2- 1; i >= 0; i--) {
+			datalen = datalen + ((extended[i] & 0xFF) << shift);
+			shift += 8;
+		}
+	}
+	else if(datalen==127)
+	{
+
+	}
+	return WEBSOCKETSUCCESS;
 }
 
 //he handshake format,The server replies to t
@@ -200,7 +240,9 @@ int  BoostSession::handleHandShake()
 	char shakedata[BUFFERSIZE]={0};
 	getReadData(shakedata,BUFFERSIZE);
 	std::string strShakedata(shakedata);
-	int socketkeyindex = strShakedata.find("Sec-WebSocket-Key");
+	std::string::size_type  socketkeyindex = strShakedata.find("Sec-WebSocket-Key");
+	if (socketkeyindex == std::string::npos)
+		return WEBHANDSHAKEFAIL;
 	std::string keyStr = strShakedata.substr(socketkeyindex + 19, 24);
 	//Construct the server handshake resp message
 	char request[BUFFERSIZE]={0};
@@ -268,10 +310,15 @@ bool BoostSession::done_handler(const boost::system::error_code& _error) {
 			//Process the web handshake request
 			if(m_bWebHandShake == false)
 			{
-				handleHandShake();
+				int handshake=handleHandShake();
+				if(WEBHANDSHAKEFAIL==handshake)
+					return false;
 				continue;
 			}
 			//Handle websocket communication
+			{
+				handleWeb();
+			}
 		}
 	}
 	return true;
