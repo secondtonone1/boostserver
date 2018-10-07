@@ -15,7 +15,21 @@ BoostSession::BoostSession(boost::asio::io_service& _ioService)
 		m_bWebSocket = false;
 		m_bTypeConfirm = false;
 		m_bWebHandShake = false;
-		m_nWebDataRemain = false;
+		clearWebFlags();
+}
+
+void BoostSession::clearWebFlags()
+{
+	m_nFinishbit = 0;
+	m_nWebState=0;
+	memset(m_cWebData,0,BUFFERSIZE);
+	m_nWebLen=0;
+	m_nMaskBit=0;
+	memset(m_cMaskKey,0,4);
+	m_nLenPend=0;
+	m_nMaskPend=0;
+	m_nWebDataPend=0;
+	memset(m_cLenArray,0,BUFFERSIZE);
 }
 
 BoostSession::~BoostSession(void)
@@ -160,7 +174,7 @@ int  BoostSession::handleTcp()
 	 if(m_pInPutQue.empty())
 		 return;
 	std::string & typeStr=m_pInPutQue.front()->getRemainData();
-	std::string::size_type pos = typeStr.find("GET / HTTP/1.1");
+	std::string::size_type pos = typeStr.find(" / HTTP/1.1");
 	if (pos != std::string::npos)
 	{
 		m_bWebSocket=true;
@@ -179,6 +193,173 @@ int  BoostSession::handleTcp()
 	 return;
  }
 
+ int  BoostSession::handleFirstByte(char * msgData, int & index, int & nRemain)
+ {
+	 char firstByte=msgData[index];
+	
+	 m_nFinishbit =(firstByte&0x80)>>7;
+	 int  opcode=(int)(firstByte&0x0F);
+	 if(opcode==8)
+		 return WEBSOCKETCLOSE;
+	 nRemain--;
+	 if(nRemain<=0)
+	 {
+		 m_pInPutQue.front()->resetOffset(m_pInPutQue.front()->getLen()-nRemain);
+		 return WEBSOCKETFINISHBIT;
+	 }
+	  index++;
+	 return WEBSTEPSUCCESS;
+ }
+
+ int  BoostSession::handleSecondByte(char * msgData, int & index, int & nRemain)
+ {
+	 char secondByte=msgData[index];
+	 m_nMaskBit = (secondByte&0x80)>>7;
+	 m_nWebLen = (int)(msgData[index] & 0x7F);
+	 nRemain--;
+	 if(nRemain <=0)
+	 {
+		 m_pInPutQue.front()->resetOffset(m_pInPutQue.front()->getLen()-nRemain);
+		 return WEBSOCKETLENANALY;
+	 }
+	 index++;
+	 return WEBSTEPSUCCESS;
+ }
+
+ int BoostSession::handleLenByte(char * msgData, int & index, int & nRemain)
+ {
+	 //datalen byte
+	 if(m_nWebLen==126)
+	 {
+		if(m_nLenPend < 2)
+		{
+			memset(m_cLenArray+m_nLenPend,0,BUFFERSIZE-m_nLenPend);
+			int nNeed = 2-m_nLenPend;
+			 if(nRemain <=nNeed)
+			 {
+				 memcpy(m_cLenArray+m_nLenPend, msgData+index,nRemain);
+				 m_pInPutQue.front()->resetOffset(index+nRemain);
+				 m_nLenPend+=nRemain;
+				  return WEBSOCKETLEN;
+			 }
+			memcpy(m_cLenArray+m_nLenPend, msgData+index,nNeed);
+			m_nLenPend+=nNeed;
+			index+=nNeed;
+			nRemain-=nNeed;
+		}
+
+		 int shift = 0;
+		 m_nWebLen = 0;
+		 for (int i = 2- 1; i >= 0; i--) {
+			 m_nWebLen = m_nWebLen + ((m_cLenArray[i] & 0xFF) << shift);
+			 shift += 8;
+		 }
+	 }
+	 else if(m_nWebLen==127)
+	 {
+		 if(m_nLenPend <=8)
+		 {
+			 memset(m_cLenArray+m_nLenPend,0,BUFFERSIZE-m_nLenPend);
+			 int nNeed = 8-m_nLenPend;
+			 if(nRemain <=nNeed)
+			 {
+				 memcpy(m_cLenArray+m_nLenPend, msgData+index,nRemain);
+				 m_pInPutQue.front()->resetOffset(index+nRemain);
+				 m_nLenPend+=nRemain;
+				 return WEBSOCKETLEN;
+			 }
+			 memcpy(m_cLenArray+m_nLenPend, msgData+index,nNeed);
+			 m_nLenPend+=nNeed;
+			 index+=(nNeed);
+			 nRemain-=(nNeed);
+		 }
+	
+		 int shift = 0;
+		 m_nWebLen = 0;
+		 for (int i = 8 - 1; i >= 0; i--) {
+			 m_nWebLen = m_nWebLen + ((m_cLenArray[i] & 0xFF) << shift);
+			 shift += 8;
+		 }
+	 }
+	 if(nRemain<=0)
+	 {
+		 m_pInPutQue.front()->resetOffset(m_pInPutQue.front()->getLen()-nRemain);
+		 return WEBMASKLESS;
+	 }
+	
+	 return WEBSTEPSUCCESS;
+ }
+
+ int BoostSession::handleMaskBit(char * msgData, int & index, int & nRemain)
+ {
+	 char maskkey[4]={0};
+	 if(m_nMaskBit==1)
+	 {
+		 if(m_nMaskPend<4)
+		 {
+			 memset(m_cMaskKey+m_nMaskPend,0,BUFFERSIZE-m_nMaskPend);
+			 int nNeed=4-m_nMaskPend;
+			 if(nRemain <= nNeed)
+			 {
+				 memcpy(m_cMaskKey+m_nMaskPend,msgData+index,nRemain);
+				 m_pInPutQue.front()->resetOffset(index+nRemain);
+				 m_nMaskPend+=nRemain;
+				 return WEBMASKLESS;
+			 }
+			 memcpy(m_cMaskKey+m_nMaskPend,msgData+index,nNeed);
+			 index+=nNeed;
+			 m_nMaskPend+=(nNeed);
+			 nRemain-=nNeed;
+		 }
+	 }
+	 if(nRemain<=0)
+	 {
+		 m_pInPutQue.front()->resetOffset(m_pInPutQue.front()->getLen()-nRemain);
+		 return WEBSOCKETDATALESS;
+	 }
+	
+	 return WEBSTEPSUCCESS;
+ }
+
+ int BoostSession::handleWebData(char * msgData, int & index, int & nRemain)
+{
+	int nLastPend = m_nWebDataPend;
+	if(m_nWebDataPend <m_nWebLen)
+	{
+		memset(m_cWebData+m_nWebDataPend,0,BUFFERSIZE-m_nWebDataPend);
+		int nNeed = m_nWebLen-m_nWebDataPend;
+		if(nRemain < nNeed)
+		{
+			memcpy(m_cWebData+m_nWebDataPend, msgData+index,nRemain);
+			m_pInPutQue.front()->resetOffset(index+nRemain);
+			m_nWebDataPend+=nRemain;
+			return WEBSOCKETDATALESS;
+		}
+
+		memcpy(m_cWebData+m_nWebDataPend, msgData+index,nNeed);
+		m_pInPutQue.front()->resetOffset(index+nNeed);
+		m_nWebDataPend+=nNeed;
+		index+=nNeed;
+		nRemain-=nNeed;
+		
+	}
+
+	if(m_nMaskBit==1)
+	{
+		for(int i=nLastPend; i < m_nWebDataPend; i++)
+		{
+			int j=i%4;
+			m_cWebData[i] =m_cWebData[i]  ^ m_cMaskKey[j];
+		}
+	}
+
+	if(m_nFinishbit==0)
+		return WEBSOCKETDATALESS;
+	cout << m_cWebData <<endl;
+	responclient(m_cWebData,m_nWebDataPend);
+	return WEBSTEPSUCCESS;
+}
+
 int  BoostSession::handleWeb()
 {
 	if(m_pInPutQue.empty())
@@ -187,39 +368,48 @@ int  BoostSession::handleWeb()
 	}
 	//unpack webhead package
 	int index=0;		
-	int nRemain=m_pInPutQue.front()->getRemain();
-	if(nRemain==0)
-		return WEBSOCKETCLOSE;
 	int nOffset= m_pInPutQue.front()->getOffSet();
 	index+=nOffset;
 	char * msgData= m_pInPutQue.front()->getMsgData();
-	char firstByte=msgData[index];
-	//first byte
-	int finishbit=(firstByte&0x80)>>7;
-	int  opcode=(int)(firstByte&0x0F);
-	if(opcode==8)
-		return WEBSOCKETCLOSE;
-	//second byte
-	index++;
-	char secondByte=msgData[index];
-	int maskbit = (secondByte&0x80)>>7;
-	int datalen = (int)(msgData[index] & 0x7F);
-	if(datalen==126)
+	int nRemain=m_pInPutQue.front()->getRemain();
+	if(nRemain<=0)
+		return WEBSOCKETNONE;
+	if(m_nWebState < WEBSOCKETFINISHBIT)
 	{
-		char extended[2] = {0};
-		extended[0] = msgData[++index];
-		extended[1] = msgData[++index];
-		int shift = 0;
-		datalen = 0;
-		for (int i = 2- 1; i >= 0; i--) {
-			datalen = datalen + ((extended[i] & 0xFF) << shift);
-			shift += 8;
-		}
+		//first byte
+		m_nWebState=handleFirstByte(msgData,index,nRemain);
+		if(m_nWebState != WEBSTEPSUCCESS)
+			return m_nWebState;
 	}
-	else if(datalen==127)
+	if(m_nWebState <WEBSOCKETLENANALY)
 	{
-
+		//second byte
+		m_nWebState=handleSecondByte(msgData,index,nRemain);
+		if(m_nWebState != WEBSTEPSUCCESS)
+			return m_nWebState;
 	}
+	if(m_nWebState <=WEBSOCKETLEN)
+	{
+		//datalen byte
+		m_nWebState=handleLenByte(msgData,index,nRemain);
+		if(m_nWebState != WEBSTEPSUCCESS)
+			return m_nWebState;
+	}
+	if(m_nWebState <=WEBMASKLESS)
+	{
+		//maskingkey or data
+		m_nWebState=handleMaskBit(msgData,index,nRemain);
+		if(m_nWebState != WEBSTEPSUCCESS)
+			return m_nWebState;
+	}
+	if(m_nWebState <=WEBSOCKETDATALESS)
+	{
+		m_nWebState = handleWebData(msgData,index,nRemain);
+		if(m_nWebState != WEBSTEPSUCCESS)
+			return m_nWebState;
+	}
+	m_pInPutQue.front()->resetOffset(m_pInPutQue.front()->getLen()-nRemain);
+	clearWebFlags();
 	return WEBSOCKETSUCCESS;
 }
 
@@ -317,7 +507,11 @@ bool BoostSession::done_handler(const boost::system::error_code& _error) {
 			}
 			//Handle websocket communication
 			{
-				handleWeb();
+				if(handleWeb()==WEBSOCKETCLOSE)
+				{
+					return false;
+				}
+					
 			}
 		}
 	}
@@ -481,6 +675,45 @@ void BoostSession::write_webmsg(const char* msg, unsigned int nLen)
 		m_bPendingSend = true;
 		async_send();
 	}
+}
+
+void BoostSession::responclient(char respdata[],int datalen)
+{
+		char buf[BUFFERSIZE] = "";
+		int first = 0x00;
+		int tmp = 0;
+		first = first | 0x80;
+		first = first | 0x01;
+		buf[0] = first;
+		tmp = 1;
+		unsigned int nuNum = (unsigned)datalen;
+		if (datalen < 126) {
+			buf[1] = (datalen);
+			tmp = 2;
+		}else if (datalen < 65536) {
+			buf[1] = 126;
+			buf[2] = ((nuNum >> 8)&0xFF);
+			buf[3] = datalen & 0xFF;
+			tmp = 4;
+		}else {
+			//数据长度超过65536
+			buf[1] = 127;
+			buf[2] = 0;
+			buf[3] = 0;
+			buf[4] = 0;
+			buf[5] = 0;
+			buf[6] = ((nuNum >> 24)&0xFF);
+			buf[7] = ((nuNum >> 16)&0xFF);
+			buf[8] = ((nuNum >> 8)&0xFF);
+			buf[9] = nuNum & 0xFF;
+			tmp = 10;
+		}
+		for (int i = 0; i < datalen;i++){
+			buf[tmp+i]= respdata[i];
+		}
+	
+		write_webmsg(buf,datalen+tmp);
+
 }
 
 void BoostSession::write_msg(const char * msg, unsigned int nMsgId,  unsigned int nLen)

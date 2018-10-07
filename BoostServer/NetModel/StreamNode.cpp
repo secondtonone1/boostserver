@@ -46,6 +46,11 @@ int StreamNode::getOffSet()
 	return m_nOffSet;
 }
 
+int StreamNode::getLen()
+{
+	return m_nLen;
+}
+
 void StreamNode::resetOffset(int offsetAdd)
 {
 	m_nOffSet+=offsetAdd;

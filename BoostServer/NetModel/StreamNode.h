@@ -23,6 +23,7 @@ public:
 	void copydata(char * msg, int nLen);
 	boost::shared_ptr<StreamNode> getself();
 	std::string getRemainData();
+	int getLen();
 private:
 
 	char* m_pData;

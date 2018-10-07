@@ -18,7 +18,12 @@ enum WEBSTATE{
 	WEBHANDSHAKESUCCESS = 0, // 握手成功
 	WEBHANDSHAKELESS , //握手信息未收全
 	WEBHANDSHAKEFAIL, //握手失败
-	WEBSOCKETNOFIN,  //websocket fin字段为0
+	WEBSTEPSUCCESS,//分步处理成功
+	WEBSOCKETNONE, //websocket 数据为空
+	WEBSOCKETFINISHBIT, //websocket finishbit收全
+	WEBSOCKETLENANALY,//websocket len 分析完
+	WEBSOCKETLEN,  //websocket len 字段接收完全
+	WEBMASKLESS,//websocket mask 未接受全
 	WEBSOCKETDATALESS,//websocket 数据粘包未收全
 	WEBSOCKETSUCCESS, //websocket 处理成功
 	WEBSOCKETCLOSE,//websocket close
@@ -42,6 +47,7 @@ public:
 	void updateLive();
 	void write_msg(const char * msg, unsigned int nMsgId,  unsigned int nLen);
 	void write_webmsg(const char* msg, unsigned int nLen);
+	void responclient(char respdata[],int datalen);
 private:
 	// 完成数据传输后触发的收尾工作
 	bool done_handler(const boost::system::error_code& _error);
@@ -63,6 +69,17 @@ private:
 	int  handleHandShake();
 	//确定消息类型
     void confirmType();
+	//处理第一个字节
+	int  handleFirstByte(char * msgData, int & index, int & nRemain);
+	//处理第二个字节
+	int  handleSecondByte(char * msgData, int & index, int & nRemain);
+	//处理长度数据
+	int handleLenByte(char * msgData, int & index, int & nRemain);
+	//处理maskbit
+	int handleMaskBit(char * msgData, int & index, int & nRemain);
+	//处理数据
+	int handleWebData(char * msgData, int & index, int & nRemain);
+	void clearWebFlags();
 private:
 	// 临时信息缓冲区
 	char m_cData[BUFFERSIZE];
@@ -95,8 +112,17 @@ private:
 	bool m_bTypeConfirm;
 	//是否已经进行握手
 	bool m_bWebHandShake;
-	int    m_nWebDataRemain; //websocket data 数据黏连本节点不够，需要查询下一个节点
 	
+	int    m_nFinishbit;//0有后续包，1对端发送完全
+	char m_cWebData[BUFFERSIZE];
+	int    m_nWebState;
+	int    m_nWebLen;
+	int    m_nMaskBit;
+	char m_cMaskKey[4];
+	int    m_nLenPend;  //长度处理进度
+	int    m_nMaskPend; //mask 处理进度
+	int    m_nWebDataPend; //webdata 处理进度
+	char m_cLenArray[BUFFERSIZE]; 
 };
 
 typedef	boost::shared_ptr<BoostSession>	session_ptr;
