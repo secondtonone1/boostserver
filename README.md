@@ -9,14 +9,15 @@
 6. 回调函数封装和注册  
 7. 增加最大连接数限制，避免emfile，linux下可根据进程允许打开的最多描述符修改此数值。
 8. 增加描述符超过进程上限处理，即emfile错误处理。
+9. 实现websocket，和现有tcp 兼容。
 
 ### 配合客户端
 配合客户端示例查看 [https://github.com/secondtonone1/boostclient](https://github.com/secondtonone1/boostclient)
   
 ### 接下来要实现
 1. 消息体序列化，配合msgpack库  
-2. python 接口嫁接，  
+2. python 自动化生成cpp  
 3. 消息加密
-4. 实现websocket，和现有tcp 兼容
+4. mongodb接口设计和实现
 
 
