@@ -125,6 +125,33 @@ NetModellib/fast:
 	cd /home/secondtonone1/workspace/boostserver/BoostServer && $(MAKE) -f NetModel/CMakeFiles/NetModellib.dir/build.make NetModel/CMakeFiles/NetModellib.dir/build
 .PHONY : NetModellib/fast
 
+Base64.o: Base64.cpp.o
+
+.PHONY : Base64.o
+
+# target to build an object file
+Base64.cpp.o:
+	cd /home/secondtonone1/workspace/boostserver/BoostServer && $(MAKE) -f NetModel/CMakeFiles/NetModellib.dir/build.make NetModel/CMakeFiles/NetModellib.dir/Base64.cpp.o
+.PHONY : Base64.cpp.o
+
+Base64.i: Base64.cpp.i
+
+.PHONY : Base64.i
+
+# target to preprocess a source file
+Base64.cpp.i:
+	cd /home/secondtonone1/workspace/boostserver/BoostServer && $(MAKE) -f NetModel/CMakeFiles/NetModellib.dir/build.make NetModel/CMakeFiles/NetModellib.dir/Base64.cpp.i
+.PHONY : Base64.cpp.i
+
+Base64.s: Base64.cpp.s
+
+.PHONY : Base64.s
+
+# target to generate assembly for a file
+Base64.cpp.s:
+	cd /home/secondtonone1/workspace/boostserver/BoostServer && $(MAKE) -f NetModel/CMakeFiles/NetModellib.dir/build.make NetModel/CMakeFiles/NetModellib.dir/Base64.cpp.s
+.PHONY : Base64.cpp.s
+
 Server.o: Server.cpp.o
 
 .PHONY : Server.o
@@ -215,6 +242,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... NetModellib"
 	@echo "... edit_cache"
+	@echo "... Base64.o"
+	@echo "... Base64.i"
+	@echo "... Base64.s"
 	@echo "... Server.o"
 	@echo "... Server.i"
 	@echo "... Server.s"
