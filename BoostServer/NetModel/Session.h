@@ -20,6 +20,7 @@ enum WEBSTATE{
 	WEBHANDSHAKEFAIL, //握手失败
 	WEBSTEPSUCCESS,//分步处理成功
 	WEBSOCKETNONE, //websocket 数据为空
+	WEBSOCKETFIN0, //websocket fin标记位为0
 	WEBSOCKETFINISHBIT, //websocket finishbit收全
 	WEBSOCKETLENANALY,//websocket len 分析完
 	WEBSOCKETLEN,  //websocket len 字段接收完全
@@ -80,6 +81,8 @@ private:
 	//处理数据
 	int handleWebData(char * msgData, int & index, int & nRemain);
 	void clearWebFlags();
+	void saveCurData();
+	void clearBaseData();
 private:
 	// 临时信息缓冲区
 	char m_cData[BUFFERSIZE];
@@ -123,6 +126,8 @@ private:
 	int    m_nMaskPend; //mask 处理进度
 	int    m_nWebDataPend; //webdata 处理进度
 	char m_cLenArray[BUFFERSIZE]; 
+	char m_cCompleteArray[BUFFERSIZE*4];
+	int    m_nCompleteLen;
 };
 
 typedef	boost::shared_ptr<BoostSession>	session_ptr;

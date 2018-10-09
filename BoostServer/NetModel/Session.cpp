@@ -18,7 +18,7 @@ BoostSession::BoostSession(boost::asio::io_service& _ioService)
 		clearWebFlags();
 }
 
-void BoostSession::clearWebFlags()
+void BoostSession::clearBaseData()
 {
 	m_nFinishbit = 0;
 	m_nWebState=0;
@@ -30,6 +30,21 @@ void BoostSession::clearWebFlags()
 	m_nMaskPend=0;
 	m_nWebDataPend=0;
 	memset(m_cLenArray,0,BUFFERSIZE);
+}
+
+void BoostSession::clearWebFlags()
+{
+	clearBaseData();
+	memset(m_cCompleteArray,0,BUFFERSIZE*4);
+	m_nCompleteLen = 0;
+}
+
+void BoostSession::saveCurData()
+{
+	memcpy(m_cCompleteArray+m_nCompleteLen, m_cWebData,m_nWebDataPend);
+	m_nCompleteLen+=m_nWebDataPend;
+	clearBaseData();
+
 }
 
 BoostSession::~BoostSession(void)
@@ -353,10 +368,17 @@ int  BoostSession::handleTcp()
 		}
 	}
 
+	m_pInPutQue.front()->resetOffset(m_pInPutQue.front()->getLen()-nRemain);
 	if(m_nFinishbit==0)
-		return WEBSOCKETDATALESS;
-	cout << m_cWebData <<endl;
-	responclient(m_cWebData,m_nWebDataPend);
+	{
+		saveCurData();
+		return WEBSOCKETFIN0;
+	}
+	memcpy(m_cCompleteArray+m_nCompleteLen, m_cWebData,m_nWebDataPend);
+	m_nCompleteLen+=m_nWebDataPend;
+	cout << m_cCompleteArray <<endl;
+	responclient(m_cCompleteArray,m_nCompleteLen);
+	clearWebFlags();
 	return WEBSTEPSUCCESS;
 }
 
@@ -408,8 +430,7 @@ int  BoostSession::handleWeb()
 		if(m_nWebState != WEBSTEPSUCCESS)
 			return m_nWebState;
 	}
-	m_pInPutQue.front()->resetOffset(m_pInPutQue.front()->getLen()-nRemain);
-	clearWebFlags();
+
 	return WEBSOCKETSUCCESS;
 }
 
