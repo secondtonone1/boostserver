@@ -188,7 +188,7 @@ int  BoostSession::handleTcp()
 		 return;
 	 if(m_pInPutQue.empty())
 		 return;
-	std::string & typeStr=m_pInPutQue.front()->getRemainData();
+	const std::string  &typeStr=m_pInPutQue.front()->getRemainData();
 	std::string::size_type pos = typeStr.find(" / HTTP/1.1");
 	if (pos != std::string::npos)
 	{
@@ -307,7 +307,6 @@ int  BoostSession::handleTcp()
 
  int BoostSession::handleMaskBit(char * msgData, int & index, int & nRemain)
  {
-	 char maskkey[4]={0};
 	 if(m_nMaskBit==1)
 	 {
 		 if(m_nMaskPend<4)
@@ -717,7 +716,7 @@ void BoostSession::responclient(char respdata[],int datalen)
 			buf[3] = datalen & 0xFF;
 			tmp = 4;
 		}else {
-			//Êý¾Ý³¤¶È³¬¹ý65536
+			//ï¿½ï¿½ï¿½Ý³ï¿½ï¿½È³ï¿½ï¿½ï¿½65536
 			buf[1] = 127;
 			buf[2] = 0;
 			buf[3] = 0;
